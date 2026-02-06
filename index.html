@@ -45,9 +45,9 @@
     </div>
   </div>
 
-  <header style="position: relative; padding: 10px 16px;">
+  <header style="position: relative; padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px 16px;">
     <h1 data-i18n="common.app_title" style="margin: 0; padding-right: 45px;"></h1>
-    <button id="mainsettings" class="icon-btn" type="button" style="position: absolute; right: 16px; top: 10px; background: none; border: none; cursor: pointer;"></button>
+    <button id="mainsettings" class="icon-btn" type="button" style="position: absolute; right: 16px; top: calc(env(safe-area-inset-top, 0px) + 10px); background: none; border: none; cursor: pointer;"></button>
   </header>
 
   <div id="devPanel" class="dev-panel" style="display:none;">
