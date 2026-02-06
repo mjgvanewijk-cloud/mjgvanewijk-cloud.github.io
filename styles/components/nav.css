@@ -23,7 +23,10 @@
   height: 60px;
 
   margin: 10px auto;
-  padding: 0;
+
+  /* FIX: geef lucht links/rechts zodat pijlen nooit tegen de rand drukken */
+  padding: 0 6px;
+
   overflow: hidden;
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
@@ -41,21 +44,31 @@
 
   cursor: pointer;
 
-  /* Belangrijk: laat grote inhoud toe */
-  overflow: visible !important;
+  /* FIX: voorkom dat glyphs/knoppen buiten de pill kunnen “lekken” */
+  overflow: hidden !important;
 }
 
 /* Pijlen: Apple blue, groot, gecentreerd */
 .nav-pill .year-arrow {
   all: unset !important;
 
-  display: block !important;
+  /* FIX: stabiele layout op alle iPhones (zoom/text-size) */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* Tap target (Apple HIG) */
+  min-width: 44px !important;
+  min-height: 44px !important;
+
+  /* Laat de zone wél de klikzone zijn, maar de knop blijft netjes gecentreerd */
   width: 100% !important;
 
   color: var(--apple-blue) !important;
 
-  font-size: 40px !important;
-  line-height: 60px !important;
+  /* FIX: voorkomt “over de rand” door extreme scaling */
+  font-size: clamp(28px, 6vw, 40px) !important;
+  line-height: 1 !important;
   font-weight: 900 !important;
 
   cursor: pointer !important;
@@ -163,7 +176,6 @@
 .nav-pill.highlight-left #redoBtn {
   color: #ffffff !important;
 }
-
 
 /* Disabled must always win, even when nav-pill highlight classes are active */
 .nav-pill.highlight-left #undoBtn[disabled],
