@@ -6,7 +6,7 @@
 
 .nav-pill {
   position: sticky;
-  top: 0;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
   z-index: 1000;
 
   display: flex;
