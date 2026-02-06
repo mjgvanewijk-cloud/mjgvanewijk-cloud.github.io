@@ -1,6 +1,6 @@
 // scripts/wizard/services/persistence.js
 import { loadSettings, saveSettings } from "../../core/storage/index.js";
-import { resetWizardContext } from "../_context.js";
+import { resetWizardContext } from "../context.js";
 import { rebuildYearsFrom } from "../../core/engine/index.js";
 
 function getMaxConfiguredYear(settings) {

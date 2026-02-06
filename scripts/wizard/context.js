@@ -1,4 +1,4 @@
-// scripts/wizard/_context.js
+// scripts/wizard/context.js
 
 export function createWizardContext() {
   return {
@@ -22,4 +22,3 @@ export function resetWizardContext(ctx) {
   ctx.editFullBalancesMode = false;
   ctx.skipLimit = false;
 }
-
