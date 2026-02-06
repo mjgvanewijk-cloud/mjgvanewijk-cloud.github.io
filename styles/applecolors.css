@@ -1,0 +1,57 @@
+/* styles/applecolors.css */
+
+:root {
+  /* System Blue */
+  --apple-blue: #007aff;
+  --apple-blue-rgb: 0, 122, 255;
+  
+  /* System Green */
+  --apple-green: #34c759;
+  
+  /* System Red */
+  --apple-red: #ff3b30;
+  
+  /* System Gray */
+  --apple-gray: #8e8e93;
+  
+  /* Light Mode Backgrounds & Labels (Default) */
+  --apple-bg-main: #f2f2f7;
+  --apple-bg-secondary: #ffffff;
+  --apple-label: #000000;
+  --apple-secondary-label: rgba(60, 60, 67, 0.6);
+  --apple-tertiary-label: rgba(60, 60, 67, 0.3);
+  --apple-separator: rgba(60, 60, 67, 0.29);
+}
+
+/* Dark Mode Logic */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --apple-blue: #0a84ff;
+    --apple-green: #30d158;
+    --apple-red: #ff453a;
+    --apple-gray: #8e8e93;
+
+    /* Dark Mode Backgrounds & Labels */
+    --apple-bg-main: #000000;
+    --apple-bg-secondary: #1c1c1e;
+    --apple-label: #ffffff;
+    --apple-secondary-label: rgba(235, 235, 245, 0.6);
+    --apple-tertiary-label: rgba(235, 235, 245, 0.3);
+    --apple-separator: rgba(84, 84, 88, 0.6);
+  }
+}
+
+.ff-svg-icon {
+  display: inline-block;
+  vertical-align: middle; /* De 'magic' die ze op dezelfde hoogte zet als de tekst */
+  width: 18px;            /* Stel hier de standaardgrootte in */
+  height: 18px;
+  flex-shrink: 0;
+  pointer-events: none;   /* Zorgt dat clicks door het icoon naar de knop gaan */
+}
+
+/* Specifieke kleur voor prullenbak indien gewenst */
+.ff-month-cat-trash {
+  color: var(--apple-yellow); /* Maakt de prullenbak 'premium' geel */
+  /* color: var(--apple-red); /* Maakt de prullenbak rood */
+}

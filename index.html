@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FinFlow</title>
+  <link rel="stylesheet" href="app.css" />
+
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./images/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="./images/icon-512.png" />
+
+</head>
+
+<body>
+  <script type="module">
+    import { UNDO_SVG, REDO_SVG, GEAR_SVG, FOLDER_SVG } from "./scripts/ui/components/icons.js";
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const undoBtn = document.getElementById('undoBtn');
+      const redoBtn = document.getElementById('redoBtn');
+      const mainsettings = document.getElementById('mainsettings');
+      const settingsBtn = document.getElementById('settingsBtn');
+      
+      if (undoBtn) undoBtn.innerHTML = UNDO_SVG;
+      if (redoBtn) redoBtn.innerHTML = REDO_SVG;
+      if (redoBtn) redoBtn.innerHTML = REDO_SVG;
+      if (mainsettings) mainsettings.innerHTML = GEAR_SVG;
+      if (settingsBtn) settingsBtn.innerHTML = FOLDER_SVG;
+    });
+  </script>
+
+  <div id="welcomeOverlay" class="ff-esc-disabled ff-popup-overlay ff-welcome-overlay ff-overlay-center hidden">
+    <div class="ff-welcome-panel">
+      <div class="welcome-logo">
+        <img src="./images/Logo.png" alt="FinFlow Logo" class="welcome-logo-img" />
+      </div>
+      <div class="ff-welcome-tagline" data-i18n="wizard.welcome.tagline"></div>
+      <p class="ff-welcome-text ff-helptext" data-i18n="wizard.welcome.text"></p>
+      <button id="welcomeStartBtn" class="ff-btn ff-btn--primary" data-i18n="wizard.welcome.button"></button>
+    </div>
+  </div>
+
+  <header style="position: relative; padding: 10px 16px;">
+    <h1 data-i18n="common.app_title" style="margin: 0; padding-right: 45px;"></h1>
+    <button id="mainsettings" class="icon-btn" type="button" style="position: absolute; right: 16px; top: 10px; background: none; border: none; cursor: pointer;"></button>
+  </header>
+
+  <div id="devPanel" class="dev-panel" style="display:none;">
+    <button id="devExportBtn" data-i18n="common.export_data"></button>
+    <button id="devImportBtn" data-i18n="common.import_data"></button>
+    <input type="file" id="importFileInput" accept="application/json" style="display:none;">
+  </div>
+
+  <div id="yearNavPill" class="nav-pill">
+    <div id="navZoneLeft" class="nav-zone">
+        <button id="prevYearBtn" class="year-arrow">◀</button>
+    </div>
+
+    <div id="navZoneCenter" class="nav-zone">
+        <span id="currentYear">2025</span>
+        <button id="undoBtn" class="icon-btn nav-icon-btn" type="button" disabled aria-disabled="true"></button>
+        <button id="redoBtn" class="icon-btn nav-icon-btn" type="button" disabled aria-disabled="true"></button>
+        <button id="settingsBtn" class="icon-btn" type="button"></button>
+    </div>
+
+    <div id="navZoneRight" class="nav-zone">
+        <button id="nextYearBtn" class="year-arrow">▶</button>
+    </div>
+  </div>
+
+  <div class="table-container ff-year-cards-container">
+    <table class="year-grid ff-year-cards-table"> 
+      <thead>
+        <tr>
+          <th data-i18n="table.headers.month"></th>
+          <th data-i18n="table.headers.income"></th>
+          <th data-i18n="table.headers.expense"></th>
+          <th class="saving-cell" data-i18n="table.headers.savings"></th>
+          <th data-i18n="table.headers.bank_balance"></th> 
+          <th data-i18n="table.headers.savings_balance"></th> 
+        </tr>
+      </thead>
+      <tbody id="yearTableBody"></tbody>
+      <tfoot>
+        <tr id="yearTotalRow"></tr> 
+      </tfoot>
+    </table>
+  </div>
+
+  <div id="setupOverlay" class="ff-popup-overlay ff-popup-overlay--wizard" style="display:none;">
+    <div id="setupSheet" class="ff-popup ff-popup--wizard ff-popup--beginsaldo">
+      <div class="ff-popup__header">
+        <h2 id="setupTitle" class="ff-popup__title" data-i18n="wizard.steps.balance_title"></h2>
+      </div>
+      <div class="ff-popup__body">
+        <label class="ff-field ff-field--full">
+          <span class="ff-field__label" data-i18n="common.bank_account"></span>
+          <input id="setupBankInput" type="number" inputmode="decimal" step="0.01" min="0" class="ff-input ff-input--number ff-input--beginsaldo" />
+        </label>
+        <p class="ff-popup__hint" data-i18n="wizard.steps.balance_desc"></p>
+      </div>
+      <div class="ff-popup__footer">
+        <button type="button" id="setupCancelBtn" class="ff-btn ff-btn--secondary" data-i18n="common.cancel"></button>
+        <button type="button" id="setupSaveBtn" class="ff-btn ff-btn--primary" data-i18n="common.save"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="sheetOverlay" class="ff-popup-overlay" style="display: none;">
+    <div id="sheetForm"></div>
+  </div>
+
+  <script type="module" src="scripts/main.js"></script>
+
+  <script>
+    document.getElementById("mainsettings").onclick = () => {
+      const p = document.getElementById("devPanel");
+      p.style.display = (p.style.display === "none" || p.style.display === "") ? "block" : "none";
+    };
+  </script>
+</body>
+</html>

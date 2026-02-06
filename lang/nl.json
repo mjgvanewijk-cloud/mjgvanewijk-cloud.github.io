@@ -1,0 +1,576 @@
+{
+  "categories": {
+    "default_label": "Overig",
+    "delete_confirm": "Weet je zeker dat je '{name}' wilt verwijderen? Je kunt deze actie direct herstellen met de undo-knop in de navigatiebalk.",
+    "delete_sheet_confirm": "Weet je zeker dat je {name} wilt verwijderen? Je kunt deze actie direct herstellen met de undo-knop in de navigatiebalk.",
+    "delete_title": "Categorie verwijderen",
+    "delete_title_named": "{name} Verwijderen",
+    "edit_button": "Bewerken",
+    "edit_title": "Categorieën bewerken",
+    "edit_title_named": "{name} Bewerken",
+    "edit_title_named_lower": "{name} bewerken",
+    "label_placeholder": "Naam van de categorie",
+    "maand_bedrag": "Maandbedrag",
+    "name_conflict": "Deze categorie naam bestaat al",
+    "name_exists": "Deze categorie naam bestaat al",
+    "name_required": "Vul een naam in",
+    "other_remove_button": "Overig verwijderen",
+    "other_remove_desc": "Dit wist alle Overig-instellingen voor {type} (label, jaarbedragen en maand-overrides). Je kunt dit direct herstellen met de undo-knop in de navigatiebalk.",
+    "other_remove_title": "Overig verwijderen",
+    "system_delete_block_desc": "De basiscategorie ‘Overig’ kan niet worden verwijderd.",
+    "system_delete_block_title": "Niet mogelijk",
+    "name_reserved_system": "‘Overig’ is een gereserveerde systeemnaam. Kies een andere naam.",
+    "delete_year_title": "Jaar {year} verwijderen",
+    "delete_year_desc": "In {year} heb je maandbedragen aangepast. Wat wil je verwijderen?",
+    "delete_year_keep": "Alleen jaarinstelling",
+    "delete_year_wipe": "Alles verwijderen",
+    "delete_year_remove_only_desc": "In {year} staan nog handmatige maandbedragen. Wil je dit jaar definitief verwijderen?",
+    "delete_year_remove": "Jaar verwijderen",
+    "delete_year_done_title": "Jaar verwijderd",
+    "delete_year_done_message": "Jaar verwijderd, behalve alle handmatig ingestelde bedragen."
+  },
+  "common": {
+    "activate_premium": "Premium activeren",
+    "add_cat": "Categorie Toevoegen",
+    "add_year": "Jaar toevoegen",
+    "amount": "Bedrag",
+    "amount_placeholder": "0,00",
+    "app_title": "FinFlow • Jouw geld direct inzicht",
+    "app_title_premium": "FinFlow Premium • Jouw geld direct inzicht",
+    "back": "Vorige",
+    "bank_account": "Saldo bankrekening",
+    "budget": "Budget",
+    "cancel": "Annuleren",
+    "close": "Sluiten",
+    "color": "Kleur",
+    "confirm": "Bevestigen",
+    "confirm_message": "Weet je zeker dat je wilt doorgaan?",
+    "confirm_title": "Bevestigen",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "error": "Foutmelding",
+    "error_message": "Er is een onverwachte fout opgetreden.",
+    "expense": "Uitgave",
+    "export_data": "Export data",
+    "finish": "Voltooien",
+    "import_data": "Import data",
+    "income": "Inkomen",
+    "later": "Later",
+    "limit": "Limiet",
+    "months_short": [
+      "jan",
+      "feb",
+      "mrt",
+      "apr",
+      "mei",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "okt",
+      "nov",
+      "dec"
+    ],
+    "name": "Naam",
+    "name_placeholder": "Naam van categorie",
+    "negative": "Negatief",
+    "next": "Opslaan",
+    "next_year": "Volgend jaar",
+    "no": "Annuleren",
+    "ok": "OK",
+    "other": "Overig",
+    "period": "Periode",
+    "positive": "Positief",
+    "premium": "Premium",
+    "previous_year": "Vorig jaar",
+    "redo": "Opnieuw",
+    "save": "Opslaan",
+    "system": "systeem",
+    "understand": "Ik begrijp het",
+    "undo": "Ongedaan maken",
+    "view_plans": "Doorgaan",
+    "year": "Jaar",
+    "yes": "Ja, aanpassen",
+    "manual_month_overrides_title": "Aangepaste Maandbedragen {year}",
+    "manual_month_overrides_message": "Er bestaan voor dit jaar handmatig aangepaste maandbedragen. Overschrijven?",
+    "manual_month_overrides_yes": "Ja",
+    "manual_month_overrides_no": "Nee"
+  },
+  "currency": {
+    "decimalSeparator": ",",
+    "format": "{symbol} {amount}",
+    "precision": 2,
+    "symbol": "€",
+    "thousandSeparator": "."
+  },
+  "errors": {
+    "bank_limit_reached": "Banksaldo in {month} ({amount}) komt onder de limiet van {limit}.",
+    "base_item_protected_desc": "Dit is een basis-item en kan niet worden verwijderd.",
+    "base_item_protected_title": "Niet mogelijk",
+    "generic_desc": "Er ging iets mis. Probeer het opnieuw.",
+    "generic_title": "Fout",
+    "saving_limit_reached": "Spaarsaldo in {month} mag niet onder 0 komen (huidig: {amount}).",
+    "cannot_delete_last_year": "Je moet minimaal één jaar behouden."
+  },
+  "errors.boot": {
+    "critical_failed": "KRITIEKE FOUT bij het opstarten van de app:",
+    "system_account_failed": "FinFlow: Systeem-spaarrekening aanmaken mislukt"
+  },
+  "languageCode": "nl-NL",
+  "messages": {
+    "action_undone": "Actie ongedaan gemaakt.",
+    "activate_year_title": "Startjaar wijzigen",
+    "bank_negative_error": "Banksaldo mag niet onder 0 komen. Dit gaat fout in {month} {year} (nieuw banksaldo: {amount}).",
+    "category_deleted": "De categorie is succesvol verwijderd.",
+    "change_startyear": "{year} activeren",
+    "change_startyear_premium": "{year} activeren met Premium",
+    "confirm_delete_category": "Weet je zeker dat je de categorie '{name}' wilt verwijderen? Je kunt deze actie direct herstellen met de undo-knop in de navigatiebalk.",
+    "confirm_import": "Weet je zeker dat je alle gegevens wilt overschrijven?",
+    "delete_category_move_to_other": "Het openstaande bedrag zal worden toegevoegd aan de categorie 'Overig'.",
+    "edit_start_balance_info": "Let op: Je past hiermee het beginsaldo aan van je startjaar {startYear}. Dit heeft invloed op je totale vermogen in alle jaren.",
+    "edit_start_balance_title": "Beginsaldo aanpassen",
+    "error_name_required": "Naam is verplicht",
+    "import_error": "Fout bij importeren.",
+    "import_success": "Data succesvol geïmporteerd!",
+    "invalid_amount_error": "Voer een geldig bedrag in.",
+    "invalid_rate_error": "Voer een geldig rentepercentage in.",
+    "limit_error": "In {month} zou je banksaldo zakken naar {amount}, wat lager is dan je ingestelde limiet.",
+    "limit_error_immediate": "Let op: je nieuwe banksaldo van {balance} is lager dan je ingestelde limiet van {limit}. Pas je limiet aan om door te gaan.",
+    "new_start_year_confirm": "Weet je zeker dat je {year} als nieuw startjaar wilt instellen? Dit heeft invloed op de berekeningen van alle volgende jaren vanaf {startYear} Je kunt deze actie direct herstellen met de undo-knop in de navigatiebalk.",
+    "no_categories_yet": "Er zijn nog geen categorieën aangemaakt.",
+    "no_saving_accounts_yet": "Er zijn nog geen spaarpotjes aangemaakt.",
+    "premium_expired_desc": "Je gratis proefperiode van 7 dagen is voorbij. Om gebruik te blijven maken van geavanceerde functies, heb je een volledige Premium-licentie nodig. Slechts € 1,99/maand. Annuleren wanneer je wilt.",
+    "premium_expired_title": "Premium verlopen",
+    "premium_feature_note": "Het beheren van meerdere jaren en het verleggen van het startjaar is een Premium functie.",
+    "premium_feature_notice": "Het beheren van meerdere jaren en het verleggen van het startjaar is een Premium functie.",
+    "premium_only": "Deze functie is alleen beschikbaar in de Premium versie. Wil je de proefperiode starten?",
+    "premium_start_trial": "Gratis Proefperiode Starten",
+    "premium_trial_desc": "Ontgrendel alle geavanceerde functies, zoals Categoriebeheer, meerdere Spaarpotjes, Jaarrente, Rente per maand, Limietbewaking, startjaar aanpassen en nog veel meer 7 dagen lang helemaal gratis.",
+    "premium_trial_title": "Probeer FinFlow Premium",
+    "premium_add_saving_title": "Spaarpot Toevoegen",
+    "premium_add_category_title": "Categorie Toevoegen",
+    "premium_add_category_top": "Het toevoegen van een categorie is een Premium functie",
+    "premium_add_saving_top": "Het toevoegen van een spaarpot is een Premium functie.",
+    "saving_account_negative_error": "Spaarsaldo van '{account}' mag niet onder 0 komen. Dit gaat fout in {month} {year} (nieuw saldo: {amount}).",
+    "saving_below_zero": "Spaarsaldo mag niet onder 0 komen.",
+    "saving_negative_error": "Spaarsaldo mag niet onder 0 komen. Dit gaat fout in {month} {year} (nieuw spaarsaldo: {amount}).",
+    "saving_pots_neutralized": "Spaarpotten zijn momenteel gedeactiveerd (0) voor toekomstige uitbreiding.",
+    "savings_downgrade_desc": "Je proefperiode is beëindigd. In de basisversie is sparen beschikbaar via één rekening: ‘Spaarpotje’. Extra spaarrekeningen worden niet meer getoond en kunnen niet worden beheerd. Activeer Premium om je spaarpotjes weer volledig te gebruiken.",
+    "savings_downgrade_title": "Terug naar basisversie",
+    "trial_downgrade_continue_free": "Doorgaan (gratis)",
+    "trial_downgrade_desc": "Je proefperiode is verlopen en je account valt terug naar de basisversie.<br><br>We gaan nu je gegevens consolideren zodat je maandtotalen gelijk blijven:<br><br>• Inkomsten + Uitgaven: alle maandtotalen worden onder één categorie gezet en alle default maandbedragen worden op 0 gezet.<br>• Sparen: alle maandelijkse sparen/opnemen bedragen blijven zichtbaar, maar rente en extra spaarrekeningen vervallen.<br><br>Je hebt nu nog één kans om Premium te behouden.",
+    "trial_downgrade_keep_premium": "Premium behouden",
+    "trial_downgrade_title": "Proefperiode verlopen",
+    "year_activation_info": "{year} maakt nog geen deel uit van je administratie. Wil je dit jaar activeren?",
+    "year_before_start_info": "Dit jaar maakt nog geen deel uit van je administratie. Om gegevens in {year} te kunnen bewerken, moet je dit jaar eerst instellen als je startjaar door een cel in de tabel aan te klikken.",
+    "startyear_premium_top": "Het startjaar wijzigen is een Premium functie.",
+    "premium_rate_month_title": "Rente per maand",
+    "premium_rate_month_note": "Het tonen en aanpassen van de jaar- en maandrente is een Premium functie.",
+    "premium_trial_top_generic": "Dit is een Premium functie.",
+    "premium_manage_categories_title": "Categorieën beheren",
+    "premium_manage_categories_top": "Categorieën beheren is een Premium functie.",
+    "premium_manage_saving_accounts_title": "Spaarpotjes beheren",
+    "premium_manage_saving_accounts_top": "Spaarpotjes beheren is een Premium functie."
+  },
+  "month_overview": {
+    "action_amount": "Bedrag",
+    "action_close": "Sluiten",
+    "action_delete": "Verwijderen",
+    "action_edit": "Bewerken",
+    "action_name": "Naam",
+    "add_category": "Categorie Toevoegen",
+    "add_category_premium": "Categorie Toevoegen met Premium",
+    "add_expense": "Uitgave Toevoegen",
+    "add_income": "Inkomst Toevoegen",
+    "amount_title": "Bedrag aanpassen",
+    "amount_title_expense": "Uitgaven aanpassen",
+    "amount_title_income": "Inkomsten aanpassen",
+    "back": "Terug",
+    "close": "Sluiten",
+    "continue": "Ga door",
+    "edit_category_title": "Categorie {name} Bewerken",
+    "hint_expense": "Klik op een categorie om een uitgave toe te voegen of te wijzigen.",
+    "hint_income": "Klik op een categorie om inkomensten toe te voegen of te verwijderen.",
+    "new_category_title_expense": "Uitgaven - Categorie toevoegen",
+    "new_category_title_income": "Inkomsten - Categorie toevoegen",
+    "other_edit_title": "Categorie {name} bewerken",
+    "other_system_edit_title": "Categorie {name} bewerken",
+    "scope_from_month": "Vanaf deze maand",
+    "scope_only_month": "Alleen deze maand",
+    "scope_whole_year": "Hele jaar",
+    "title_expense": "Uitgaven {month} {year}",
+    "title_income": "Inkomsten {month} {year}"
+  },
+  "monthpopup": {
+    "add_cat_with_premium": "Categorie Toevoegen met Premium",
+    "category_edit_title": "Categorie {name} Bewerken",
+    "category_over_total_error": "Bedrag kan niet hoger zijn dan het maandtotaal ({total}).",
+    "create_cat": "Categorie Aanmaken",
+    "delete_title": "Categorie {name} verwijderen",
+    "expense_for": "Uitgaven",
+    "income_for": "Inkomsten",
+    "other_system": "Overig"
+  },
+  "months": {
+    "1": "Januari",
+    "10": "Oktober",
+    "11": "November",
+    "12": "December",
+    "2": "Februari",
+    "3": "Maart",
+    "4": "April",
+    "5": "Mei",
+    "6": "Juni",
+    "7": "Juli",
+    "8": "Augustus",
+    "9": "September"
+  },
+  "popups": {
+    "adjust": "aanpassen",
+    "category_adjust_title": "{category} bedrag {month} {year}",
+    "delete_category_confirm": "Weet je zeker dat je {name} wilt verwijderen? Je kunt deze actie direct herstellen met de undo-knop in de navigatiebalk.",
+    "delete_category_title": "Categorie verwijderen",
+    "deposit": "Sparen",
+    "error_icon": "▲",
+    "expense_title": "Uitgaven aanpassen",
+    "income_expense_adjust_title": "Uitgaven/Inkomsten aanpassen",
+    "income_title": "Inkomsten aanpassen",
+    "month_category_hint": "Klik op een categorie om handmatig het bedrag voor deze maand te wijzigen. Klik bewerken om gegevens van de categorie aan te passen.",
+    "month_category_title": "{type} {month} {year}",
+    "new_start_year_title": "Startjaar wijzigen",
+    "other_system_label_expense": "Overig",
+    "other_system_label_income": "Overig",
+    "savings_title": "Sparen/Opnemen",
+    "scope_hint": "Kies voor welke periode je de wijziging wilt doorvoeren.",
+    "withdrawal": "Opnemen"
+  },
+  "saving_accounts": {
+    "delete_confirm": "Weet je zeker dat je '{name}' wilt verwijderen? Je kunt deze actie direct herstellen met de undo-knop in de navigatiebalk.",
+    "delete_title": "Spaarrekening verwijderen",
+    "edit_title": "Spaarpot Bewerken",
+    "edit_named_title": "{name} bewerken",
+    "empty_hint": "Nog geen extra spaarrekeningen.",
+    "interest_invalid": "Jaarrente is ongeldig. Gebruik formaat 00,0 (bijv. 2,5) en geen negatief getal.",
+    "interest_label": "Jaarrente",
+    "manage_add": "Spaarpot Toevoegen",
+    "manage_title": "Spaarpotjes beheren",
+    "name_conflict": "Deze naam bestaat al. Kies een andere naam.",
+    "name_placeholder": "Naam van de Spaarpot",
+    "name_required": "Vul een naam in.",
+    "new_title": "Spaarpot Toevoegen",
+    "rename_title": "Naam bewerken",
+    "standard_monthly_title": "Maandbedrag",
+    "start_balance_label": "Beginsaldo",
+    "start_balance_non_negative": "Beginsaldo mag niet negatief zijn.",
+    "system_delete_block_desc": "De basisrekening '{name}' kan niet worden verwijderd.",
+    "system_delete_block_title": "Niet mogelijk",
+    "system_label": "Spaarpotje",
+    "system_name": "Spaarpotje",
+    "toggle_save": "Sparen",
+    "toggle_withdraw": "Opnemen",
+    "delete_year_title": "Jaar {year} verwijderen",
+    "delete_year_message": "Je hebt in {year} maand-aanpassingen. Kies wat je wilt verwijderen.",
+    "delete_year_keep": "Alleen jaarinstelling",
+    "delete_year_wipe": "Jaar verwijderen",
+    "delete_year_only_message": "Dit jaar bevat maand-aanpassingen. Jaar verwijderen wist ook deze aanpassingen.",
+    "delete_year_done_title": "Jaar verwijderd",
+    "delete_year_done_message": "Jaar verwijderd, behalve alle handmatig ingestelde bedragen.",
+    "delete_title_named": "{name} Verwijderen"
+  },
+  "saving_month": {
+    "add_account_with_premium": "Spaarpot Toevoegen met Premium",
+    "balance_label": "Saldo:",
+    "create_account": "Spaarpot aanmaken",
+    "flow_save": "Gespaard",
+    "flow_withdraw": "Opgenomen",
+    "hint": "Klik op een spaarrekening om handmatig het bedrag voor deze maand te wijzigen. Klik bewerken om gegevens van de spaarrekening aan te passen.",
+    "input_title": "{name} – {month} {year}",
+    "interest_input_label": "Jaarrente",
+    "interest_label": "Rente ({rate}%)",
+    "title": "Spaarpotjes {month} {year}"
+  },
+  "table": {
+    "headers": {
+      "bank_balance": "Saldo bank",
+      "expense": "Uitgaven",
+      "income": "Inkomsten",
+      "month": "Maand",
+      "savings": "Sparen",
+      "savings_balance": "Saldo spaarrekening",
+      "total": "Totaal"
+    }
+  },
+  "wizard": {
+    "menu": {
+      "manage_categories": "Categorieën beheren",
+      "manage_saving_accounts": "Spaarpotjes beheren"
+    },
+    "menu_main": {
+      "edit_balance": "Beginsaldo bank wijzigen",
+      "edit_balance_bank_only": "Beginsaldo bank wijzigen",
+      "edit_limit": "Rood staan limiet",
+      "manage_categories": "Categorieën beheren",
+      "manage_categories_premium": "Categorieën beheren met Premium",
+      "manage_saving_accounts": "Spaarpotjes beheren",
+      "manage_saving_accounts_premium": "Spaarpotjes beheren met Premium",
+      "subtitle": "",
+      "title": "Instellingen voor {year}"
+    },
+    "steps": {
+      "balance_desc": "Voer het huidige saldo van je bankrekening in.",
+      "balance_desc_alt": "Voer het huidige saldo van je bankrekening in voor {year}.",
+      "balance_title": "Beginsaldo Bank",
+      "complete_body": "Je jaaroverzicht is succesvol geconfigureerd.",
+      "complete_desc": "Je FinFlow-instellingen zijn opgeslagen. Je kunt nu verder met je jaaroverzicht.",
+      "complete_title": "Klaar!",
+      "info_body": "Om nauwkeurig te starten hebben we twee basiswaarden nodig die je later altijd nog kunt aanpassen via het tandwiel in de navigatiebalk:<br><br><strong>1. Beginsaldo Bank</strong><br>Wat was het saldo op je betaalrekening op de startdatum van dit jaar?<br><br><strong>2. Limiet</strong><br>Tot hoever sta je jezelf toe om 'rood' te staan?",
+      "info_title": "Uitleg beginwizard",
+      "limit_desc": "Stel je limiet in voor het jaar {year}.",
+      "limit_title": "Roodstaan limiet",
+      "saving_balance_desc": "Voer het huidige saldo van je spaarrekening in voor {year}.",
+      "saving_balance_title": "Beginsaldo Spaarpot"
+    },
+    "welcome": {
+      "button": "Aan de slag",
+      "tagline": "Jouw geld direct inzicht",
+      "text": "Laten we beginnen met jouw instellingen.",
+      "title": "Welkom bij FinFlow"
+    }
+  },
+  "year": {
+    "cards": {
+      "current_bank_balance": "Saldo Bank",
+      "current_saving_balance": "Spaarpotjes",
+      "current_saving_balances": "Spaarpotjes",
+      "saving_label": "Saldo Spaar",
+      "saving_label_count": "Spaarrekening ({count})",
+      "total_expense": "Totaal Uitgaven",
+      "total_income": "Totaal Inkomsten"
+    },
+    "overview": {
+      "bank_end": "Eindsaldo Bank",
+      "saving_end_plural": "Eindsaldo Spaarpotjes",
+      "saving_end_singular": "Eindsaldo Spaarpotjes",
+      "title": "Jaaroverzicht {year}"
+    },
+    "totals": {
+      "income_title": "Inkomsten {year}",
+      "expense_title": "Uitgaven {year}"
+    }
+  },
+  "year.settings.title": "Jaarinstellingen {year}",
+  "history": {
+    "undo_title": "Ongedaan gemaakt",
+    "redo_title": "Opnieuw toegepast",
+    "undo_msg": "Undo uitgevoerd",
+    "redo_msg": "Redo uitgevoerd"
+  },
+  "saving_year": {
+    "title": "Spaarpotjes {year}"
+  },
+  "onboarding": {
+    "step1": {
+      "title": "Volgende stap: je eerste maand",
+      "body": "Je kunt nu verder in het jaaroverzicht. Tik op een maand (Inkomsten, Uitgaven of Sparen) om bedragen in te voeren of aan te passen.",
+      "primary": "Toon mij waar",
+      "secondary": "Overslaan"
+    },
+    "step2": {
+      "title": "Je bent gestart!",
+      "body": "Handige plekken om verder te gaan:",
+      "primary": "Klaar",
+      "secondary": "Klaar",
+      "action_saving": "Spaarpotjes bekijken",
+      "action_categories": "Categorieën beheren",
+      "action_settings": "Instellingen"
+    }
+  },
+  "helpcloud": {
+    "bubble_label": "Hulp",
+    "title": "Hulp nodig?",
+    "close": "Sluiten",
+    "ok": "Oké",
+    "ctx": {
+      "year": {
+        "title": "Wat kan ik hier doen?",
+        "body": "Hier zie je het JAAROVERZICHT en de MAANDKAARTEN.\n\nWat kun je hier doen:\n• MAANDKAART => Tik op een MAANDKAART-regel (Inkomsten/Uitgaven/Sparen) om bedragen in te voeren of aan te passen.\n\n• JAAROVERZICHT => ‘Totaal Inkomsten’ en ‘Totaal Uitgaven’ openen een overzicht met totalen en details.\n• ‘Eindsaldo Spaarpotjes’ opent een overzicht van je spaarpotjes voor dit jaar.\n\nTip: begin met een maand aan te passen, dan zie je direct wat het saldo doet."
+      },
+      "savingpots": {
+        "title": "Spaarpotjes: wat zie je en wat kan je aanpassen?",
+        "body": "In deze sheet zie je per spaarpot 3 regels:\n\n1) Naam + Eindsaldo (overzicht)\n2) Gespaard / Opgenomen (maandbedrag)\n3) Rente (x%) (jaarrente)\n\nWat betekent dit:\n• Eindsaldo is het saldo van de spaarpot op het einde van de maand/het jaar.\n• Gespaard/Opgenomen is je maandbedrag: sparen verhoogt de spaarpot, opnemen verlaagt de spaarpot.\n• Rente is je jaarrente (wordt omgerekend in de berekening).\n\nGerichte hulp:\n• Klik in het bedragveld van ‘Gespaard/Opgenomen’ voor uitleg over het bedrag, de Sparen/Opnemen-toggle en de bolletjes.\n• Klik in het veld van ‘Rente (x%)’ / ‘Jaarrente’ voor uitleg over rente en de bolletjes.\n\nLet op:\n• Als je via het jaaroverzicht op ‘Eindsaldo Spaarpotjes’ tikt, opent een READ-ONLY sheet ‘Spaarpotjes <jaar>’: daar kun je alleen kijken en sluiten.\n• Alles werkt met validatie: banklimiet en spaarsaldo mogen niet onder de ingestelde grenzen komen.\n\nKnop ‘+ Jaar toevoegen’:\n• Voeg een extra jaar toe zodat je voor meerdere jaren bedragen/instellingen kunt invullen.\n• Handig als je vooruit wil plannen (bijv. volgend jaar andere bedragen)."
+      },
+      "categories": {
+        "title": "Categorieën bewerken",
+        "body": "Hier maak en beheer je categorieën (Inkomsten/Uitgaven).\n\nJe kunt:\n• Categorie toevoegen (Premium), hernoemen of verwijderen\n• Per jaar maandbedragen instellen als default\n\nTip: begin met 2–3 categorieën, dan blijft het overzichtelijk.\n\nKnop ‘+ Jaar toevoegen’:\n• Voeg een extra jaar toe zodat je voor meerdere jaren maandbedragen kunt invullen.\n• Handig als je vooruit wil plannen (bijv. volgend jaar andere maandbedragen)."
+      },
+      "monthamount": {
+        "title": "Maandbedrag aanpassen: wat gebeurt er?",
+        "body": "Hier pas je een maandbedrag aan.\n\nJe ziet:\n• Een invoerveld voor het bedrag\n• Soms een keuze vanaf welke maand dit geldt\n• Opslaan om te bevestigen\n\nTip: voer eerst één bedrag in en kijk daarna in het jaaroverzicht hoe het eindsaldo reageert."
+      },
+      "year_inactive": {
+        "title": "Waarom kan ik hier niets aanpassen?",
+        "body": "Dit jaar ligt vóór je startjaar.\n\n• De tray-icoontjes zijn hier disabled.\n• Gebruik de pijlen links/rechts om naar je startjaar te gaan; pas daarna kun je bedragen aanpassen.\n\nTip: wil je eerder starten, wijzig dan je startjaar via de normale startjaar-flow."
+      },
+      "manual": {
+        "title": "Handmatig bedragen aanpassen: wat gebeurt er?",
+        "body": "Je past hier direct Inkomsten/Uitgaven aan voor de gekozen maand.\n\nJe ziet:\n• Een invoerveld voor het bedrag\n• Soms een keuze vanaf wanneer dit geldt\n• Opslaan om te bevestigen\n\nLet op: als een wijziging niet mag (bijv. onder banklimiet), krijg je direct een melding en wordt niets opgeslagen."
+      },
+      "bank_start_balance": {
+        "title": "Beginsaldo Bank",
+        "body": "Hier stel je je beginsaldo voor de bankrekening in vanaf je startmoment.\n\nWat kun je doen:\n• Vul het bedrag in dat je écht op je bank had bij de start.\n• Opslaan bevestigt en rekent alles opnieuw door.\n\nLet op:\n• Als je al een startjaar/beginsaldo in een later jaar hebt, kan er een bevestiging komen om het startjaar te verplaatsen.\n\nTip: wil je later opnieuw aanpassen? Dat kan via Instellingen → Beginsaldo bank wijzigen."
+      },
+      "overdraft_limit": {
+        "title": "Roodstaan limiet",
+        "body": "Hier stel je de minimale banklimiet in (roodstaanlimiet).\n\nZo werkt het:\n• Laat leeg of kies ‘Overslaan’ als er géén limiet is.\n• Vul een bedrag in als je een limiet wilt.\n• Opslaan activeert de controle: het banksaldo mag daarna nooit onder deze limiet komen (ook niet in andere jaren).\n\nLet op: als een wijziging hierdoor niet mag, krijg je direct een melding en wordt niets opgeslagen."
+      },
+      "year_readonly": {
+        "title": "Jaaroverzicht (alleen bekijken)",
+        "body": "Dit is een READ‑ONLY overzicht dat je opent vanuit het jaaroverzicht:\n• Tik op ‘Totaal Inkomsten’ of ‘Totaal Uitgaven’ → je ziet een jaaroverzicht met totalen en details.\n• Tik op ‘Eindsaldo Spaarpotjes’ → je ziet een jaaroverzicht van je spaarpotjes.\n\nWat zie je in deze sheet:\n• Een lijst met regels (bijv. categorieën of spaarpotjes) met bedragen rechts uitgelijnd.\n• Soms extra detailregels per item (zoals gespaard/opgenomen en rente).\n\nWat kun je doen:\n• Alleen bekijken en sluiten.\n\nTip: Wil je iets aanpassen? Ga terug en open een maandkaart (Inkomsten/Uitgaven/Sparen) of open ‘Spaarpotjes {month} {year}’ via de maandkaart."
+      },
+      "savingpots_amount_focus": {
+        "title": "Gespaard/Opgenomen aanpassen",
+        "body": "Je klikt nu in het bedragveld van Gespaard/Opgenomen.\n\nZo werkt het:\n1) Vul het bedrag in.\n2) Kies met de toggle ‘Sparen/Opnemen’ wat dit bedrag doet:\n   • Sparen = saldo omhoog\n   • Opnemen = saldo omlaag\n3) Kies met de bolletjes vanaf wanneer dit geldt:\n   • Alleen deze maand\n   • Vanaf deze maand\n   • Hele jaar\n\nLet op: dit gaat alleen over Gespaard/Opgenomen; rente wijzig je in het aparte renteveld."
+      },
+      "savingpots_rate_focus": {
+        "title": "Rente aanpassen",
+        "body": "Je klikt nu in het veld voor Jaarrente / Rente (x%).\n\nZo werkt het:\n1) Vul het rentepercentage in (jaarrente).\n2) Kies met de bolletjes vanaf wanneer dit geldt:\n   • Alleen deze maand\n   • Vanaf deze maand\n   • Hele jaar\n\nTip: pas rente rustig stap voor stap aan; je ziet het effect terug in de eindsaldi."
+      },
+      "savingpots_empty": {
+        "title": "Je eerste spaarpot aanmaken",
+        "body": "Wat zie je hier:\n• Een lege lijst (nog geen spaarpotjes)\n• Een knop om je eerste spaarpot aan te maken\n\nWat kun je nu doen:\n1) Tik op ‘Spaarpot aanmaken’.\n2) Geef je spaarpot een naam en (optioneel) een beginsaldo.\n3) Daarna kun je:\n• Gespaard/Opgenomen (maandbedrag) invullen\n• Rente instellen (Premium optie)\n\nTip: begin met één spaarpot, dan blijft het overzichtelijk."
+      },
+      "year_income_readonly": {
+        "title": "Inkomsten (alleen bekijken)",
+        "body": "Je ziet een volledige lijst met al je Inkomsten categorieën en de bijbehorende jaartotalen. Aanpassingen zijn hier niet mogelijk."
+      },
+      "year_expense_readonly": {
+        "title": "Uitgaven (alleen bekijken)",
+        "body": "Je ziet een volledige lijst met al je Uitgaven categorieën en de bijbehorende jaartotalen. Aanpassingen zijn hier niet mogelijk."
+      },
+      "year_savingpots_readonly": {
+        "title": "Spaarpotjes (alleen bekijken)",
+        "body": "Je ziet een lijst van alle actieve spaarpotjes met hun eindsaldo, het totaal gespaarde of opgenomen bedrag en de opgebouwde rente over het hele jaar. Aanpassingen zijn hier niet mogelijk."
+      },
+      "year_empty": {
+        "title": "Eerste keer? Zo begin je",
+        "body": "Je bent net gestart. In dit jaaroverzicht zie je per maand de belangrijkste regels.\n\nBegin hier:\n1) Tik in Januari op ‘Inkomsten’ en vul één bedrag in.\n2) Tik daarna op ‘Uitgaven’ en vul één bedrag in.\n3) (Optioneel) Tik op ‘Sparen’ om je spaarpot(ten) te bekijken of aan te maken.\n\nWat je hier verder ziet:\n• ‘Totaal Inkomsten’ en ‘Totaal Uitgaven’ openen een jaaroverzicht (alleen bekijken).\n• ‘Eindsaldo Spaarpotjes’ opent een overzicht van je spaarpotjes (alleen bekijken).\n\nTip: voer eerst kleine testbedragen in, dan zie je direct wat er gebeurt."
+      },
+      "month_income_sheet": {
+        "title": "Je eerste Inkomsten categorie aanmaken",
+        "body": "Wat zie je hier:\n• Een lege lijst (nog geen categorieën)\n• Een knop om je eerste categorie aan te maken\n\nWat kun je doen:\n1) Tik op 'Categorie aanmaken'.\n2) Geef de Categorie een naam (en optioneel een bedrag).\n\nTip: begin met één categorie, dan blijft het overzichtelijk."
+      },
+      "month_expense_sheet": {
+        "title": "Je eerste Uitgaven categorie aanmaken",
+        "body": "Wat zie je hier:\n• Een lege lijst (nog geen categorieën)\n• Een knop om je eerste categorie aan te maken\n\nWat kun je doen:\n1) Tik op 'Categorie aanmaken'.\n2) Geef de Categorie een naam (en optioneel een bedrag).\n\nTip: begin met één categorie, dan blijft het overzichtelijk."
+      },
+      "month_income_sheet_filled": {
+        "title": "Inkomsten: bedrag wijzigen",
+        "body": "Je ziet hier je Inkomsten-categorieën voor deze maand.\n\nWat kun je doen:\n• Tik op het potlood om de categorie te bewerken.\n• Tik op het bedrag (rechts) om het bedrag te wijzigen.\n• Daarna kies je met de bolletjes vanaf wanneer dit bedrag moet gelden:\n  – Alleen deze maand\n  – Vanaf deze maand\n  – Hele jaar\n• Sluiten bevestigt je keuze."
+      },
+      "month_expense_sheet_filled": {
+        "title": "Uitgaven: bedrag wijzigen",
+        "body": "Je ziet hier je Uitgaven-categorieën voor deze maand.\n\nWat kun je doen:\n• Tik op het potlood om de categorie te bewerken.\n• Tik op het bedrag (rechts) om het bedrag te wijzigen.\n• Daarna kies je met de bolletjes vanaf wanneer dit bedrag moet gelden:\n  – Alleen deze maand\n  – Vanaf deze maand\n  – Hele jaar\n• Sluiten bevestigt je keuze."
+      },
+      "savingpots_overview": {
+        "title": "Spaarpotjes: bedragen wijzigen",
+        "body": "Je ziet hier je spaarpotjes voor deze maand.\n\nWat zie je per spaarpot:\n1) Naam + Eindsaldo\n2) Het Gespaard of Opgenomen maandbedrag\n3) Rente (x%) (jaarrente)\n\nWat kun je doen:\n• Tik op het potlood om de Spaarpot te bewerken.\n• Tik op maandbedrag rechts om te wijzigen.\n• Kies vervolgens met de knoppen Sparen/Opnemen wat het bedrag doet.\n• Met de bolletjes kies je vanaf wanneer een wijziging geldt.\n\n• Tik op Rente (x%) om de jaarrente te wijzigen.\n• Met de bolletjes kies je vanaf wanneer een wijziging geldt."
+      },
+      "savingpot_add": {
+        "title": "Spaarpot Toevoegen",
+        "body": "Je maakt hier een nieuwe spaarpot aan.\n\nJe kunt:\n• Naam invullen\n• Beginsaldo invullen\n• (Optioneel) Maandbedrag en jaarrente per jaar instellen\n\nTip: voeg alleen de jaren toe die je echt nodig hebt. Opslaan bevestigt je nieuwe spaarpot."
+      },
+      "savingpot_edit": {
+        "title": "Spaarpot bewerken",
+        "body": "Je bewerkt hier één spaarpot.\n\nJe kunt:\n• Naam wijzigen\n• Maandbedrag (Gespaard/Opgenomen) aanpassen\n  – Gebruik de toggle Sparen/Opnemen om te kiezen wat het bedrag doet\n\n• Rente (jaarrente) aanpassen (als beschikbaar)\n\n• Voeg een extra jaar toe zodat je voor meerdere jaren maandbedragen en rente kunt instellen.\n• Handig als je vooruit wil plannen (bijv. volgend jaar andere maandbedragen).\n\nLet op: alle wijzigingen worden gevalideerd (banklimiet en spaarsaldo mogen niet onder de grenzen komen)."
+      }
+    }
+  },
+  "settings": {
+    "terms_conditions": "Voorwaarden en condities",
+    "title": "Instellingen",
+    "menu": {
+      "icloud": "Backup maken",
+      "rate_app": "Beoordeel de app",
+      "terms": "Voorwaarden en condities",
+      "privacy": "Privacybeleid",
+      "features": "Feedback",
+      "import_data": "Import Data",
+      "export_data": "Export Data",
+      "backup_restore": "Backup terugzetten",
+      "features_sub": "Suggesties, Opmerkingen, Bugs"
+    },
+    "icloud": {
+      "title": "iCloud Sync",
+      "enabled": "iCloud Sync is ingeschakeld",
+      "disabled": "iCloud Sync is uitgeschakeld",
+      "last_synced_label": "Laatst gesynchroniseerd",
+      "last_synced_never": "Nog nooit",
+      "native_required": "iCloud werkt alleen in de iOS-app.",
+      "key_required": "iCloud is nog niet klaar om te synchroniseren.",
+      "sync_failed": "Synchroniseren lukt niet.",
+      "btn_enable": "Inschakelen",
+      "btn_disable": "Uitschakelen",
+      "btn_sync_now": "Nu synchroniseren",
+      "sync_busy": "Bezig met synchroniseren…",
+      "sync_ok": "Gesynchroniseerd."
+    },
+    "feedback": {
+      "subject": "FinFlow Feedback (iOS)"
+    },
+    "backup_save_sheet": {
+      "title": "iCloud-Backup"
+    }
+  },
+  "legal": {
+    "terms": {
+      "title": "Voorwaarden en condities",
+      "last_updated_label": "Laatste wijziging:",
+      "apple_eula_note": "Op het gebruik van FinFlow zijn de Apple Standard EULA (Standard Terms of Use) van toepassing. Daarnaast gelden de onderstaande aanvullende voorwaarden.",
+      "p_use": "Gebruik van de app",
+      "p_use_body": "Je mag de app gebruiken voor persoonlijke doeleinden. Je mag de app niet misbruiken, decompileren of verspreiden, behalve voor zover wettelijk toegestaan.",
+      "p_icloud": "iCloud Sync",
+      "p_icloud_body": "Als je iCloud Sync inschakelt, kan FinFlow jouw gegevens synchroniseren via iCloud. Synchronisatie kan vertraging hebben en is afhankelijk van Apple-diensten en je netwerk. De vermelding “Laatst gesynchroniseerd” is indicatief.",
+      "p_no_advice": "Geen financieel advies",
+      "p_no_advice_body": "FinFlow is een hulpmiddel voor inzicht in inkomsten, uitgaven en sparen. De app geeft geen financieel, fiscaal of juridisch advies. Je blijft zelf verantwoordelijk voor je keuzes en het controleren van uitkomsten.",
+      "p_liability": "Aansprakelijkheid",
+      "p_liability_body": "We doen ons best om de app goed te laten werken, maar we geven geen garantie dat de app altijd foutloos of altijd beschikbaar is. Voor zover wettelijk toegestaan zijn we niet aansprakelijk voor indirecte schade, zoals verlies van gegevens of gemiste besparingen.",
+      "p_contact": "Contact",
+      "p_contact_body": "Vragen of feedback: {email}",
+      "btn_open_apple_eula": "Open Apple Standard EULA"
+    },
+    "privacy": {
+      "title": "Privacybeleid",
+      "last_updated_label": "Laatste wijziging:",
+      "p_about": "Over dit privacybeleid",
+      "p_about_body": "FinFlow is een app voor inzicht in inkomsten, uitgaven en sparen. Dit privacybeleid legt uit welke gegevens FinFlow verwerkt en waarom.",
+      "p_data": "Welke gegevens verwerkt FinFlow?",
+      "p_data_body": "FinFlow verwerkt alleen gegevens die jij zelf invoert in de app, zoals bedragen, categorieën, spaarpotten en instellingen.",
+      "p_icloud": "iCloud Sync",
+      "p_icloud_body": "Als je iCloud Sync inschakelt, worden jouw FinFlow-gegevens gesynchroniseerd via Apple iCloud. De synchronisatie is gekoppeld aan jouw Apple ID/iCloud-account. FinFlow (de ontwikkelaar) heeft geen toegang tot jouw Apple ID-wachtwoord en heeft geen toegang tot jouw iCloud-account.",
+      "p_no_tracking": "Geen tracking, geen advertenties",
+      "p_no_tracking_body": "FinFlow gebruikt geen advertentienetwerken en geen tracking voor marketingdoeleinden. FinFlow verzamelt geen locatiegegevens en gebruikt geen cross-app tracking identifiers.",
+      "p_sharing": "Delen van gegevens met derden",
+      "p_sharing_body": "FinFlow deelt jouw gegevens niet met derden, behalve Apple iCloud wanneer je iCloud Sync inschakelt (Apple is dan dienstverlener voor opslag en synchronisatie).",
+      "p_retention": "Bewaartermijn",
+      "p_retention_body": "Jouw gegevens blijven bewaard zolang jij ze in de app gebruikt en/of zolang iCloud Sync ingeschakeld is. Je kunt gegevens verwijderen via de app of door iCloud-gegevens voor de app te verwijderen via je Apple-instellingen.",
+      "p_security": "Beveiliging",
+      "p_security_body": "We nemen redelijke maatregelen om de app veilig te houden. Synchronisatie via iCloud valt onder de beveiliging en voorwaarden van Apple.",
+      "p_rights": "Jouw rechten",
+      "p_rights_body": "Je kunt jouw gegevens inzien, aanpassen en verwijderen via de app. Als je vragen hebt over privacy, neem contact op via: {email}.",
+      "p_changes": "Wijzigingen",
+      "p_changes_body": "We kunnen dit privacybeleid aanpassen. De meest recente versie is beschikbaar in de app onder “Privacybeleid”.",
+      "btn_open_privacy_online": "Open Privacybeleid online"
+    },
+    "contact_email": "inquiries4engineers@gmail.com",
+    "privacy_url": "https://mjgvanewijk-cloud.github.io/inkomsten-uitgaven-app/privacy.html"
+  },
+  "backup": {
+    "save_sheet": {
+      "title": "Backup maken",
+      "inner_title": "",
+      "body": "Je backup wordt als bestand opgeslagen in Bestanden (Downloads).",
+      "btn_continue": "Ga verder",
+      "btn_cancel": "Annuleren"
+    }
+  }
+}

@@ -1,0 +1,176 @@
+/* styles/utilities.css - Apple System Versie */
+
+/* --- 1. RESET & UTILITIES --- */
+.hidden { display: none !important; }
+.disabled-startmonth { opacity: 0.6; }
+
+/* iPhone & Mac: Native font-stack en zoom preventie */
+input, button, select, textarea { 
+    font-size: 16px !important; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Verwijder numerieke pijltjes */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+input[type="number"] {
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+}
+
+/* --- 2. FINFLOW BRANDING & COLORS (GEKOPPELD AAN APPLE) --- */
+.ff-amount { 
+    color: var(--apple-label); 
+    white-space: nowrap; 
+}
+
+/* Dynamische kleuren op basis van systeem-modus */
+.ff-amount-positive, .summary-value.good, .header-positive { 
+    color: var(--apple-green) !important; 
+}
+.ff-amount-negative, .summary-value.bad, .header-negative { 
+    color: var(--apple-red) !important; 
+}
+
+
+.ff-amount-blue { 
+    color: var(--apple-blue) !important; 
+}
+/* Specifieke tabel-cellen */
+.ff-total-cell { font-weight: 700; }
+.saving-end-cell { color: var(--apple-label) !important; }
+
+.ff-cell-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    width: 100%;
+    white-space: nowrap;
+}
+.ff-edit-icon {
+    color: var(--apple-blue); /* Apple Blue voor interactie iconen */
+    font-size: 14px;
+    opacity: 0.95;
+}
+
+/* --- 3. CARDS & CONTAINERS --- */
+.card, .settings-card {
+    background-color: var(--apple-bg-secondary);
+    border: 0.5px solid var(--apple-separator);
+    border-radius: 12px; /* Iets subtieler dan 16px voor Apple look */
+    padding: 14px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.card-amount { font-size: 16px; font-weight: 600; color: var(--apple-label); }
+.card-type, .info-text, .summary-label { 
+    font-size: 11px; 
+    color: var(--apple-secondary-label); 
+}
+
+/* --- 4. LABELS & PILLS --- */
+.label, .pill {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px; /* Rechthoekiger met kleine radius is modern Apple */
+    display: inline-block;
+    font-weight: 600;
+}
+.label.income, .pill.income { 
+    background-color: rgba(52, 199, 89, 0.15); /* Subtiele groene waas */
+    color: var(--apple-green); 
+}
+.label.expense, .pill.expense { 
+    background-color: rgba(255, 59, 48, 0.15); /* Subtiele rode waas */
+    color: var(--apple-red); 
+}
+
+/* --- 5. BUTTONS (APPLE HIGHLIGHTS) --- */
+.btn-row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+
+button.ff-btn, .primary-btn, .secondary-btn, .add-btn { 
+    all: unset; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 10px; 
+    padding: 10px 16px; 
+    font-size: 14px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    box-sizing: border-box; 
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.ff-btn--primary, .primary-btn, .save-settings-btn {
+    background-color: var(--apple-blue) !important; 
+    color: #ffffff !important; 
+}
+.ff-btn--primary:active { opacity: 0.8; transform: scale(0.97); }
+
+.ff-btn--secondary, .secondary-btn { 
+    background-color: var(--apple-tertiary-label) !important; 
+    color: var(--apple-label) !important; 
+}
+
+.add-btn {
+    width: 100%;
+    border: 1px dashed var(--apple-blue);
+    color: var(--apple-blue);
+    background: transparent;
+}
+
+.small-btn {
+    font-size: 12px;
+    padding: 4px 10px;
+    background-color: var(--apple-tertiary-label);
+    color: var(--apple-secondary-label);
+    border-radius: 8px;
+}
+
+/* --- 6. ERROR UI --- */
+.error-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Subtieler dan 0.85 voor Apple look */
+    backdrop-filter: blur(4px); /* Modern Apple effect */
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999;
+}
+.error-popup-content {
+    background-color: var(--apple-bg-secondary);
+    border: 0.5px solid var(--apple-separator);
+    padding: 25px;
+    border-radius: 14px;
+    max-width: 280px; /* Smallere popups zijn native iOS stijl */
+    text-align: center;
+}
+.error-popup-title { 
+    color: var(--apple-label); 
+    font-weight: 700; 
+    margin-bottom: 5px; 
+}
+
+.ff-inline-error {
+    display: none;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--apple-red);
+    align-items: flex-start;
+    gap: 6px;
+}
+.ff-inline-error.is-visible { display: flex; }
+.ff-input.is-error { border-color: var(--apple-red) !important; }

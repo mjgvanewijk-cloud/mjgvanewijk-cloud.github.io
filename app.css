@@ -1,0 +1,85 @@
+/* app.css - ENIGE entrypoint */
+
+@import url("./styles/applecolors.css");
+@import url("./styles/base.css");
+@import url("./styles/utilities.css");
+
+@import url("./styles/components/popup.css");
+@import url("./styles/components/table.css");
+@import url("./styles/components/nav.css");
+@import url("./styles/components/welcome.css");
+@import url("./styles/components/helpcloud.css");
+
+/* ===== Apple-premium header title: blue + glossy sheen ===== */
+
+header h1 {
+  /* basis typografie blijft zoals je al had; dit blok voegt ‘polish’ toe */
+  font-weight: 680;
+  letter-spacing: -0.55px;
+
+  /* Blue glass gradient + highlight streak */
+  background-image:
+    /* sheen/streak */
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.26) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    /* main blue gradient */
+    linear-gradient(180deg,
+      rgba(165, 208, 255, 0.98) 0%,
+      rgba(92, 156, 255, 0.92) 46%,
+      rgba(58, 118, 255, 0.86) 100%
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* depth */
+  text-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.42),
+    0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Optioneel: iets meer “premium” spacing rond header */
+header {
+  padding-top: 14px;
+  padding-bottom: 10px;
+}
+
+/* Center header content perfectly */
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Ensure the title itself stays centered */
+header h1 {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Tandwiel groter / kleiner maken */
+#mainsettings {
+  width: 30px !important;   /* De knop wordt groter */
+  height: 30px !important;
+  padding: 0px !important;  /* Bijna geen padding, zodat het tandwiel de ruimte vult */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important; /* Verwijder de grijze achtergrond */
+  border: none !important;             /* Verwijder eventuele randen */
+  outline: none !important;            /* Verwijder focus kaders */
+  box-shadow: none !important;         /* Verwijder eventuele schaduw */
+}
+
+#mainsettings svg {
+  width: 100% !important;   /* Dwingt de SVG om volledige aantal px te gebruiken */
+  height: 100% !important;
+  display: block;
+}

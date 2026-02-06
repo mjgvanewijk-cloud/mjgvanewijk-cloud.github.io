@@ -1,0 +1,2608 @@
+/* styles/components/popup.css - Apple System Versie (BOTTOM-DOCKED + BUTTONS ALWAYS VISIBLE) */
+
+/* =========================================================================
+   1) OVERLAY (glass + blur)
+   ========================================================================= */
+
+.overlay,
+.ff-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+
+  padding: 16px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================================
+   WIZARD INLINE SHEETS (Beginsaldo Bank / Beginsaldo Sparen / Roodstaan limiet)
+   - Header exact zoals maandkaart-titel
+   - Inline input iets smaller (≈30%)
+   ========================================================================= */
+
+/* Header: identiek aan .ff-month-card__title */
+.ff-month-category-sheet--wizard .ff-month-category-header{
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(165, 208, 255, 0.84) 0%,
+      rgba(92, 156, 255, 0.78) 46%,
+      rgba(58, 118, 255, 0.72) 100%
+    );
+  background-color: rgba(var(--apple-blue-rgb), 0.70);
+}
+
+/* =========================================================================
+   YEAR SETTINGS (Jaarinstellingen)
+   - Header premium-blauw (zelfde look als wizard/sparen)
+   - Alleen scoped op deze sheet
+   ========================================================================= */
+.ff-year-settings-sheet .ff-cat-header{
+  /* stretch header to popup edges (container heeft padding) */
+  margin: -20px -20px 12px -20px;
+  padding: 18px 20px 16px 20px;
+  border-radius: 22px 22px 0 0;
+
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(165, 208, 255, 0.84) 0%,
+      rgba(92, 156, 255, 0.78) 46%,
+      rgba(58, 118, 255, 0.72) 100%
+    );
+  background-color: rgba(var(--apple-blue-rgb), 0.70);
+}
+
+/* =========================================================================
+   APP SETTINGS (tandwiel rechtsboven)
+   - iOS-like list menu with chevrons
+   ========================================================================= */
+.ff-app-settings-sheet .ff-cat-header{
+  /* Same premium-blue header look as year settings */
+  margin: -20px -20px 12px -20px;
+  padding: 18px 20px 16px 20px;
+  border-radius: 22px 22px 0 0;
+
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(165, 208, 255, 0.84) 0%,
+      rgba(92, 156, 255, 0.78) 46%,
+      rgba(58, 118, 255, 0.72) 100%
+    );
+  background-color: rgba(var(--apple-blue-rgb), 0.70);
+}
+
+.ff-app-settings-sheet .ff-cat-header .ff-popup__title{
+  color: #fff !important;
+}
+
+.ff-app-settings-sheet .ff-settings-list{
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--apple-separator);
+  background: rgba(0,0,0,0.20);
+}
+
+.ff-app-settings-sheet .ff-settings-row{
+  -webkit-appearance: none;
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 14px;
+  background: transparent;
+  color: var(--apple-label);
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.ff-app-settings-sheet .ff-settings-row:last-child{
+  border-bottom: none;
+}
+
+.ff-app-settings-sheet .ff-settings-row:active{
+  background: rgba(255,255,255,0.06);
+}
+
+.ff-app-settings-sheet .ff-settings-row__label{
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ff-app-settings-sheet .ff-settings-row__label-col{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.ff-app-settings-sheet .ff-settings-row__label-main{
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ff-app-settings-sheet .ff-settings-row__label-sub{
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--apple-tertiary-label);
+}
+
+.ff-app-settings-sheet .ff-settings-row__chev{
+  color: var(--apple-tertiary-label);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.ff-app-settings-sheet .ff-settings-icloud-status{
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ff-app-settings-sheet .ff-settings-icloud-last{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ff-app-settings-sheet .ff-settings-icloud-last__label{
+  font-size: 12px;
+  color: var(--apple-tertiary-label);
+}
+
+.ff-app-settings-sheet .ff-settings-icloud-last__value{
+  font-size: 13px;
+  color: var(--apple-secondary-label);
+}
+
+.ff-year-settings-sheet .ff-cat-header .ff-popup__title{
+  color: #fff !important;
+}
+
+@media (prefers-color-scheme: light) {
+  .ff-month-category-sheet--wizard .ff-month-category-header{
+    background-image:
+      linear-gradient(115deg,
+        rgba(255,255,255,0.00) 0%,
+        rgba(255,255,255,0.18) 18%,
+        rgba(255,255,255,0.00) 36%,
+        rgba(255,255,255,0.00) 100%
+      ),
+      linear-gradient(180deg,
+        rgba(125, 182, 255, 0.92) 0%,
+        rgba(58, 118, 255, 0.86) 60%,
+        rgba(32, 92, 255, 0.82) 100%
+      );
+    background-color: rgba(var(--apple-blue-rgb), 0.78);
+  }
+
+  .ff-year-settings-sheet .ff-cat-header{
+    background-image:
+      linear-gradient(115deg,
+        rgba(255,255,255,0.00) 0%,
+        rgba(255,255,255,0.18) 18%,
+        rgba(255,255,255,0.00) 36%,
+        rgba(255,255,255,0.00) 100%
+      ),
+      linear-gradient(180deg,
+        rgba(125, 182, 255, 0.92) 0%,
+        rgba(58, 118, 255, 0.86) 60%,
+        rgba(32, 92, 255, 0.82) 100%
+      );
+    background-color: rgba(var(--apple-blue-rgb), 0.78);
+  }
+}
+
+/* Inline bedrag-veld ~30% smaller (responsive) */
+.ff-month-category-sheet--wizard .ff-wizard-inline-input{
+  width: clamp(150px, 40vw, 240px);
+}
+
+/* =========================================================================
+   INKOMSTEN/UITGAVEN SHEETS (maandkaart → categorie-lijst)
+   - Bewerken/Verwijderen samen even breed als Sluiten (via gelijke padding)
+   - Kleinere radius voor actieknoppen
+   - Actie-vak iets hoger (gelijke boven/onder verdeling)
+   ========================================================================= */
+
+/* Zorg dat de framed group dezelfde inner width heeft als footer (padding 14px) */
+.ff-month-category-sheet--income .ff-month-cat-group,
+.ff-month-category-sheet--expense .ff-month-cat-group,
+.ff-month-category-sheet--saving .ff-month-cat-group{
+  padding: 14px !important;
+}
+
+/* Actie-vak iets hoger, zonder de sheet scrollbaar/anders te maken */
+.ff-month-category-sheet--income .ff-month-cat-actions,
+.ff-month-category-sheet--expense .ff-month-cat-actions{
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+/* Bewerken/Verwijderen: kleinere radius */
+.ff-month-category-sheet--income .ff-month-cat-actions .ff-month-cat-action-btn,
+.ff-month-category-sheet--expense .ff-month-cat-actions .ff-month-cat-action-btn{
+  border-radius: 6px !important;
+}
+
+/* Centered overlay variant (voor card-style popups zoals maand-categorie lijst) */
+.ff-popup-overlay.ff-overlay-center {
+  align-items: center !important;
+}
+
+/* Fully rounded corners (keeps default padding/structure) */
+.ff-popup.ff-all-rounded {
+  border-radius: 22px !important;
+}
+
+/* =========================================================================
+   2) CONTAINER (sheet/popup)
+   ========================================================================= */
+
+.sheet,
+.ff-popup,
+.welcome-modal,
+.premium-popup,
+.ff-popup--premium {
+  width: 100%;
+  max-width: 500px;
+
+  background-color: var(--apple-bg-secondary);
+  border: 0.5px solid var(--apple-separator);
+  border-radius: 20px 20px 0 0;
+
+  padding: 20px;
+
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  max-height: calc(100dvh - 32px - env(safe-area-inset-bottom));
+  max-height: calc(100svh - 32px - env(safe-area-inset-bottom));
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.sheet.show,
+.ff-popup.show,
+.premium-popup.show {
+  transform: translateY(0);
+}
+
+.ff-popup__body,
+.sheet-body {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================================
+   3) TYPOGRAFIE
+   ========================================================================= */
+
+.ff-popup__header,
+.sheet-header {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.ff-popup__title,
+.ff-popup h2,
+#sheetTitle {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--apple-label);
+  letter-spacing: -0.5px;
+}
+
+.ff-popup__message,
+.ff-popup p {
+  font-size: 14px;
+  color: var(--apple-secondary-label);
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* =========================================================================
+   4) FORM ELEMENTEN
+   ========================================================================= */
+
+.ff-input,
+.ff-input--large,
+.year-saving-input,
+#catStartYear {
+  width: 100%;
+  background-color: var(--apple-bg-main);
+  border: 1px solid var(--apple-separator);
+  color: var(--apple-label);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s;
+}
+
+.ff-input:focus,
+.ff-input--large:focus,
+.year-saving-input:focus {
+  border-color: var(--apple-blue) !important;
+}
+
+.ff-popup__input-wrapper:focus-within {
+  border-color: var(--apple-blue) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Toggle/scope micro buttons */
+.ff-btn--toggle-micro,
+.ff-btn--scope {
+  background-color: var(--apple-tertiary-label) !important;
+  color: var(--apple-label) !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-weight: 600 !important;
+  padding: 8px 16px !important;
+}
+
+.ff-btn--toggle-micro.is-active-green {
+  background-color: var(--apple-green) !important;
+  color: #fff !important;
+}
+.ff-btn--toggle-micro.is-active-red {
+  background-color: var(--apple-red) !important;
+  color: #fff !important;
+}
+.ff-btn--scope.active {
+  background-color: var(--apple-blue) !important;
+  color: #fff !important;
+}
+
+/* =========================================================================
+   5) CATEGORIE LIJST (lijstweergave)
+   ========================================================================= */
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 0.5px solid var(--apple-separator);
+}
+
+.category-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--apple-gray);
+  margin-right: 10px;
+}
+
+.category-name-bold {
+  font-weight: 600;
+  color: var(--apple-label);
+  flex-grow: 1;
+}
+
+.category-item .edit-btn {
+  background-color: var(--apple-tertiary-label) !important;
+  color: var(--apple-blue) !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  padding: 6px 12px !important;
+  border-radius: 14px !important;
+}
+
+/* =========================================================================
+   6) FOOTER & BUTTONS
+   ========================================================================= */
+
+.ff-popup__footer,
+.popup-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  position: sticky;
+  bottom: 0;
+
+  background-color: var(--apple-bg-secondary);
+  padding-top: 16px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+}
+
+/* Footer button row: multiple buttons next to each other (iOS-style). */
+.ff-popup__footer-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.ff-popup__footer-row .ff-btn,
+.ff-popup__footer-row button {
+  width: auto;
+  flex: 1 1 0;
+}
+
+.ff-popup__footer button,
+.popup-actions button,
+.ff-btn {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 100%;
+  min-height: 44px;
+  padding: 14px 16px;
+
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 1.2;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: none !important;
+}
+
+/* Primary */
+.ff-btn--primary {
+  background-color: var(--apple-blue) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  border: 1px solid transparent !important;
+}
+
+/* Secondary (grijs, witte tekst) */
+.ff-btn--secondary,
+.ff-btn--text,
+.premium-later-btn,
+#premiumTrialOverlay #closeTrialBtn,
+#closeSettingsBtn {
+  background-color: var(--apple-tertiary-label) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  text-align: center !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Specifieke fix voor verticale settings popups */
+.ff-settings-popup--vertical .ff-popup__footer button {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* Premium popup forceer zichtbaarheid */
+#premiumTrialOverlay .ff-popup {
+  transform: translateY(0) scale(1) !important;
+}
+
+/* =========================================================================
+   7) CATEGORY EDIT SHEET (centralized base – ook gebruikt door andere sheets)
+   ========================================================================= */
+
+.category-edit-sheet {
+  /* spacing knobs */
+  --gap-label-to-first-row: -6px; /* label "Maandbedrag per jaar" -> eerste rij */
+  --label-margin-bottom: 2px; /* label -> input */
+
+  padding-top: 10px;
+}
+
+.category-edit-sheet .ff-sheet-handle {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(235, 235, 245, 0.28);
+  margin: 2px auto 10px;
+}
+
+.category-edit-sheet .ff-cat-header {
+  margin-bottom: 12px;
+}
+
+.category-edit-sheet .ff-cat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.category-edit-sheet .ff-field-label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: -0.1px;
+  text-transform: none;
+  color: rgba(235, 235, 245, 0.78);
+  margin: 4px 0 var(--label-margin-bottom);
+  text-align: left;
+}
+
+.category-edit-sheet .ff-section {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 16px;
+  padding: 14px;
+  text-align: left;
+}
+
+/* Divider (algemeen; wordt hieronder specifiek uitgezet voor cat popup) */
+.category-edit-sheet .ff-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.10);
+  margin: 14px 0;
+}
+
+/* Segment (algemeen; wordt hieronder specifiek “kaderloos” gemaakt voor cat popup) */
+.category-edit-sheet .ff-segment.ff-cat-segment {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  padding: 6px;
+}
+
+.category-edit-sheet .ff-cat-type {
+  flex: 1;
+}
+
+/* Jaar/bedrag header */
+.category-edit-sheet .cat-years-columns {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 0;
+}
+
+.category-edit-sheet .cat-years-columns .col-year {
+  width: 92px;
+  flex: 0 0 auto;
+}
+
+.category-edit-sheet .cat-years-columns .col-amount {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+}
+
+/* Afstand label -> eerste rij */
+.category-edit-sheet .cat-years-container {
+  margin-top: var(--gap-label-to-first-row);
+}
+
+/* Rijen */
+.category-edit-sheet .cat-year-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.category-edit-sheet .cat-year-row + .cat-year-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.category-edit-sheet .cat-year-input {
+  width: 92px;
+  flex: 0 0 auto;
+}
+
+.category-edit-sheet .cat-budget-input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Remove button */
+.category-edit-sheet .ff-cat-remove-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  padding: 0 12px;
+  height: 34px;
+  border-radius: 8px; /* was 12px; minder “pill”-effect */
+  font-weight: 650;
+  color: var(--apple-red);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.category-edit-sheet .ff-cat-remove-btn:disabled {
+  opacity: 0.25;
+  color: var(--apple-secondary-label);
+  cursor: not-allowed;
+}
+
+/* === CATEGORIE: ook "+ Nieuw jaar toevoegen" in kader 2 gelijk aan Verwijderen === */
+.category-edit-sheet .add-year-row .ff-btn {
+  height: 34px !important;
+  min-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 34px !important;
+  border-radius: 8px !important;
+}
+
+/* Toggle knoppen (Uitgaven/Inkomen) in categorie-popup ook 34px */
+.category-edit-sheet .ff-btn--toggle-micro {
+  height: 34px !important;
+  min-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 34px !important;
+  border-radius: 8px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === Uniforme hoogte in 2e kader (jaar-rijen) === */
+/* Geldt voor: Nieuwe Categorie Toevoegen/Bewerken + Nieuwe Spaarrekening Toevoegen/Bewerken */
+
+.category-edit-sheet .cat-year-row .cat-year-input,
+.category-edit-sheet .cat-year-row .cat-budget-input {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+}
+
+.savings-edit-sheet .sav-year-top .cat-year-input,
+.savings-edit-sheet .sav-year-top .cat-budget-input,
+.savings-edit-sheet .sav-year-top .sav-rate-input {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+}
+
+/* Toggle knoppen in spaarrekening-kader: zelfde hoogte als Verwijderen */
+.savings-edit-sheet .sav-toggle-wide {
+  height: 34px;
+}
+
+/* Kolombreedtes zodat maandbedrag smaller is en renteveld past */
+.savings-edit-sheet .sav-year-top .cat-year-input {
+  flex: 0 0 64px;
+}
+
+.savings-edit-sheet .sav-year-top .sav-rate-input {
+  flex: 0 0 72px;
+  text-align: center;
+}
+
+.savings-edit-sheet .sav-years-columns {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.savings-edit-sheet .sav-years-columns .col-year {
+  flex: 0 0 64px;
+}
+
+.savings-edit-sheet .sav-years-columns .col-rate {
+  flex: 0 0 72px;
+  text-align: center;
+}
+
+.savings-edit-sheet .sav-years-columns .col-amount {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.savings-edit-sheet .sav-years-columns .col-actions {
+  flex: 0 0 auto;
+}
+
+/* === Spaarrekening: labels exact boven inputs, nette lucht ertussen === */
+.savings-edit-sheet .sav-years-columns {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+
+  /* iets meer ruimte onder labels voor natuurlijke lucht */
+  margin-bottom: 6px;
+  padding: 0;
+}
+
+/* labels uitlijnen exact boven hun inputs */
+.savings-edit-sheet .sav-years-columns .ff-field-label {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  font-weight: 500;
+  text-align: left;
+}
+
+/* kolombreedtes 1-op-1 met de inputrij */
+.savings-edit-sheet .sav-years-columns .col-year    { flex: 0 0 64px; }
+.savings-edit-sheet .sav-years-columns .col-amount  { flex: 1 1 auto; min-width: 0; }
+.savings-edit-sheet .sav-years-columns .col-rate    { flex: 0 0 72px; text-align: left; }
+.savings-edit-sheet .sav-years-columns .col-actions { flex: 0 0 120px; }
+
+/* subtiele verticale correctie: alle invoervelden + knoppen iets lager */
+.savings-edit-sheet .sav-year-top,
+.savings-edit-sheet .sav-toggle-row,
+.savings-edit-sheet .add-year-row {
+  margin-top: 3px;
+}
+
+/* Gebruik exact dezelfde label spacing als overal (Naam, Beginsaldo, etc.) */
+.savings-edit-sheet .sav-years-columns .ff-field-label {
+  margin: 4px 0 var(--label-margin-bottom);
+  line-height: 1.2;
+  text-align: left;
+}
+
+/* Kolommen exact matchen met de input-rij eronder */
+.savings-edit-sheet .sav-years-columns .col-year    { flex: 0 0 64px; }
+.savings-edit-sheet .sav-years-columns .col-amount  { flex: 1 1 auto; min-width: 0; }
+.savings-edit-sheet .sav-years-columns .col-rate    { flex: 0 0 72px; text-align: center; }
+.savings-edit-sheet .sav-years-columns .col-actions { flex: 0 0 120px; }
+
+/* Zorgt dat header en input-rij dezelfde rechterkolom hebben */
+.savings-edit-sheet .remove-year-btn {
+  width: 120px;
+}
+
+/* kolombreedtes moeten exact matchen met inputs eronder */
+.savings-edit-sheet .sav-years-columns .col-year { flex: 0 0 64px; }
+.savings-edit-sheet .sav-years-columns .col-amount { flex: 1 1 auto; min-width: 0; }
+.savings-edit-sheet .sav-years-columns .col-rate { flex: 0 0 72px; text-align: center; }
+.savings-edit-sheet .sav-years-columns .col-actions { flex: 0 0 100px; }
+
+/* Add year + footer */
+.category-edit-sheet .add-year-row {
+  margin-top: 10px;
+}
+.category-edit-sheet .ff-btn--full {
+  width: 100%;
+}
+.category-edit-sheet .ff-cat-footer {
+  margin-top: 14px;
+}
+.category-edit-sheet .ff-cat-footer .ff-btn--secondary.ff-btn--full {
+  margin-top: 10px;
+}
+
+/* =========================================================================
+   SAVINGS ACCOUNT (Nieuwe spaarrekening toevoegen) – layout FIXES
+   - labels exact boven inputs
+   - alles omhoog
+   - alle inputs/knoppen in kader 2 exact dezelfde hoogte als "Verwijderen"
+   ========================================================================= */
+
+/* Alleen voor spaarrekening-sheet: trek label->rij dichter op elkaar */
+.saving-account-edit-sheet {
+  --gap-label-to-first-row: -10px; /* label rij -> eerste inputrij */
+  --label-margin-bottom: 0px;
+}
+
+/* Header-rij boven de inputs: exact dezelfde kolombreedtes als de inputrij */
+.savings-edit-sheet .sav-years-columns {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+
+  /* omhoog / dichter op elkaar */
+  margin: 0 0 2px 0 !important;
+  padding: 0 !important;
+}
+
+.savings-edit-sheet .sav-years-columns .ff-field-label {
+  margin: 0 !important;
+  line-height: 1.1;
+}
+
+/* Kolommen exact matchen met inputs eronder */
+.savings-edit-sheet .sav-years-columns .col-year   { flex: 0 0 64px; }
+.savings-edit-sheet .sav-years-columns .col-amount { flex: 1 1 auto; min-width: 0; }
+.savings-edit-sheet .sav-years-columns .col-rate   { flex: 0 0 72px; text-align: center; }
+.savings-edit-sheet .sav-years-columns .col-actions{ flex: 0 0 120px; }
+
+/* Blok + rij spacing: omhoog/compacter */
+.savings-edit-sheet .sav-year-block {
+  padding: 2px 0;
+}
+
+.savings-edit-sheet .sav-year-block + .sav-year-block {
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.savings-edit-sheet .sav-year-top {
+  padding: 4px 0;
+}
+
+/* Toggle rij boven "+ Nieuw jaar toevoegen" */
+.savings-edit-sheet .sav-toggle-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* === Hoogte-uniformiteit in kader 2: EXACT gelijk aan Verwijderen === */
+.savings-edit-sheet .sav-year-top .cat-year-input,
+.savings-edit-sheet .sav-year-top .cat-budget-input,
+.savings-edit-sheet .sav-year-top .sav-rate-input,
+.savings-edit-sheet .remove-year-btn,
+.savings-edit-sheet .sav-toggle-wide,
+.savings-edit-sheet #addSavYearBtn {
+  height: 34px !important;
+  min-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 34px !important;
+  border-radius: 8px !important;
+}
+
+/* Zorg dat de "Verwijderen" knop een vaste breedte heeft zodat kop/kolom netjes uitlijnt */
+.savings-edit-sheet .remove-year-btn {
+  width: 120px;
+}
+
+/* Toggles vullen de breedte */
+.savings-edit-sheet .sav-toggle-wide {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Jaar/rente breedtes (maandbedrag blijft flexibel) */
+.savings-edit-sheet .sav-year-top .cat-year-input { flex: 0 0 40px; }
+.savings-edit-sheet .sav-year-top .sav-rate-input { flex: 0 0 72px; text-align: center; }
+
+/* =========================================================================
+   8) INLINE ERROR (global)
+   ========================================================================= */
+
+.ff-inline-error {
+  display: none;
+  margin-top: 10px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 69, 58, 0.12);
+  border: 1px solid rgba(255, 69, 58, 0.28);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+}
+
+.ff-inline-error__icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 69, 58, 0.22);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.ff-input[aria-invalid="true"] {
+  border-color: rgba(255, 69, 58, 0.7) !important;
+  box-shadow: 0 0 0 4px rgba(255, 69, 58, 0.12);
+}
+
+/* Inline melding even breed als CTA knop-rail */
+.ff-month-category-sheet--saving .ff-month-cat-inline-error{
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  align-self: center;
+  width: calc(100% - 28px);
+  max-width: calc(100% - 28px);
+  margin-left: 14px !important;
+  margin-right: 14px !important;
+}
+
+/* =========================================================================
+   9) SPECIFIEK: “Nieuwe categorie toevoegen” – divider + segmentkader weg
+   (veilig gescoped zodat andere sheets niet beïnvloed worden)
+   ========================================================================= */
+
+/* Lijn onder naam-invoer weghalen */
+.category-edit-sheet .ff-cat-section .ff-divider {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Kader/achtergrond rond Uitgaven/Inkomsten weghalen */
+.category-edit-sheet .ff-cat-section .ff-segment.ff-cat-segment {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  gap: 10px;
+  margin-top: 12px; /* vervangt de “lucht” van de divider */
+}
+
+/* =========================================================================
+   5B) MAAND - CATEGORIE POPUP (inkomsten/uitgaven)
+   ========================================================================= */
+
+/* Card-style maand-categorie sheet: zelfde look & feel als de maand-cards */
+.ff-month-category-sheet.ff-month-category-card{
+  padding: 0 !important;
+  border-radius: 16px !important;
+  border: 1px solid var(--apple-separator) !important;
+  background: var(--apple-bg-secondary) !important;
+  max-width: 560px;
+}
+
+/* Header: volle kleurband met witte titel (zoals screenshot) */
+.ff-month-category-sheet .ff-month-category-header{
+  margin: 0 !important;
+  text-align: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+/* Header: zelfde 'glass' bar als de maandkaart (maar kleur per kolom) */
+.ff-month-category-sheet--income .ff-month-category-header{
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(120, 255, 175, 0.78) 0%,
+      rgba(52, 199, 89, 0.76) 52%,
+      rgba(25, 140, 55, 0.72) 100%
+    );
+  background-color: rgba(52, 199, 89, 0.78);
+}
+
+.ff-month-category-sheet--expense .ff-month-category-header{
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(255, 160, 160, 0.78) 0%,
+      rgba(255, 59, 48, 0.76) 52%,
+      rgba(180, 25, 25, 0.72) 100%
+    );
+  background-color: rgba(255, 59, 48, 0.78);
+}
+
+/* Sparen/Opnemen: blauwe header */
+.ff-month-category-sheet--saving .ff-month-category-header{
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(165, 208, 255, 0.84) 0%,
+      rgba(92, 156, 255, 0.78) 46%,
+      rgba(58, 118, 255, 0.72) 100%
+    );
+  background-color: rgba(var(--apple-blue-rgb), 0.70);
+}
+
+/* Warning/info: Apple-orange header (geisoleerd van expense rood) */
+.ff-month-category-sheet--warning .ff-month-category-header{
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(255, 210, 150, 0.84) 0%,
+      rgba(255, 149, 0, 0.80) 52%,
+      rgba(210, 110, 0, 0.76) 100%
+    );
+  background-color: rgba(255, 149, 0, 0.80);
+}
+
+.ff-month-category-sheet .ff-month-category-header .ff-popup__title{
+  color: #fff !important;
+  margin: 0 !important;
+}
+
+/* Body/footers: één duidelijke scrollzone (landscape vriendelijk) */
+.ff-month-category-sheet .ff-month-category-body{
+  padding: 0 !important;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.ff-month-category-sheet .ff-month-category-footer{
+  padding: 14px;
+  margin: 0 !important;
+  border-top: 1px solid var(--apple-separator);
+  background: var(--apple-bg-secondary);
+}
+
+/* Footer explicit 2-button layout (do not rely solely on :has for Safari consistency) */
+.ff-month-category-sheet .ff-month-category-footer.ff-month-category-footer--two{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  gap: 14px !important;
+}
+
+.ff-month-category-sheet .ff-month-category-footer.ff-month-category-footer--two > button{
+  flex: 1 1 0 !important;
+  width: 0 !important;
+  white-space: normal !important;
+  line-height: 1.15 !important;
+}
+
+/* Month-style footer with exactly 2 buttons: side-by-side, equal width, wrap text */
+.ff-month-category-sheet .ff-month-category-footer:has(> button:nth-child(2)):not(:has(> button:nth-child(3))) {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  gap: 14px !important;
+}
+
+.ff-month-category-sheet .ff-month-category-footer:has(> button:nth-child(2)):not(:has(> button:nth-child(3))) > button {
+  flex: 1 1 0 !important;
+  width: 0 !important;
+  white-space: normal !important;
+  line-height: 1.15 !important;
+}
+
+/* Categories manage sheet rows (Settings -> Categorieen beheren) */
+.ff-cats-manage-sheet .ff-popup__body{
+  padding: 0 !important;
+}
+
+.ff-cats-manage-sheet #yearCategoriesList{
+  padding: 0 !important;
+}
+
+.ff-cats-manage-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.ff-cats-manage-row:last-child{
+  border-bottom: none;
+}
+
+.ff-cats-manage-edit{
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+}
+
+.ff-cats-manage-name{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.ff-cats-manage-pen{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+}
+
+.ff-cats-manage-pen.is-income{ color: #34c759; }
+.ff-cats-manage-pen.is-expense{ color: #ff3b30; }
+
+/* In manage sheet staat het pen-SVG ook in .ff-month-category-sheet,
+   waar elders een accentkleur op de SVG zelf gezet wordt. Override hier,
+   zodat income/expense altijd groen/rood blijft. */
+.ff-cats-manage-pen.is-income .ff-month-cat-pencil{ color: #34c759 !important; }
+.ff-cats-manage-pen.is-expense .ff-month-cat-pencil{ color: #ff3b30 !important; }
+
+.ff-cats-manage-pen svg{
+  width: 24px;
+  height: 24px;
+}
+
+/* Jaar-totalen per categorie (read-only) */
+.ff-year-total-amount{
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ff-cats-manage-delete,
+.ff-cats-manage-delete-placeholder{
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ff-cats-manage-delete{
+  background: transparent;
+  border: none;
+  padding: 0 0 0 12px;
+}
+
+.ff-cats-manage-trash{
+  width: 26px;
+  height: 26px;
+  color: #ffd60a;
+}
+
+.ff-cats-manage-trash svg{
+  width: 26px;
+  height: 26px;
+}
+
+.ff-cats-manage-delete-placeholder{
+  width: 38px;
+  height: 26px;
+}
+
+/* Lijst: zoals month-card rows (separators, geen gaps) */
+.ff-month-category-sheet .ff-month-cat-list{
+  display: flex;
+  flex-direction: column;
+  gap: 0 !important;
+}
+
+.ff-month-category-sheet .ff-month-cat-item{
+  gap: 0 !important;
+}
+
+/* Groep: geen extra kader, alleen separators */
+.ff-month-category-sheet .ff-month-cat-group{
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Rij: donkere row, met separator eronder */
+.ff-month-category-sheet .ff-month-cat-row{
+  border: none !important;
+  border-radius: 0 !important;
+  background: var(--apple-bg-main) !important;
+  padding: 14px 14px !important;
+  border-bottom: 1px solid var(--apple-separator) !important;
+}
+
+.ff-month-category-sheet .ff-month-cat-name{
+  font-weight: 600 !important;
+  color: var(--apple-label) !important;
+}
+
+/* Potlood: accentkleur (income/expense), geen 'bolletje' */
+.ff-month-category-sheet .ff-month-cat-pencil{
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  color: var(--ff-month-cat-accent, var(--apple-blue));
+  opacity: 0.95;
+}
+
+/* =========================================================================
+   5C) SPAREN/OPNEMEN (Saving month) - gebruikt dezelfde month-category sheet
+   ========================================================================= */
+
+/* Inhoud binnen de rij (3 regels) */
+.ff-month-category-sheet--saving .ff-saving-lines{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.ff-month-category-sheet--saving .ff-saving-line{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.ff-month-category-sheet--saving .ff-saving-line-left{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Klikbare rente-label (zelfde feel als sparen/opnemen) */
+.ff-month-category-sheet--saving .ff-saving-interest-click{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ff-month-category-sheet--saving .ff-saving-interest-click:focus{
+  outline: none;
+}
+
+.ff-month-category-sheet--saving .ff-saving-name{
+  font-weight: 600;
+  color: var(--apple-label);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Pen is altijd blauw */
+.ff-month-category-sheet--saving .ff-saving-pencil .ff-edit-icon{
+  color: var(--apple-blue) !important;
+  opacity: 0.95;
+}
+
+/* Pencil in saving rows should not change layout (looks like an icon, but can be a real button) */
+.ff-month-category-sheet--saving .ff-saving-pencil-btn{
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.ff-month-category-sheet--saving .ff-saving-pencil-btn:disabled{
+  cursor: default;
+  opacity: 0.95;
+}
+
+/* Flow amount shown in a dark pill (matches screenshot) */
+.ff-month-category-sheet--saving .ff-saving-pill{
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  min-width: 120px;
+  text-align: right;
+}
+
+.ff-month-category-sheet--saving .ff-saving-line-right{
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* =========================================================================
+   5C-1) Spaarpotjes Jaaroverzicht (read-only)
+   - Strakke 2-koloms uitlijning (labels links, bedragen rechts)
+   - Eén vaste rechterkolom per pot (flow + rente exact onder eindsaldo)
+   - Links/rechts padding symmetrisch
+   - Divider tussen potten (onder rente-regel)
+   ========================================================================= */
+
+/* Item krijgt zelf padding zodat links en rechts exact gelijk zijn */
+.ff-saving-year-sheet .ff-saving-year-item{
+  background: var(--apple-bg-main) !important;
+  padding: 14px 14px !important;
+}
+
+/* Divider tussen potten (onder rente-regel) */
+.ff-saving-year-sheet .ff-saving-year-item:not(:last-child){
+  border-bottom: 1px solid var(--apple-separator) !important;
+}
+
+/* Per pot: 3 regels onder elkaar */
+.ff-saving-year-sheet .ff-saving-lines{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+
+/* Per regel: 2 kolommen met vaste rechterkolom (startpositie blijft gelijk) */
+.ff-saving-year-sheet{
+  --ff-saving-year-amount-col: clamp(120px, 34vw, 180px);
+}
+
+.ff-saving-year-sheet .ff-saving-line{
+  display: grid !important;
+  grid-template-columns: 1fr var(--ff-saving-year-amount-col) !important;
+  column-gap: 16px !important;
+  align-items: baseline !important;
+  width: 100% !important;
+}
+
+.ff-saving-year-sheet .ff-saving-line-left{
+  min-width: 0 !important; /* ellipsis werkt */
+}
+
+.ff-saving-year-sheet .ff-saving-line-right{
+  text-align: right !important;
+  justify-self: end !important;
+  white-space: nowrap !important;
+}
+/* Actions: zoals screenshots (twee losse pill-buttons met ruimte ertussen) */
+.ff-month-category-sheet .ff-month-cat-actions{
+  margin-top: 10px !important;
+  gap: 12px !important;
+  border-bottom: none !important;
+}
+
+.ff-month-category-sheet .ff-month-cat-actions .ff-month-cat-action-btn{
+  border-radius: 12px !important;
+  height: auto !important;
+}
+.ff-month-category-sheet .ff-month-cat-item:last-child .ff-month-cat-row{
+  border-bottom: none !important;
+}
+
+.ff-month-cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ff-month-cat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  text-align: left;
+
+  background-color: var(--apple-bg-main);
+  border: 1px solid var(--apple-blue);
+  border-radius: 10px;
+
+  padding: 12px;
+
+  cursor: pointer;
+}
+
+.ff-month-cat-row.ff-row-static {
+  cursor: default;
+}
+
+.ff-month-cat-row:active {
+  transform: translateY(1px);
+}
+
+.ff-month-cat-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ff-month-cat-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.ff-month-cat-name {
+  font-weight: 600;
+  color: var(--apple-label);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ff-month-cat-amount {
+  font-weight: 600;
+  color: var(--apple-label);
+  flex: 0 0 auto;
+}
+
+.ff-month-cat-sep {
+  height: 12px;
+}
+
+/* iPhone: kleinere popup knoppen */
+@media (max-width: 430px) {
+  .ff-popup__footer button,
+  .popup-actions button,
+  .ff-btn {
+    min-height: 36px !important;
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+  }
+}
+
+/* Tekst in categorie-velden (de rijen) kleiner */
+@media (max-width: 430px) {
+  .ff-month-cat-row {
+    padding: 9px 10px !important;
+  }
+
+  .ff-month-cat-name,
+  .ff-month-cat-amount {
+    font-size: 13px !important;
+    font-weight: 600;
+  }
+}
+
+/* “Bewerken / Verwijderen” knoppen in de lijst kleiner */
+@media (max-width: 430px) {
+  /* Alleen de actieknoppen, niet de klikbare rij zelf */
+  .ff-month-cat-list button:not(.ff-month-cat-row) {
+    min-height: 34px !important;
+    padding: 8px 10px !important;
+    font-size: 13px !important;
+    border-radius: 10px !important;
+  }
+}
+
+/* --- Category list: framed group (row + actions) --- */
+
+/* item spacing in the list */
+.ff-month-cat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* the framed group around row + action buttons */
+.ff-month-cat-group {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.10);
+}
+
+/* ensure the row sits nicely inside the group */
+.ff-month-cat-group .ff-month-cat-row {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* actions row: 50/50 distribution with clear gap */
+.ff-month-cat-actions {
+  display: flex;
+  width: 100%;
+  gap: 12px;          /* Spacing between buttons */
+  margin-top: 10px;   /* space from the row/input */
+}
+
+/* FORCE: Bewerk/Verwijder knoppen even hoog als Sparen/Opnemen */
+.ff-month-cat-actions .ff-month-cat-action-btn {
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 34px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+/* Bewerk/Verwijder: verdeel over volledige breedte + radius zoals Sparen/Opnemen */
+.ff-month-cat-actions {
+  display: flex !important;
+  width: 100% !important;
+  gap: 12px !important; /* pas aan als je meer/minder ruimte wilt */
+}
+
+.ff-month-cat-actions .ff-month-cat-action-btn {
+  flex: 1 1 0 !important;
+  width: 0 !important;  /* belangrijk: dwingt gelijke verdeling */
+  border-radius: 8px !important; /* zet dit gelijk aan Sparen/Opnemen als jij een andere waarde gebruikt */
+}
+
+
+/* iPhone: lower height + slightly smaller text */
+@media (max-width: 430px) {
+  .ff-month-cat-item {
+    gap: 8px;
+  }
+
+  .ff-month-cat-group {
+    padding: 8px;
+    border-radius: 12px;
+  }
+
+  .ff-month-cat-actions {
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .ff-month-cat-actions .ff-month-cat-action-btn {
+    min-height: 34px !important;  /* FIX: shorter */
+    padding: 8px 10px !important; /* FIX: tighter */
+    font-size: 13px !important;   /* FIX: smaller text */
+    border-radius: 9px !important;
+  }
+}
+
+/* Savings Month Popup (SPAREN -> lijst) */
+.ff-saving-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ff-saving-left {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ff-saving-lefttext {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ff-saving-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ff-saving-sub {
+  font-size: 12px;
+  color: var(--apple-secondary-label);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ff-saving-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.ff-saving-rightline {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.ff-saving-label {
+  font-size: 12px;
+  color: var(--apple-secondary-label);
+}
+
+.ff-saving-amount {
+  font-weight: 600;
+}
+
+/* Dot exact naast naam */
+.ff-saving-name-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ff-saving-name-line .ff-month-cat-dot {
+  align-self: center;
+}
+
+/* Regel 2: Saldo links + Rente rechts op dezelfde hoogte */
+.ff-saving-metaline {
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.ff-saving-meta-left,
+.ff-saving-meta-right {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+/* Rente-bedrag altijd blauw */
+.ff-amount-interest {
+  color: var(--apple-blue) !important;
+}
+
+/* =========================================================================
+   Saving month sheet: 3-line row layout (rekening, gespaard/opgenomen, rente)
+   - gebruikt dezelfde month-category sheet shell (separators, actions)
+   - géén dot bij naam, potlood blauw
+   ========================================================================= */
+
+.ff-saving-row .ff-saving-lines{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.ff-saving-row .ff-saving-line{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ff-saving-row .ff-saving-line-left{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: var(--apple-label);
+}
+
+.ff-saving-row .ff-saving-line-left--name{
+  gap: 12px;
+}
+
+.ff-saving-row .ff-saving-name{
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ff-saving-row .ff-saving-line-right{
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ff-saving-row .ff-saving-pencil .ff-edit-icon{
+  color: var(--apple-blue);
+  opacity: 0.95;
+}
+
+/* === Savings accounts: Sparen/Opnemen toggle in jaar-rij === */
+.saving-account-edit-sheet .sav-toggle-group {
+  display: flex;
+  gap: 8px;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+/* Saldo onder naam (uitlijnen met naam, niet met bolletje) */
+.ff-saving-left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ff-saving-subline {
+  /* schuif onder de naam: dot + gap */
+  margin-left: 22px; /* als dot/gap anders is: 20–26px finetunen */
+  margin-top: 2px;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+/* Saving month lijst: Rente-regel (2e regel rechts) uitlijnen met Saldo-regel (2e regel links) */
+.ff-saving-row .ff-saving-right .ff-saving-metaline {
+  margin-top: 4px !important; /* stel af: 2px / 4px / 6px */
+}
+
+/* Minder ruimte tussen "Rente (..%):" en de waarde (Premium/bedrag) */
+.ff-saving-row .ff-saving-right .ff-saving-metaline {
+  gap: 4px !important; /* stel af: 2px / 4px / 6px */
+}
+
+/* =========================================================================
+   iPhone - Breedtes velden instellen POPUP (Sparen / Toevoegen / Bewerken)
+   ========================================================================= */
+
+/* iPhone: forceer compacte 3 inputs (jaar/bedrag/rente) in spaarrekening-year-row */
+@media (max-width: 500px), (orientation: landscape) and (max-height: 500px) {
+
+  /* "Maandbedrag" label naar links in de spaarrekening sheet */
+  .savings-edit-sheet .sav-years-columns .col-amount .ff-field-label {
+  padding-left: 0 !important;
+  margin-left: -10px !important; /* maak dit bv. -8, -12, -16 */
+}
+
+/* "Jaarrente" label naar links in de spaarrekening sheet */
+.savings-edit-sheet .sav-years-columns .col-rate .ff-field-label {
+  padding-left: 0 !important;
+  margin-left: 65px !important; /* pas aan: -8 / -12 / -16 */
+}
+
+  /* Zorg dat de rij niet wrapt en minder ruimte tussen velden heeft */
+  .savings-edit-sheet .sav-year-top {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    align-items: center !important;
+  }
+
+  /* 1) Jaar (eerste input) - zo smal mogelijk */
+  .savings-edit-sheet .sav-year-top > input:nth-child(1) {
+    flex: 0 0 60px !important;
+    max-width: 60px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  /* 2) Maandbedrag (tweede input) - krijgt de resterende ruimte */
+  .savings-edit-sheet .sav-year-top > input:nth-child(2) {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  /* 3) Jaarrente (derde input) - compact */
+  .savings-edit-sheet .sav-year-top > input:nth-child(3) {
+    flex: 0 0 52px !important;
+    max-width: 52px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    text-align: center !important;
+  }
+}
+
+/* =========================================================================
+   Laptop - Grote schermen labels instellen POPUP (Sparen / Toevoegen / Bewerken)
+   ========================================================================= */
+
+@media (min-width: 501px) {
+  .savings-edit-sheet .sav-years-columns .col-amount .ff-field-label {
+    padding-left: 0 !important;
+    margin-left: 28px !important;  /* Maandbedrag label afstellen */
+    text-align: left !important;
+  }
+
+  .savings-edit-sheet .sav-years-columns .col-rate .ff-field-label {
+    padding-left: 0 !important;
+    margin-left: 0px !important;   /* Jaarrente label afstellen */
+    text-align: left !important;
+  }
+}
+
+/* ===============================
+   Naamkleur Wit iPhone
+   =============================== */
+
+/* 1) Rekeningnaam altijd wit (iPhone had blauw) */
+.ff-saving-row .ff-saving-name {
+  color: #fff !important;
+}
+
+/* ===============================
+   iPhone landscape: voorkom dat popup-body/lijsten verdwijnen door vh/fixed issues
+   =============================== */
+
+@media (orientation: landscape) and (max-height: 500px) {
+
+  /* 1) Overlay/popup moet de echte zichtbare hoogte pakken (iOS) */
+  .ff-overlay,
+  .ff-popup,
+  .ff-month-cat-sheet,
+  .ff-action-sheet {
+    height: 100dvh !important;               /* moderne iOS */
+    max-height: 100dvh !important;
+  }
+
+  /* fallback voor oudere iOS */
+  @supports (-webkit-touch-callout: none) {
+    .ff-overlay,
+    .ff-popup,
+    .ff-month-cat-sheet,
+    .ff-action-sheet {
+      height: -webkit-fill-available !important;
+      max-height: -webkit-fill-available !important;
+    }
+  }
+
+  /* 2) Maak de body/lijst altijd scrollbaar i.p.v. clippen */
+  .ff-popup__body,
+  .ff-month-cat-body,
+  .ff-action-sheet__body {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    max-height: calc(100dvh - 140px) !important;  /* ruimte voor header/knoppen */
+  }
+
+  /* 3) Zorg dat list-items niet "instorten" */
+  .ff-month-cat-row,
+  .ff-saving-row {
+    min-height: 44px !important;
+  }
+}
+
+.ff-month-cat-amount-wrap {
+  display: inline-flex;
+  justify-content: flex-end;
+}
+
+.ff-month-cat-amount-input {
+  width: 150px;            /* match screenshot: compact veld rechts */
+  max-width: 42vw;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  text-align: right;       /* bedragen rechts uitlijnen */
+  outline: none;
+}
+
+.ff-month-cat-inline-editor {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  display: none;
+}
+
+/* Inline editor row = 2 kolommen: scope links (flex), toggles rechts (zelfde breedte als footer-knop) */
+.ff-saving-inline-editor-row{
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+
+  /* BELANGRIJK: zelfde inner padding als footer-knoppen (Sluiten) */
+  padding: 0 14px;
+  box-sizing: border-box;
+}
+
+/* Links mag flexibel */
+.ff-saving-inline-editor-row .ff-month-cat-scope{
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Rechts: exact dezelfde kolombreedte als de rechter footer-knop */
+.ff-saving-inline-editor-row .ff-saving-inline-toggles{
+  margin-left: auto;         /* plakt tegen rechts */
+  flex: 0 0 calc(50% - 8px); /* 50% minus halve gap (16px/2 = 8px) */
+  width: calc(50% - 8px);
+  display: grid;
+  gap: 12px;
+}
+
+/* Rechts: jaarrente input uitlijning (zelfde kolombreedte als toggles) */
+/* Jaarrente: als compacte unit helemaal rechts, met label exact boven het veld */
+.ff-saving-inline-editor-row .ff-saving-inline-rate{
+  margin-left: auto;          /* plakt rechts in de rij */
+  display: flex;
+  flex-direction: column;     /* label boven input */
+  align-items: flex-start;    /* label links uitlijnen met input */
+  width: fit-content;         /* géén 50% kolom → label blijft exact boven input */
+  max-width: 100%;
+  /* Label+veld iets lager (iPhone + laptop) en minder tussenruimte */
+  margin-top: 8px;
+  gap: 4px;
+}
+
+.ff-saving-inline-editor-row .ff-saving-rate-label{
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+  font-weight: 600;
+  /* Label exact boven het invoerveld aan de linkerkant */
+  align-self: flex-start;
+  text-align: left;
+}
+
+.ff-saving-inline-editor-row .ff-saving-rate-input-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.ff-saving-inline-editor-row .ff-saving-rate-input{
+  /* 50% smaller t.o.v. eerdere 150px */
+  width: 75px;
+  max-width: 42vw;
+}
+
+.ff-saving-inline-editor-row .ff-saving-rate-suffix{
+  color: rgba(255,255,255,0.75);
+  font-weight: 700;
+}
+
+/* Toggle buttons: override ff-btn--secondary padding (!important) zodat hoogte echt verandert */
+.ff-btn.ff-btn--secondary.ff-saving-toggle-btn{
+  width: 100%;
+  padding: 10px 16px !important;   /* lager */
+  min-height: 40px !important;     /* lager dan 44 */
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+/* Active overrides moeten ff-btn--secondary (met !important) kunnen verslaan */
+.ff-btn.ff-btn--secondary.ff-saving-toggle-btn.is-active[data-mode="pos"]{
+  background: rgba(52, 199, 89, 0.85) !important;
+  border: 1px solid rgba(52, 199, 89, 0.55) !important;
+  color: #fff !important;
+}
+
+.ff-btn.ff-btn--secondary.ff-saving-toggle-btn.is-active[data-mode="neg"]{
+  background: rgba(255, 59, 48, 0.85) !important;
+  border: 1px solid rgba(255, 59, 48, 0.55) !important;
+  color: #fff !important;
+}
+
+/* Amount input: kleur volgt ff-amount-positive/negative (zoals label) */
+.ff-month-cat-amount-input.ff-amount-positive{
+  color: rgba(52, 199, 89, 1);
+}
+
+.ff-month-cat-amount-input.ff-amount-negative{
+  color: rgba(255, 59, 48, 1);
+}
+
+/* Mobile: toggles onder scopes als het te krap wordt */
+@media (max-width: 420px){
+  .ff-saving-inline-editor-row{
+    flex-direction: column;
+  }
+  .ff-saving-inline-toggles{
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: 1fr;
+  }
+}
+
+.ff-month-cat-inline-editor[data-open="1"] {
+  display: block;
+}
+
+.ff-month-cat-scope {
+  display: grid;
+  gap: 10px;
+}
+
+.ff-month-cat-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.92);
+}
+
+.ff-month-cat-inline-actions {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+
+/* =================================================================
+   FLOATING ROUNDED VARIANT (for month-card edit sheets)
+   ================================================================= */
+.ff-popup.ff-floating-rounded{
+  border-radius: 22px !important;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+  padding: 0; /* header + body handle their own padding */
+}
+
+.ff-popup.ff-floating-rounded .ff-popup__body,
+.ff-popup.ff-floating-rounded .sheet-body{
+  padding: 18px 20px 14px 20px;
+}
+
+.ff-popup.ff-floating-rounded .ff-popup__footer,
+.ff-popup.ff-floating-rounded .popup-actions{
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom));
+}
+
+/* Header color theme (income/expense) */
+.ff-popup.ff-floating-rounded.ff-theme-income .ff-popup__header{
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(120, 220, 160, 0.86) 0%,
+      rgba(52, 199, 89, 0.78) 55%,
+      rgba(40, 160, 70, 0.72) 100%
+    );
+  background-color: rgba(52, 199, 89, 0.70);
+  padding: 18px 20px 16px 20px;
+  border-radius: 22px 22px 0 0;
+}
+
+.ff-popup.ff-floating-rounded.ff-theme-expense .ff-popup__header{
+  background-image:
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    linear-gradient(180deg,
+      rgba(255, 140, 140, 0.86) 0%,
+      rgba(255, 59, 48, 0.78) 55%,
+      rgba(210, 45, 38, 0.72) 100%
+    );
+  background-color: rgba(255, 59, 48, 0.66);
+  padding: 18px 20px 16px 20px;
+  border-radius: 22px 22px 0 0;
+}
+
+.ff-popup.ff-floating-rounded .ff-popup__title{
+  color: rgba(255,255,255,0.98);
+  font-size: 34px;
+  font-weight: 760;
+  letter-spacing: -0.8px;
+}
+
+/* Static name row with colored pen (only in from-month mode) */
+.ff-cat-edit-from-month #catNameStatic{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0px !important;   /* Potlood dichter bij naam */
+  padding: 10px 20px 14px 20px;
+}
+
+.ff-cat-edit-from-month #catNameStatic .ff-cat-name-static__text{
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--apple-label);
+}
+
+.ff-cat-edit-from-month .ff-pen-btn{
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 0 !important;    /* veiligheid: geen extra marge */
+}
+
+.ff-cat-edit-from-month .ff-pen-btn__icon{
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ff-cat-edit-from-month .ff-pen-btn--income .ff-pen-btn__icon{ color: var(--apple-green); }
+.ff-cat-edit-from-month .ff-pen-btn--expense .ff-pen-btn__icon{ color: var(--apple-red); }
+
+/* In from-month mode, hide the label above the input; show static row instead */
+.ff-cat-edit-from-month label[for="catName"]{
+  display: none !important;
+}
+.ff-cat-edit-from-month #catNameInputWrap{
+  display: none; /* shown only when editing */
+  padding: 0 20px 6px 20px;
+}
+.ff-cat-edit-from-month.ff-cat-name-editing #catNameInputWrap{
+  display: block !important;
+}
+
+/* Month-card look for category edit sheet (same shell as Inkomsten/Uitgaven) */
+.ff-cat-edit-from-month .ff-cat-name-row{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 14px 14px;
+  background: var(--apple-bg-main);
+  border-bottom: 1px solid var(--apple-separator);
+}
+
+.ff-cat-edit-from-month .ff-cat-name-row__text{
+  font-weight: 600;
+  color: var(--apple-label);
+}
+
+.ff-cat-edit-from-month .ff-cat-name-row__pen{
+  margin-left: 6px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ff-cat-edit-from-month .ff-cat-name-row__pen .ff-month-cat-pencil{
+  color: var(--ff-month-cat-accent, var(--apple-blue));
+  width: 18px;
+  height: 18px;
+}
+
+/* Premium trash icoon (inline SVG) in de naamregel */
+.ff-cat-edit-from-month .ff-cat-name-row__trash{
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  /* jouw premium gold */
+  color: rgb(255, 199, 0);
+}
+
+/* Exacte SF-achtige prullenbak (outline + 2 verticale lijnen) */
+.ff-cat-edit-from-month .ff-cat-name-row__trash .ff-trash-sf{
+  width: 30px;
+  height: 30px;
+  display: block;
+
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+}
+
+/* Zorg dat oude icoon (als die nog ergens gerenderd wordt) niet dubbel verschijnt */
+.ff-cat-edit-from-month .ff-cat-name-row__trash .ff-month-cat-trash:not(.ff-trash-sf){
+  display: none;
+}
+
+.ff-cat-edit-from-month #catNameInputWrap{
+  padding: 14px 14px;
+  background: var(--apple-bg-main);
+  border-bottom: 1px solid var(--apple-separator);
+}
+
+/* Delete confirm sheet (category) */
+.ff-cat-delete-from-month .ff-cat-delete-body{
+  padding: 22px 18px 26px;
+}
+
+.ff-cat-delete-from-month .ff-cat-delete-message{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 18px 18px;
+  color: var(--apple-secondary-label);
+  font-size: 18px;
+  line-height: 1.25;
+}
+/* =========================================================
+   Warning sheet (Instellingen voor <jaar>) — message box kader
+   Altijd dezelfde breedte-logica als de "full" knop:
+   - iPhone: 100% van beschikbare content
+   - desktop: capped op max-width
+   ========================================================= */
+.ff-month-category-sheet--warning .ff-warning-message{
+  width: min(93%, 520px);
+  margin: 14px auto;
+
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 14px 16px;
+
+  color: var(--apple-secondary-label);
+  font-size: 18px;
+  line-height: 1.25;
+  box-sizing: border-box;
+}
+
+.ff-month-category-sheet--warning .ff-month-category-footer .ff-btn--full{
+  width: min(100%, 520px);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Als message per ongeluk <p> bevat, forceer ook daar de juiste kleur */
+.ff-month-category-sheet--warning .ff-warning-message p{
+  margin: 0;
+  color: var(--apple-secondary-label);
+}
+
+.ff-cat-delete-from-month .ff-cat-delete-footer{
+  padding: 16px 14px;
+  border-top: 1px solid var(--apple-separator);
+  background: var(--apple-bg-secondary);
+}
+
+.ff-cat-delete-from-month .ff-cat-delete-footer-row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.ff-cat-delete-from-month .ff-cat-delete-footer-row .ff-btn{
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+.ff-cat-edit-from-month #catNameInputWrap{
+  padding: 14px 14px;
+  background: var(--apple-bg-main);
+  border-bottom: 1px solid var(--apple-separator);
+}
+
+/* Years list rows: same separators as month rows */
+.ff-cat-edit-from-month .ff-cat-years{
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.ff-cat-edit-from-month #catYearsContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ff-cat-edit-from-month .cat-year-block{
+  background: var(--apple-bg-main);
+  padding: 14px 14px;
+  border-bottom: 1px solid var(--apple-separator);
+}
+
+.ff-cat-edit-from-month .cat-year-row{
+  padding: 0;
+  gap: 10px;
+}
+
+.ff-cat-edit-from-month .cat-year-row .cat-year-input,
+.ff-cat-edit-from-month .cat-year-row .cat-budget-input,
+.ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn{
+  height: 44px;
+  min-height: 44px;
+  line-height: 44px;
+  border-radius: 12px;
+}
+
+.ff-cat-edit-from-month .cat-year-row .cat-year-input,
+.ff-cat-edit-from-month .cat-year-row .cat-budget-input{
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 16px !important;
+}
+
+.ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn{
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 16px;
+}
+
+/* Add year button: keep in body, add breathing room before footer */
+.ff-cat-edit-from-month .add-year-row{
+  padding: 14px;
+  background: var(--apple-bg-secondary);
+  border-bottom: 1px solid var(--apple-separator);
+}
+
+/* Column widths in month-card edit */
+.ff-cat-edit-from-month .cat-year-row .cat-year-input{ flex: 0 0 92px; width: 92px; }
+.ff-cat-edit-from-month .cat-year-row .cat-budget-input{ flex: 1 1 auto; min-width: 0; }
+.ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn{ flex: 0 0 120px; width: 120px; }
+
+
+/* Forceer 1 rij: Jaar | Bedrag | Verwijderen (month-card categorie edit) */
+.ff-cat-edit-from-month .cat-year-row{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/* Zorg dat het bedragveld de tussenruimte pakt en niet gaat stapelen */
+.ff-cat-edit-from-month .cat-year-row .cat-budget-input{
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+/* Jaar en Verwijderen blijven vaste blokken */
+.ff-cat-edit-from-month .cat-year-row .cat-year-input{
+  flex: 0 0 80px !important; /* <-- DIT is de vaste breedte (flex-basis) */
+  width: 80px !important; /* <-- DIT is de vaste breedte (CSS width) */
+}
+
+.ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn{
+  flex: 0 0 120px !important;
+  width: 120px !important;
+  white-space: nowrap;
+}
+
+/* Remove button */
+.ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn{
+  flex: 0 0 auto;
+  white-space: nowrap;
+  padding: 0 12px;
+  height: 34px;
+  border-radius: 8px; /* was 12px; minder “pill”-effect */
+  font-weight: 650;
+  color: var(--apple-red);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn:disabled{
+  opacity: 0.25;
+  color: var(--apple-secondary-label);
+  cursor: not-allowed;
+}
+
+/* ===== Category sheet knoppen: fluid (iPhone-proof, tekst mag veranderen) ===== */
+:root{
+  --catBtnH: 44px;
+  --catFooterGap: 10px;
+}
+
+/* Footer (month-card categorie edit): 2 rijen:
+   - type-toggle rij (alleen bij "Nieuwe categorie")
+   - knoppenrij (+ jaar, opslaan, annuleren) */
+.ff-cat-edit-from-month .ff-cat-footer{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+/* 3 knoppen: altijd binnen scherm, gelijk verdeeld */
+.ff-cat-edit-from-month .ff-cat-footer-row{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: var(--catFooterGap) !important;
+  width: 100% !important;
+}
+
+/* Maak knoppen “fluid”: gelijke breedte + mogen krimpen + tekst mag wijzigen */
+.ff-cat-edit-from-month .ff-cat-footer-row :is(button, a, .ff-btn){
+  flex: 1 1 0 !important;
+  width: 0 !important;          /* essentieel zodat flex echt verdeelt */
+  min-width: 0 !important;      /* essentieel voor iPhone: voorkomt overflow */
+  max-width: none !important;
+  display: inline-flex !important;
+
+  height: var(--catBtnH) !important;
+  min-height: var(--catBtnH) !important;
+  box-sizing: border-box;
+
+  white-space: normal !important; /* tekst mag wrapppen als label verandert */
+  line-height: 1.15 !important;
+}
+
+/* Verwijder eerdere “fixed width” ID-regels door ze expliciet te neutraliseren */
+#addYearBtn,
+#saveCatBtn,
+#closeCatSheet{
+  width: auto !important;
+  margin-right: 0 !important;
+}
+
+/* Type-toggle rij (Nieuwe categorie): 2 knoppen boven Opslaan/Annuleren
+   Ook full-width en even breed, zodat alles consistent is. */
+.ff-cat-edit-from-month .ff-cat-type-row{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: var(--catFooterGap) !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.ff-cat-edit-from-month .ff-cat-type-row .ff-cat-type{
+  flex: 1 1 0 !important;
+  width: 0 !important;
+  min-width: 0 !important;
+
+  height: var(--catBtnH) !important;
+  min-height: var(--catBtnH) !important;
+  justify-content: center;
+
+  border-radius: 10px;
+  font-weight: 650;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--apple-secondary-label);
+
+  white-space: normal !important;
+  line-height: 1.15 !important;
+}
+
+/* Active states (blijven zoals je ze al gebruikt) */
+.ff-cat-edit-from-month .ff-cat-type-row #typeIncome.is-active-green{
+  background-color: var(--apple-green) !important;
+  color: #fff !important;
+  color: var(--apple-label) !important;
+}
+
+.ff-cat-edit-from-month .ff-cat-type-row #typeExpense.is-active-red{
+  background-color: var(--apple-red) !important;
+  color: #fff !important;
+  color: var(--apple-label) !important;
+}
+
+/* Nieuwe Categorie Toevoegen/Bewerken: "Maandbedrag" naar rechts */
+.cat-year-label{
+  display: inline-block !important;
+  transform: translateX(90px) !important; /* pas aan */
+  font-size: 12px !important; /* kleiner maken: pas aan */
+  line-height: 1.1 !important; /* optioneel: strakker */
+  color: var(--apple-secondary-label) !important; /* grijs zoals andere labels */
+}
+
+/* Potlood: cursor vinger */
+.ff-cats-manage-edit,
+.ff-cats-manage-pen,
+.ff-cats-manage-pen svg {
+  cursor: pointer;
+}
+
+/* Prullenbak: cursor vinger */
+.ff-month-cat-trash,
+.ff-month-cat-trash * {
+  cursor: pointer;
+}
+
+/* =========================================================================
+   NOT POSSIBLE (warning) – Apple Orange header (alleen deze sheet)
+   - Overschrijft de expense header styling uitsluitend binnen ff-not-possible-sheet
+   ========================================================================= */
+.ff-not-possible-sheet .ff-month-category-header{
+  background-image:
+    /* glass highlight (zelfde als income/expense) */
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    /* orange band (zelfde opbouw als rood, maar oranje tinten) */
+    linear-gradient(180deg,
+      rgba(255, 214, 140, 0.78) 0%,   /* licht oranje boven */
+      rgba(255, 149,   0, 0.76) 52%,  /* Apple orange midden (#ff9500) */
+      rgba(190,  98,   0, 0.72) 100%  /* dieper oranje onder */
+    );
+
+  /* basislaag (zoals bij expense) */
+  background-color: rgba(255, 149, 0, 0.78);
+}
+
+/* Delete-category footer: 2 knoppen naast elkaar, full width */
+.ff-cat-delete-footer{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+}
+
+.ff-cat-delete-footer > .ff-btn{
+  flex: 1 1 0;
+  width: 0;       /* zorgt dat flex echt verdeelt */
+  min-width: 0;   /* iPhone/Safari overflow fix */
+}
+
+/* Scope teksten mogen niet afbreken op iPhone */
+.ff-month-cat-scope .ff-month-cat-radio span{
+  white-space: nowrap;
+}
+
+/* Zorg dat de scope-kolom niet geforceerd smaller wordt door flex */
+.ff-saving-inline-editor-row .ff-month-cat-scope{
+  min-width: 0;
+}
+
+/* Bedrag in het veld rechts uitlijnen */
+.ff-saving-flow-input{
+  text-align: right;
+}
+
+/* Saving sheet: bedragen in regel 1 en 3 iets naar links (meer inset vanaf rechterrand) */
+.ff-month-category-sheet--saving .ff-saving-line--account .ff-saving-line-right,
+.ff-month-category-sheet--saving .ff-saving-line-right.ff-amount-interest{
+  padding-right: 14px;   /* ↑ maak groter = verder naar links */
+  box-sizing: border-box;
+}
+
+/* Saving Year (read-only): behoud 1 vaste rechterkolom.
+   Reset de 'saving sheet' inset zodat Eindsaldo + Rente exact uitlijnen
+   met het bedrag bij Gespaard/Opgenomen. */
+.ff-saving-year-sheet .ff-saving-line--account .ff-saving-line-right,
+.ff-saving-year-sheet .ff-saving-line-right.ff-amount-interest{
+  padding-right: 0 !important;
+}
+
+
+/* --- Saving Month: Premium CTA (trial) --- */
+.ff-saving-premium-cta {
+  width: 100%;
+  display: block;
+}
+
+.ff-saving-premium-cta .ff-btn {
+  width: 100%;
+  display: block;
+}

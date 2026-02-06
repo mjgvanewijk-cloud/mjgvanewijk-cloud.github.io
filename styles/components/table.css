@@ -1,0 +1,421 @@
+/* styles/components/table.css - Apple System Versie (clean separators, no neon accents) */
+
+/* 1) CONTAINER: Apple card */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: none;
+
+  border-radius: 16px;
+  background-color: var(--apple-bg-secondary);
+  margin-top: 20px;
+  padding: 0 !important;
+
+  border: 1px solid var(--apple-separator) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+
+  display: block;
+}
+
+/* 2) TABEL BASIS */
+.year-grid {
+  width: 100%;
+  min-width: 100%;
+
+  border-collapse: separate;
+  border-spacing: 0;
+
+  font-size: 12px;
+  margin: 0 !important;
+  table-layout: auto;
+}
+
+/* 3) Header + maandkolom + totaal: Apple surface + label */
+.year-grid thead th,
+.year-grid td:nth-child(1),
+#yearTotalRow td {
+  background-color: var(--apple-bg-main) !important;
+  color: var(--apple-label) !important;
+
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 800 !important;
+
+  text-transform: uppercase;
+  padding: 10px 15px;
+  white-space: nowrap;
+}
+
+/* 4) Header sticky + separators (geen fel blauw meer) */
+.year-grid thead th {
+  position: sticky;
+  top: 0;
+  z-index: 12;
+
+  text-align: left;
+
+  border-bottom: 1px solid var(--apple-separator) !important;
+  border-right: 1px solid var(--apple-separator) !important;
+}
+
+/* Sticky maand-kolom */
+.year-grid th:nth-child(1),
+.year-grid td:nth-child(1) {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+
+  text-align: left;
+
+  border-right: 1px solid var(--apple-separator) !important;
+}
+
+/* Hoekcel linksboven */
+.year-grid thead th:nth-child(1) {
+  z-index: 13;
+}
+
+/* 5) Data cellen */
+.year-grid td {
+  padding: 8px 15px;
+  text-align: right;
+
+  background-color: transparent;
+  border-bottom: 1px solid var(--apple-separator);
+  border-right: 1px solid var(--apple-separator);
+
+  white-space: nowrap;
+  color: var(--apple-blue);
+}
+
+/* Hover: subtiel Apple (alleen op apparaten met echte hover/muis) */
+@media (hover: hover) and (pointer: fine) {
+  .year-grid tbody tr:hover td:not(:nth-child(1)) {
+    background: rgba(120, 120, 128, 0.12) !important;
+  }
+}
+
+/* 6) Totaal rij: separator, geen neon blauw */
+#yearTotalRow td {
+  border-top: 1px solid var(--apple-separator) !important;
+  border-bottom: none !important;
+  font-size: 13px !important;
+}
+
+/* 7) Borders opruimen */
+.year-grid td:last-child,
+.year-grid th:last-child {
+  border-right: none !important;
+}
+
+.year-grid tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* ============================================================ */
+/* 8) KLEUREN (Apple System Colors & Kolom Logica)             */
+/* ============================================================ */
+
+/* --- DYNAMISCHE KOLOMMEN (Sparen, Bank, Spaarsaldo) --- */
+/* Deze regels zorgen dat de header (th) de kleur van de kolom volgt */
+
+/* Positieve kolommen (Groen) */
+.year-grid th.header-positive,
+.year-grid td.ff-amount-positive,
+#yearTotalRow td.ff-amount-positive,
+.ff-amount-positive {
+  color: var(--apple-green) !important;
+}
+
+/* Negatieve kolommen (Rood) */
+.year-grid th.header-negative,
+.year-grid td.ff-amount-negative,
+#yearTotalRow td.ff-amount-negative,
+.ff-amount-negative {
+  color: var(--apple-red) !important;
+}
+
+/* Neutrale kolommen (Systeemkleur) */
+.year-grid th.header-neutral,
+.year-grid td.ff-amount-neutral,
+#yearTotalRow td.ff-amount-neutral,
+.ff-amount-neutral {
+  color: var(--apple-label) !important;
+}
+
+/* Blue amount (Premium / Savings) */
+.ff-amount-blue{
+  color: rgba(var(--apple-blue-rgb), 0.98);
+}
+/* --- EXTRA STYLING VOOR DE KOPPEN --- */
+.year-grid thead th {
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- INKOMEN KOLOM (Kolom 2) --- */
+/* Altijd groen: Header, Body en Totaalrij */
+.year-grid td:nth-child(2), 
+.year-grid th:nth-child(2),
+#yearTotalRow td:nth-child(2) {
+  color: var(--apple-green) !important;
+  font-weight: 600;
+}
+
+/* --- UITGAVEN KOLOM (Kolom 3) --- */
+/* Altijd rood: Header, Body en Totaalrij */
+.year-grid td:nth-child(3), 
+.year-grid th:nth-child(3),
+#yearTotalRow td:nth-child(3) {
+  color: var(--apple-red) !important;
+  font-weight: 600;
+}
+
+/* --- Sparen kolom blauw als jaartotaal Sparen > 0 --- */
+.year-grid.ff-savings-blue th:nth-child(4),
+.year-grid.ff-savings-blue td:nth-child(4),
+#yearTotalRow.ff-savings-blue td:nth-child(4) {
+  color: var(--apple-blue) !important;
+  font-weight: 600;
+}
+
+/* ============================================================ */
+/* 9) Apple-style potlood (edit) icoon in Inkomsten/Uitgaven/Sparen */
+/* ============================================================ */
+
+/* Zorgt dat bedrag + potlood rechts uitlijnen en de potloodkleur exact de tekstkleur volgt (currentColor). */
+.clickable-cell .ff-cell-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.clickable-cell .ff-cell-text {
+  display: inline-block;
+  line-height: 1.1;
+}
+
+/* Apple-achtig, subtiel, maar altijd zichtbaar; kleurt mee met de cel (currentColor). */
+.ff-edit-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+
+  color: currentColor;
+  opacity: 0.55;
+
+  pointer-events: none; /* klik blijft op de hele cel */
+  transform: translateY(0.5px);
+}
+/* Pencil colors per row type */
+.ff-month-card__row--income .ff-edit-icon{ color: var(--apple-green); }
+.ff-month-card__row--expense .ff-edit-icon{ color: var(--apple-red); }
+.ff-month-card__row--saving .ff-edit-icon{ color: var(--apple-blue); }
+
+
+.clickable-cell:hover .ff-edit-icon {
+  opacity: 0.9;
+}
+
+.ff-row-inactive .ff-edit-icon {
+  opacity: 0.25;
+}
+
+.ff-row-inactive .ff-tray-wrap {
+  opacity: 0.25;
+}
+
+/* Verberg kolom: Saldo spaar (6e kolom) maar laat berekeningen intact */
+.year-grid th:nth-child(6),
+.year-grid td:nth-child(6) {
+  display: none !important;
+}
+
+
+/* --- Year Cards mode (Apple Premium) --- */
+
+/* Container: geen grote 'table card', maar losse maandkaarten */
+.ff-year-cards-container{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-top: 16px;
+}
+
+/* Verberg klassieke header/totalen in cards-mode */
+.ff-year-cards-table thead,
+.ff-year-cards-table tfoot{
+  display: none;
+}
+
+/* Tabelranden uitzetten voor card-rows */
+.ff-year-cards-table .ff-month-card-row td{
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+
+  /* Cards mode: voorkomen dat tabel-styling (uppercase/bold) doorlekt */
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+/* Maandkaart */
+.ff-month-card{
+  margin: 14px 14px 0 14px;
+  border-radius: 16px;
+  background: var(--apple-bg-secondary);
+  border: 1px solid var(--apple-separator);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+/* Title */
+.ff-month-card__title{
+  /* Premium month bar: match the FinFlow Premium headline look */
+  font-weight: 650;
+  font-size: 16px;
+  letter-spacing: -0.35px;
+
+  background-image:
+    /* sheen/streak */
+    linear-gradient(115deg,
+      rgba(255,255,255,0.00) 0%,
+      rgba(255,255,255,0.22) 18%,
+      rgba(255,255,255,0.00) 36%,
+      rgba(255,255,255,0.00) 100%
+    ),
+    /* main blue glass gradient */
+    linear-gradient(180deg,
+      rgba(165, 208, 255, 0.84) 0%,
+      rgba(92, 156, 255, 0.78) 46%,
+      rgba(58, 118, 255, 0.72) 100%
+    );
+  background-color: rgba(var(--apple-blue-rgb), 0.70);
+  color: #ffffff;
+
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+/* Light mode: slightly stronger contrast */
+@media (prefers-color-scheme: light) {
+  .ff-month-card__title{
+    background-image:
+      linear-gradient(115deg,
+        rgba(255,255,255,0.00) 0%,
+        rgba(255,255,255,0.18) 18%,
+        rgba(255,255,255,0.00) 36%,
+        rgba(255,255,255,0.00) 100%
+      ),
+      linear-gradient(180deg,
+        rgba(125, 182, 255, 0.92) 0%,
+        rgba(58, 118, 255, 0.86) 60%,
+        rgba(32, 92, 255, 0.82) 100%
+      );
+    background-color: rgba(var(--apple-blue-rgb), 0.78);
+  }
+}
+/* Rows */
+.ff-month-card__row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  color: var(--apple-label);
+  border-bottom: 1px solid var(--apple-separator);
+}
+
+/* Laatste rij in hoofdsectie zonder border (saldo-box volgt) */
+.ff-month-card__row:last-child{
+  border-bottom: none;
+}
+
+.ff-month-card__label{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--apple-secondary-label);
+}
+
+.ff-tray-wrap{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ff-tray-wrap .ff-ico--tray{
+  color: inherit;
+}
+
+/* Tray kleur-classes (gekoppeld aan bedrag-class via year-template.js trayColorClassFromAmountClass) */
+.ff-tray-wrap.ff-tray-color-positive{ color: var(--apple-green) !important; }
+.ff-tray-wrap.ff-tray-color-negative{ color: var(--apple-red) !important; }
+.ff-tray-wrap.ff-tray-color-blue{ color: rgba(var(--apple-blue-rgb), 0.98) !important; }
+.ff-tray-wrap.ff-tray-color-neutral{ color: var(--apple-label) !important; }
+
+
+/* Tray kleur volgt bedrag-kleur in cards-mode:
+   label is grijs, dus we kleuren tray via de amount-class op dezelfde row.
+   iOS Safari ondersteunt :has(), dit werkt ook op iPhone. */
+.ff-month-card__row:has(.ff-month-card__amount.ff-amount-positive) .ff-tray-wrap{
+  color: var(--apple-green) !important;
+}
+.ff-month-card__row:has(.ff-month-card__amount.ff-amount-negative) .ff-tray-wrap{
+  color: var(--apple-red) !important;
+}
+.ff-month-card__row:has(.ff-month-card__amount.ff-amount-blue) .ff-tray-wrap{
+  color: rgba(var(--apple-blue-rgb), 0.98) !important;
+}
+/* Neutraal: tray volgt label (geen override) */
+
+/* Totals (December): labels bold, no pencil */
+.ff-month-card__label--total{
+  font-weight: 700;
+  color: var(--apple-label);
+}
+
+.ff-month-card__amount{
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--apple-label);
+  white-space: nowrap;
+}
+
+/* Saldo Spaar: bedrag blauw via .ff-amount-blue (0 => standaard tekstkleur) */
+.ff-month-card__row[data-type="saving"] .ff-month-card__amount.ff-amount-blue{
+  color: var(--apple-blue) !important;
+}
+
+/* Clickable rows: subtiel 'tap' effect */
+.ff-month-card__row.clickable-cell{
+  cursor: pointer;
+}
+.ff-month-card__row.clickable-cell:active{
+  transform: scale(0.995);
+  opacity: 0.92;
+}
+
+/* Saldo box */
+.ff-month-card__saldo{
+  background: transparent;
+  border-top: none;
+}
+
+/* Plain row in saldo box (Bank) */
+.ff-month-card__row--plain{
+  cursor: default !important;
+}
+
+/* Pencil icon */
+.ff-edit-icon{
+  width: 16px;
+  height: 16px;
+  opacity: 0.9;
+  color: var(--apple-secondary-label);
+}

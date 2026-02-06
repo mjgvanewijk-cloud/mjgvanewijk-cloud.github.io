@@ -1,0 +1,190 @@
+/* styles/components/nav.css - Apple System Versie */
+
+/* ============================================================ */
+/* NAV-PILL: JAARNAVIGATIE MET ZONES (Apple surfaces + separators) */
+/* ============================================================ */
+
+.nav-pill {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Apple look */
+  background: var(--apple-bg-secondary) !important;
+  border: 1px solid var(--apple-separator) !important;
+  border-radius: 999px;
+
+  /* Grootte/plaatsing: behoud je “pill” look maar responsive */
+  width: min(520px, calc(100% - 32px));
+  height: 60px;
+
+  margin: 10px auto;
+  padding: 0;
+  overflow: hidden;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+/* Grote klikzones links/rechts */
+.nav-zone {
+  flex: 1;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  /* Belangrijk: laat grote inhoud toe */
+  overflow: visible !important;
+}
+
+/* Pijlen: Apple blue, groot, gecentreerd */
+.nav-pill .year-arrow {
+  all: unset !important;
+
+  display: block !important;
+  width: 100% !important;
+
+  color: var(--apple-blue) !important;
+
+  font-size: 40px !important;
+  line-height: 60px !important;
+  font-weight: 900 !important;
+
+  cursor: pointer !important;
+  text-align: center !important;
+}
+
+/* Middenstuk met jaar en tandwiel */
+#navZoneCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 0 10px;
+
+  /* BELANGRIJK: midden is geen “actiezone” meer */
+  cursor: default;
+}
+
+#currentYear {
+  color: var(--apple-label) !important;
+  font-weight: 800;
+  font-size: 22px;
+  min-width: 65px;
+  text-align: center;
+  letter-spacing: -0.2px;
+
+  /* BELANGRIJK: jaar zelf niet “klikbaar” laten lijken */
+  cursor: default;
+}
+
+#settingsBtn {
+  all: unset;
+  font-size: 26px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--apple-blue) !important;
+}
+
+/* Undo/Redo icon buttons (altijd zichtbaar) */
+#undoBtn,
+#redoBtn {
+  all: unset;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--apple-blue) !important;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+#undoBtn .nav-icon,
+#redoBtn .nav-icon {
+  width: 22px;
+  height: 22px;
+}
+
+#undoBtn:active,
+#redoBtn:active,
+#settingsBtn:active {
+  transform: scale(0.96);
+}
+
+#undoBtn[disabled],
+#redoBtn[disabled] {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+
+  /* override het “fel blauw” */
+  color: var(--apple-label-tertiary) !important;
+}
+
+/* laat de klik NIET doorvallen naar navZoneCenter */
+#undoBtn[disabled],
+#redoBtn[disabled] {
+  pointer-events: none;
+}
+
+/* HIGHLIGHTS: gebruik Apple blue als tijdelijke “pressed/highlight” */
+.nav-pill.highlight-left,
+.nav-pill.highlight-right {
+  background-color: var(--apple-blue) !important;
+  border-color: transparent !important;
+}
+
+.nav-pill.highlight-left .year-arrow,
+.nav-pill.highlight-right .year-arrow,
+.nav-pill.highlight-right #settingsBtn,
+.nav-pill.highlight-right #undoBtn,
+.nav-pill.highlight-right #redoBtn,
+.nav-pill.highlight-left #currentYear,
+.nav-pill.highlight-right #currentYear {
+  color: #ffffff !important;
+}
+
+.nav-pill.highlight-left #settingsBtn,
+.nav-pill.highlight-left #undoBtn,
+.nav-pill.highlight-left #redoBtn {
+  color: #ffffff !important;
+}
+
+
+/* Disabled must always win, even when nav-pill highlight classes are active */
+.nav-pill.highlight-left #undoBtn[disabled],
+.nav-pill.highlight-left #redoBtn[disabled],
+.nav-pill.highlight-right #undoBtn[disabled],
+.nav-pill.highlight-right #redoBtn[disabled] {
+  color: var(--apple-label-tertiary) !important;
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ============================================================ */
+/* WIZARD BLOKKADE: Verberg navigatie tijdens setup             */
+/* ============================================================ */
+
+body.wizard-active .nav-pill,
+body.wizard-active .navpil {
+  display: none !important;
+}
+
+body.wizard-active .table-container {
+  display: none !important;
+}

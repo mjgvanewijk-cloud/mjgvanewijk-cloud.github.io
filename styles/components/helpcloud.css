@@ -1,0 +1,130 @@
+/* styles/components/helpcloud.css */
+
+/*
+  Passieve context-help:
+  - verschijnt na idle als klein wolkje
+  - gebruiker klikt zelf om de tekst te openen
+  - targets kunnen knipperen/pulsen (persistent tot buitenklik)
+*/
+
+.ff-helpcloud-bubble{
+  position: fixed;
+  right: 14px;
+  bottom: 86px; /* above footer */
+  z-index: 999999;
+  padding: 10px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(190, 4, 168, 0.72);
+  color: rgba(255,255,255,0.92);
+  font-weight: 650;
+  letter-spacing: -0.2px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.35);
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  pointer-events: none;
+}
+
+.ff-helpcloud-bubble.is-visible{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.ff-helpcloud-panel{
+  position: fixed;
+  right: 14px;
+  bottom: 140px;
+  z-index: 1000000;
+  width: min(360px, calc(100vw - 28px));
+  border-radius: 18px;
+  background: rgba(18,18,18,0.86);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.42);
+  display: none;
+}
+
+.ff-helpcloud-panel.is-open{ display:block; }
+
+.ff-helpcloud-panel__hdr{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 12px 12px 6px 12px;
+}
+
+.ff-helpcloud-panel__title{
+  font-weight: 720;
+  color: rgba(255,255,255,0.94);
+}
+
+.ff-helpcloud-panel__close{
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.84);
+  font-size: 16px;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+
+.ff-helpcloud-panel__body{
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 12px 10px 12px;
+  color: rgba(255,255,255,0.86);
+  line-height: 1.35;
+  white-space: pre-line;
+  max-height: 220px;
+  overflow: auto;
+}
+
+.ff-helpcloud-panel__cta{
+  padding: 0 12px 12px 12px;
+}
+
+.ff-helpcloud-panel__btn{
+  width: 100%;
+  border-radius: 14px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(10,132,255,0.95);
+  color: rgba(255,255,255,0.96);
+  font-weight: 700;
+}
+
+/* ✅ Knipperende/pulsing highlight (niet statisch) */
+.ff-helpcloud-highlight{
+  position: relative;
+  outline: 2px solid rgba(10,132,255,0.95);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(10,132,255,0.95) inset;
+animation: ffHelpBlink 1.0s ease-in-out infinite;
+}
+
+.ff-helpcloud-highlight::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius: 16px;
+  border: 2px solid rgba(10,132,255,0.45);
+  opacity: 0.0;
+  animation: ffHelpPulseRing 1.0s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes ffHelpBlink{
+  0%   { outline-color: rgba(10,132,255,0.25); }
+  50%  { outline-color: rgba(10,132,255,0.98); }
+  100% { outline-color: rgba(10,132,255,0.25); }
+}
+
+@keyframes ffHelpPulseRing{
+  0%   { transform: scale(0.98); opacity: 0.0; }
+  45%  { transform: scale(1.02); opacity: 0.55; }
+  100% { transform: scale(1.06); opacity: 0.0; }
+}
