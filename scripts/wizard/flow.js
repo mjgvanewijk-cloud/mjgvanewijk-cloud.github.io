@@ -25,6 +25,18 @@ import {
   openEditBalancesOnlyWizard as openEditBalancesOnlyWizardLogic // Gecentraliseerde logica
 } from "./steps.js";
 
+
+
+/**
+ * Zorgt dat de UI niet in "wizard-active" blijft hangen.
+ * Dit is essentieel omdat CSS de nav-pill verbergt wanneer body.wizard-active actief is.
+ */
+function exitWizardMode() {
+  try { document.body.classList.remove("wizard-active"); } catch {}
+  // Sluit eventuele wizard overlays zodat de normale UI weer zichtbaar is.
+  try { closeAllWizardOverlays(); } catch {}
+}
+
 /**
  * Controleert of de essentiële startwaarden al aanwezig zijn.
  */
@@ -96,12 +108,14 @@ export function openYearSettingsWizard(year, onComplete, opts = {}) {
 export function openWelcomeOverlay() {
   // Als de gebruiker al geconfigureerd is, nooit opnieuw de welcome/wizard tonen.
   if (isUserConfigured()) {
+    exitWizardMode();
     renderYear();
     return;
   }
 
   // Backwards: als huidig jaar toevallig wel compleet is, ook gewoon renderen.
   if (isYearConfigured(currentYear)) {
+    exitWizardMode();
     renderYear();
     return;
   }
@@ -128,16 +142,18 @@ export function setupWelcomeStartHandler() {
 // Bestaande gebruiker: direct door naar maandkaarten/jaaroverzicht.
 if (isUserConfigured()) {
   welcomeOverlay.classList.add("hidden");
-  closeAllWizardOverlays();
+  exitWizardMode();
+  try { resetCaches(); } catch {}
   try { renderYear(); } catch {}
+  // Zorg dat andere UI (zoals undo/redo) weet dat we niet in wizard-modus zitten.
+  try { window.dispatchEvent(new CustomEvent("finflow-wizard-finalized")); } catch {}
   return;
 }
 
     const finalizeWizard = () => {
       welcomeOverlay.classList.add("hidden");
-      closeAllWizardOverlays();
-      resetCaches(); 
-      
+      exitWizardMode();
+      resetCaches();
       setTimeout(() => {
           try {
             renderYear();
