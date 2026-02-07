@@ -18,21 +18,6 @@ export function getYearValueFromBlock(block) {
 
 // Parse helper (plain "1000,00" or formatted "€ 1.000,00").
 export function parseDecimalOrZero(raw) {
-  const cfg = {
-    symbol: String(t("currency.symbol") || "€"),
-    decimal: String(t("currency.decimalSeparator") || ","),
-    thousand: String(t("currency.thousandSeparator") || "."),
-  };
-
-  let s = String(raw ?? "").trim();
-  if (!s) return 0;
-
-  s = s.replace(cfg.symbol, "").replace(/\s/g, "");
-
-  if (cfg.thousand) s = s.split(cfg.thousand).join("");
-  if (cfg.decimal && cfg.decimal !== ".") s = s.replace(cfg.decimal, ".");
-  s = s.replace(/[^0-9.\-]/g, "");
-
-  const n = Number(s);
-  return Number.isFinite(n) ? n : 0;
+  const n = parseMoneyInput(raw);
+  return (n == null ? 0 : n);
 }

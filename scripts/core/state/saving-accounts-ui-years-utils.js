@@ -1,35 +1,14 @@
 // scripts/core/state/saving-accounts-ui-years-utils.js
 import { t } from "../../i18n.js";
+import { parseMoneyInput } from "../../ui/popup/money-input.js";
 
 /**
  * Parse helper voor numerieke geldbedragen.
  * Accepteert "1000,00" en geformatteerde valuta zoals "€ 1.000,00".
  */
 export function parseDecimalOrZero(raw) {
-  const cfg = {
-    symbol: String(t("currency.symbol") || "€"),
-    decimal: String(t("currency.decimalSeparator") || ","),
-    thousand: String(t("currency.thousandSeparator") || "."),
-  };
-
-  let s = String(raw ?? "").trim();
-  if (!s) return 0;
-
-  if (cfg.symbol) s = s.split(cfg.symbol).join("");
-  s = s.replace(/\u00A0/g, " ").trim();
-
-  if (cfg.thousand) {
-    const th = cfg.thousand.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    s = s.replace(new RegExp(th, "g"), "");
-  }
-  if (cfg.decimal && cfg.decimal !== ".") {
-    const ds = cfg.decimal.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    s = s.replace(new RegExp(ds, "g"), ".");
-  }
-
-  s = s.replace(/[^0-9.\-]/g, "");
-  const v = parseFloat(s);
-  return Number.isFinite(v) ? v : 0;
+  const n = parseMoneyInput(raw);
+  return (n == null ? 0 : n);
 }
 
 /**

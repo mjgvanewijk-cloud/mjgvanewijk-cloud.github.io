@@ -2,6 +2,17 @@
 import { t } from "../../i18n.js";
 import { updateRemoveButtonsState } from "./categories-ui-years-utils.js";
 
+
+function formatBudgetForInput(budget) {
+  if (budget === "" || budget === null || budget === undefined) return "";
+  // If we already have a comma, assume NL input and keep as-is.
+  let s = (typeof budget === "number") ? budget.toFixed(2) : String(budget);
+  s = s.trim();
+  if (s.includes(",")) return s;
+  // Convert decimal point to comma for NL input display
+  return s.replace(".", ",");
+}
+
 /**
  * Rendert één rij met jaar en bedrag input (met inline foutmelding per jaar-blok).
  */
@@ -20,7 +31,7 @@ export function renderYearRow(container, year = "", budget = "") {
       <input type="text" inputmode="numeric" pattern="[0-9]*"
              class="ff-input cat-year-val cat-year-input" placeholder="YYYY" value="${year}">
       <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
-             class="ff-input cat-budget-val cat-budget-input" placeholder="0,00" value="${budget}">
+             class="ff-input cat-budget-val cat-budget-input" placeholder="0,00" value="${formatBudgetForInput(budget)}">
       <button type="button" class="remove-year-btn ff-btn ff-cat-remove-btn"
               aria-label="${t("common.delete")}">${t("common.delete")}</button>
     </div>

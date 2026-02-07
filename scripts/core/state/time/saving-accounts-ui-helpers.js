@@ -5,6 +5,6 @@ export function monthName(m) {
 }
 
 export function parseDecimalOrZero(raw) {
-  const v = parseFloat(String(raw ?? "").replace(",", "."));
-  return Number.isFinite(v) ? v : 0;
+  const n = parseMoneyInput(raw);
+  return (n == null ? 0 : n);
 }
