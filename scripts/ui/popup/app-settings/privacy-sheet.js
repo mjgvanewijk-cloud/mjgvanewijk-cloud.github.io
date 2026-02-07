@@ -3,6 +3,20 @@
 import { t } from "../../../i18n.js";
 import { setHelpMuted } from "./state.js";
 
+// Open privacy in the same view (iOS/PWA friendly) and mark origin.
+function appendFromApp(rawUrl) {
+  try {
+    const u = new URL(rawUrl, window.location.href);
+    // add marker so privacy page can show a "Back to FinFlow" button
+    if (!u.searchParams.has("from")) u.searchParams.set("from", "finflow");
+    return u.toString();
+  } catch (_) {
+    // Fallback: simple query append
+    if (String(rawUrl).includes("?")) return rawUrl + "&from=finflow";
+    return rawUrl + "?from=finflow";
+  }
+}
+
 export function renderPrivacy(container, { onBack }) {
   // Ensure HelpCloud stays muted in this sub-sheet too.
   setHelpMuted(container);
@@ -64,10 +78,6 @@ export function renderPrivacy(container, { onBack }) {
   if (openBtn) openBtn.onclick = (e) => {
     e.preventDefault();
     if (!url) return;
-    try {
-      window.open(url, "_blank", "noopener,noreferrer");
-    } catch (_) {
-      window.location.href = url;
-    }
+    window.location.href = appendFromApp(url);
   };
 }
