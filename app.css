@@ -83,3 +83,20 @@ header h1 {
   height: 100% !important;
   display: block;
 }
+
+
+/* ============================================================
+   iOS: voorkom dubbel-tap zoom (app-gevoel)
+   - Viewport user-scalable=no blokkeert zoom.
+   - touch-action: manipulation voorkomt double-tap zoom op moderne browsers.
+   ============================================================ */
+html, body {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+a, button, input, textarea, select, label, .nav-pill, .nav-zone, .year-arrow {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
