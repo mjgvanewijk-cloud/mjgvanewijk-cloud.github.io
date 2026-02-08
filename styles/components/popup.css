@@ -2606,3 +2606,60 @@
   width: 100%;
   display: block;
 }
+
+/* =========================================================================
+   LIGHT MODE iPhone fixes (Income/Expense/Saving sheets)
+   - Ensure all “Toevoegen/Bewerken” sheets have readable contrast
+   - Keep styling consistent with existing income/expense sheets
+   ========================================================================= */
+
+@media (prefers-color-scheme: light) {
+  /* Category/Saving account edit base: these rules were tuned for dark; override for light */
+  .category-edit-sheet .ff-field-label{
+    color: var(--apple-secondary-label) !important;
+  }
+
+  .category-edit-sheet .ff-section{
+    background: var(--apple-bg-secondary) !important;
+    border: 1px solid var(--apple-separator) !important;
+  }
+
+  .category-edit-sheet .ff-divider{
+    background: var(--apple-separator) !important;
+  }
+
+  .category-edit-sheet .ff-segment.ff-cat-segment{
+    background: var(--apple-bg-main) !important;
+    border: 1px solid var(--apple-separator) !important;
+  }
+
+  .category-edit-sheet .cat-year-row + .cat-year-row{
+    border-top: 1px solid var(--apple-separator) !important;
+  }
+
+  /* Destructive buttons (“Verwijderen”) need proper contrast in light mode */
+  .category-edit-sheet .ff-cat-remove-btn,
+  .ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn,
+  .savings-edit-sheet .remove-year-btn{
+    background: rgba(0,0,0,0.04) !important;
+    border: 1px solid var(--apple-separator) !important;
+  }
+
+  /* Month-category framed group (row + action buttons) used by income/expense/saving month sheets */
+  .ff-month-cat-group{
+    background: var(--apple-bg-secondary) !important;
+    border: 1px solid var(--apple-separator) !important;
+  }
+
+  /* Saving month pills: the dark-tuned pill looked “washed out” in light mode */
+  .ff-month-category-sheet--saving .ff-saving-pill{
+    background: var(--apple-bg-main) !important;
+    border: 1px solid var(--apple-separator) !important;
+    box-shadow: none !important;
+    color: var(--apple-label) !important;
+  }
+
+  .ff-month-category-sheet--saving .ff-saving-line-right{
+    color: var(--apple-label) !important;
+  }
+}

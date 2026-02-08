@@ -393,7 +393,7 @@
     "ctx": {
       "year": {
         "title": "Wat kan ik hier doen?",
-        "body": "Hier zie je het JAAROVERZICHT en de MAANDKAARTEN.\n\nWat kun je hier doen:\n• MAANDKAART => Tik op een MAANDKAART-regel (Inkomsten/Uitgaven/Sparen) om bedragen in te voeren of aan te passen.\n\n• JAAROVERZICHT => ‘Totaal Inkomsten’ en ‘Totaal Uitgaven’ openen een overzicht met totalen en details.\n• ‘Eindsaldo Spaarpotjes’ opent een overzicht van je spaarpotjes voor dit jaar.\n\nTip: begin met een maand aan te passen, dan zie je direct wat het saldo doet."
+        "body": "Hier zie je het JAAROVERZICHT en de MAANDKAARTEN.\n\nWat kun je hier doen:\n• MAANDKAART => Tik op een MAANDKAART-regel (Inkomsten/Uitgaven/Sparen) om bedragen in te voeren of aan te passen.\n\n• JAAROVERZICHT => ‘Inkomsten’ en ‘Uitgaven’ openen een overzicht met totalen en details.\n• ‘Spaarpotjes’ opent een overzicht van je spaarpotjes voor dit jaar.\n\nTip: begin met een maand aan te passen, dan zie je direct wat het saldo doet."
       },
       "savingpots": {
         "title": "Spaarpotjes: wat zie je en wat kan je aanpassen?",
@@ -425,7 +425,7 @@
       },
       "year_readonly": {
         "title": "Jaaroverzicht (alleen bekijken)",
-        "body": "Dit is een READ‑ONLY overzicht dat je opent vanuit het jaaroverzicht:\n• Tik op ‘Totaal Inkomsten’ of ‘Totaal Uitgaven’ → je ziet een jaaroverzicht met totalen en details.\n• Tik op ‘Eindsaldo Spaarpotjes’ → je ziet een jaaroverzicht van je spaarpotjes.\n\nWat zie je in deze sheet:\n• Een lijst met regels (bijv. categorieën of spaarpotjes) met bedragen rechts uitgelijnd.\n• Soms extra detailregels per item (zoals gespaard/opgenomen en rente).\n\nWat kun je doen:\n• Alleen bekijken en sluiten.\n\nTip: Wil je iets aanpassen? Ga terug en open een maandkaart (Inkomsten/Uitgaven/Sparen) of open ‘Spaarpotjes {month} {year}’ via de maandkaart."
+        "body": "Dit is een READ‑ONLY overzicht dat je opent vanuit het jaaroverzicht:\n• Tik op ‘Inkomsten’ of ‘Uitgaven’ → je ziet een jaaroverzicht met totalen en details.\n• Tik op ‘Spaarpotjes’ → je ziet een jaaroverzicht van je spaarpotjes.\n\nWat zie je in deze sheet:\n• Een lijst met regels (bijv. categorieën of spaarpotjes) met bedragen rechts uitgelijnd.\n• Soms extra detailregels per item (zoals gespaard/opgenomen en rente).\n\nWat kun je doen:\n• Alleen bekijken en sluiten.\n\nTip: Wil je iets aanpassen? Ga terug en open een maandkaart (Inkomsten/Uitgaven/Sparen) of open ‘Spaarpotjes {month} {year}’ via de maandkaart."
       },
       "savingpots_amount_focus": {
         "title": "Gespaard/Opgenomen aanpassen",
