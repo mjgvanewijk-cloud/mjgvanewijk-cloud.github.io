@@ -491,14 +491,13 @@
   border: 1px solid transparent !important;
 }
 
-/* Secondary (neutral: light/dark iOS gray) */
+/* Secondary (grijs, witte tekst) */
 .ff-btn--secondary,
 .ff-btn--text,
 .premium-later-btn,
 #premiumTrialOverlay #closeTrialBtn,
 #closeSettingsBtn {
-  /* iOS-like systemGray fill with proper contrast */
-  background-color: rgba(118, 118, 128, 0.12) !important;
+  background-color: var(--apple-bg-main) !important;
   color: var(--apple-label) !important;
   border: 1px solid var(--apple-separator) !important;
   font-weight: 600 !important;
@@ -510,19 +509,6 @@
   align-items: center;
   justify-content: center;
 }
-
-@media (prefers-color-scheme: dark) {
-  .ff-btn--secondary,
-  .ff-btn--text,
-  .premium-later-btn,
-  #premiumTrialOverlay #closeTrialBtn,
-  #closeSettingsBtn {
-    background-color: rgba(118, 118, 128, 0.24) !important;
-    border-color: var(--apple-separator) !important;
-    color: var(--apple-label) !important;
-  }
-}
-
 
 /* Specifieke fix voor verticale settings popups */
 .ff-settings-popup--vertical .ff-popup__footer button {
@@ -658,10 +644,6 @@
   padding: 0 12px;
   height: 34px;
   border-radius: 8px; /* was 12px; minder “pill”-effect */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 34px;
   font-weight: 650;
   color: var(--apple-red);
   background: rgba(255, 255, 255, 0.06);
@@ -1382,6 +1364,20 @@
   --ff-saving-year-amount-col: clamp(120px, 34vw, 180px);
 }
 
+/* --- iPhone Light/Dark: saving-year sheet text colors (avoid inheriting white from headers) --- */
+.ff-saving-year-sheet .ff-saving-name{
+  color: var(--apple-label) !important;
+}
+.ff-saving-year-sheet .ff-saving-line-right{
+  color: var(--apple-label);
+}
+.ff-saving-year-sheet .ff-saving-line-right.ff-amount-positive{
+  color: var(--apple-green) !important;
+}
+.ff-saving-year-sheet .ff-saving-line-right.ff-amount-negative{
+  color: var(--apple-red) !important;
+}
+
 .ff-saving-year-sheet .ff-saving-line{
   display: grid !important;
   grid-template-columns: 1fr var(--ff-saving-year-amount-col) !important;
@@ -1624,7 +1620,6 @@
 
 .ff-saving-name {
   font-weight: 600;
-  color: var(--apple-label);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1852,7 +1847,7 @@
 
 /* 1) Rekeningnaam altijd wit (iPhone had blauw) */
 .ff-saving-row .ff-saving-name {
-  color: #fff !important;
+  color: var(--apple-label) !important;
 }
 
 /* ===============================
@@ -1907,9 +1902,10 @@
   max-width: 42vw;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.06);
-  color: #fff;
+  border: 1px solid var(--apple-separator);
+  background: var(--apple-bg-main);
+  color: var(--apple-label);
+  -webkit-text-fill-color: var(--apple-label); /* iOS Safari */
   text-align: right;       /* bedragen rechts uitlijnen */
   outline: none;
 }
@@ -1962,8 +1958,8 @@
 }
 
 .ff-saving-inline-editor-row .ff-saving-rate-label{
-  color: rgba(255,255,255,0.75);
-  font-size: 13px;
+  color: var(--apple-secondary-label);
+font-size: 13px;
   font-weight: 600;
   /* Label exact boven het invoerveld aan de linkerkant */
   align-self: flex-start;
@@ -1984,8 +1980,8 @@
 }
 
 .ff-saving-inline-editor-row .ff-saving-rate-suffix{
-  color: rgba(255,255,255,0.75);
-  font-weight: 700;
+  color: var(--apple-label);
+font-weight: 700;
 }
 
 /* Toggle buttons: override ff-btn--secondary padding (!important) zodat hoogte echt verandert */
@@ -2047,7 +2043,7 @@
   align-items: center;
   gap: 10px;
   font-size: 16px;
-  color: rgba(255,255,255,0.92);
+  color: var(--apple-label);
 }
 
 .ff-month-cat-inline-actions {
@@ -2626,59 +2622,34 @@
   display: block;
 }
 
+.ff-month-cat-amount-input::placeholder{ color: var(--apple-secondary-label); }
+
+
 /* =========================================================================
-   LIGHT MODE iPhone fixes (Income/Expense/Saving sheets)
-   - Ensure all “Toevoegen/Bewerken” sheets have readable contrast
-   - Keep styling consistent with existing income/expense sheets
+   PATCH: Dark mode - Secondary buttons (Annuleren/Sluiten) must be grey (not black)
    ========================================================================= */
+@media (prefers-color-scheme: dark) {
+  .ff-btn--secondary,
+  .ff-btn--text,
+  .premium-later-btn,
+  #premiumTrialOverlay #closeTrialBtn,
+  #closeSettingsBtn {
+    background-color: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+  }
+}
 
+
+/* =========================================================================
+   PATCH: Light mode - Add visible frame (kader) around "Verwijderen" buttons
+   (Categorie toevoegen/bewerken + Spaarpot toevoegen/bewerken)
+   ========================================================================= */
 @media (prefers-color-scheme: light) {
-  /* Category/Saving account edit base: these rules were tuned for dark; override for light */
-  .category-edit-sheet .ff-field-label{
-    color: var(--apple-secondary-label) !important;
-  }
-
-  .category-edit-sheet .ff-section{
-    background: var(--apple-bg-secondary) !important;
-    border: 1px solid var(--apple-separator) !important;
-  }
-
-  .category-edit-sheet .ff-divider{
-    background: var(--apple-separator) !important;
-  }
-
-  .category-edit-sheet .ff-segment.ff-cat-segment{
-    background: var(--apple-bg-main) !important;
-    border: 1px solid var(--apple-separator) !important;
-  }
-
-  .category-edit-sheet .cat-year-row + .cat-year-row{
-    border-top: 1px solid var(--apple-separator) !important;
-  }
-
-  /* Destructive buttons (“Verwijderen”) need proper contrast in light mode */
   .category-edit-sheet .ff-cat-remove-btn,
   .ff-cat-edit-from-month .cat-year-row .ff-cat-remove-btn,
-  .savings-edit-sheet .remove-year-btn{
-    background: rgba(0,0,0,0.04) !important;
-    border: 1px solid var(--apple-separator) !important;
-  }
-
-  /* Month-category framed group (row + action buttons) used by income/expense/saving month sheets */
-  .ff-month-cat-group{
-    background: var(--apple-bg-secondary) !important;
-    border: 1px solid var(--apple-separator) !important;
-  }
-
-  /* Saving month pills: the dark-tuned pill looked “washed out” in light mode */
-  .ff-month-category-sheet--saving .ff-saving-pill{
-    background: var(--apple-bg-main) !important;
-    border: 1px solid var(--apple-separator) !important;
-    box-shadow: none !important;
-    color: var(--apple-label) !important;
-  }
-
-  .ff-month-category-sheet--saving .ff-saving-line-right{
-    color: var(--apple-label) !important;
+  .savings-edit-sheet .remove-year-btn {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border-color: rgba(0, 0, 0, 0.22) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.50) !important;
   }
 }
