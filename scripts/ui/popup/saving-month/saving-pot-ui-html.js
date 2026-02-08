@@ -42,7 +42,7 @@ export function getSavingPotSheetHTML() {
         padding-left: 16px !important;
         padding-right: 16px !important;
         box-sizing: border-box !important;
-        background: var(--apple-bg-secondary) !important;
+        background: #000000 !important;
         /* Het hele blok (teksten + velden + verwijderen) omlaag duwen vanaf de lijn */
         margin-top: 0px !important;
       }
@@ -59,9 +59,15 @@ export function getSavingPotSheetHTML() {
 
       /* VASTE BREEDTES (ongewijzigd voor stabiliteit) */
       #savingPotAddOverlay .cat-year-input, #savingPotAddOverlay .col-year { width: 65px !important; flex: 0 0 65px !important; }
-      #savingPotAddOverlay .cat-budget-input, #savingPotAddOverlay .col-amount { width: 90px !important; flex: 0 0 90px !important; }
+      #savingPotAddOverlay .cat-budget-input, #savingPotAddOverlay .col-amount { flex: 1 1 0 !important; width: auto !important; min-width: 0 !important; }
       #savingPotAddOverlay .sav-rate-input, #savingPotAddOverlay .col-rate { width: 65px !important; flex: 0 0 65px !important; }
       #savingPotAddOverlay .ff-cat-remove-btn, #savingPotAddOverlay .col-actions { width: 95px !important; flex: 0 0 95px !important; }
+
+      /* FULL-WIDTH ALIGNMENT: let amount column stretch so the whole row matches footer width */
+      #savingPotAddOverlay .col-amount, 
+      #savingPotAddOverlay .cat-budget-input { flex: 1 1 0 !important; width: auto !important; min-width: 0 !important; }
+      #savingPotAddOverlay .col-amount .ff-input,
+      #savingPotAddOverlay .cat-budget-input .ff-input { width: 100% !important; }
 
       /* 4. DWING ALLE INVOERVELDEN NAAR DEZELFDE HOOGTE, ZWART UITERLIJK EN BLAUWE FOCUS */
       #savingPotAddOverlay .ff-input {
@@ -69,14 +75,14 @@ export function getSavingPotSheetHTML() {
         padding: 4px 8px !important;       /* Binnenruimte: 4px boven/onder, 8px links/rechts om invoervelden visueel gelijk te trekken */
         box-sizing: border-box !important; /* Zorgt dat padding de totale breedte en hoogte van het veld niet vergroot */
         line-height: 1.2 !important;       /* Bepaalt de teksthoogte voor een consistente verticale uitlijning in het veld */
-        background-color: var(--apple-bg-main) !important; /* Binnenkant van het veld is nu zwart */
-        color: var(--apple-label) !important;           /* Tekstkleur wit voor leesbaarheid op zwart */
-        border: 1px solid var(--apple-separator) !important; /* Herstelt het volledige kader rondom de invoervelden */
+        background-color: #000000 !important; /* Binnenkant van het veld is nu zwart */
+        color: #ffffff !important;           /* Tekstkleur wit voor leesbaarheid op zwart */
+        border: 1px solid rgba(84, 84, 88, 0.6) !important; /* Herstelt het volledige kader rondom de invoervelden */
         border-radius: 8px !important;
       }
 
       #savingPotAddOverlay .ff-input:focus {
-        border-color: var(--apple-blue) !important;  /* Blauw kader verschijnt bij klikken in het veld */
+        border-color: #007aff !important;  /* Blauw kader verschijnt bij klikken in het veld */
         outline: none !important;
       }
 
@@ -161,14 +167,14 @@ export function getSavingPotSheetHTML() {
 
       <div class="ff-divider" style="margin-top:0px; margin-bottom: 0px;"></div>
 
-      <div class="ff-section ff-cat-years" style="margin-top:0px; padding-top: 12px; background: var(--apple-bg-secondary); padding-bottom: 12px;">
+      <div class="ff-section ff-cat-years" style="margin-top:0px; padding-top: 12px; background: #000000; padding-bottom: 12px;">
         <div class="sav-years-columns" aria-hidden="true">
           <div class="col-year"></div>
           <div class="col-amount">
-            <div class="cat-year-label" style="color: var(--apple-label); margin-bottom: 0;">${t("categories.maand_bedrag")}</div>
+            <div class="cat-year-label" style="color: white; margin-bottom: 0;">${t("categories.maand_bedrag")}</div>
           </div>
           <div class="col-rate">
-            <div class="cat-year-label" style="color: var(--apple-label); margin-bottom: 0;">${t("saving_accounts.interest_label")}</div>
+            <div class="cat-year-label" style="color: white; margin-bottom: 0;">${t("saving_accounts.interest_label")}</div>
           </div>
           <div class="col-actions"></div>
         </div>
