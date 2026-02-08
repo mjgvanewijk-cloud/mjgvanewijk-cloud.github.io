@@ -36,13 +36,13 @@ export function getSavingPotSheetHTML() {
         box-sizing: border-box !important;
       }
 
-      /* 3. ZWARTE SECTIE: Volle breedte met eigen padding voor uitlijning */
+      /* 3. YEARS SECTION: full width with own padding for alignment */
       #savingPotAddOverlay .ff-section.ff-cat-years {
         width: 100% !important;
         padding-left: 16px !important;
         padding-right: 16px !important;
         box-sizing: border-box !important;
-        background: #000000 !important;
+        background: transparent !important;
         /* Het hele blok (teksten + velden + verwijderen) omlaag duwen vanaf de lijn */
         margin-top: 0px !important;
       }
@@ -63,20 +63,18 @@ export function getSavingPotSheetHTML() {
       #savingPotAddOverlay .sav-rate-input, #savingPotAddOverlay .col-rate { width: 65px !important; flex: 0 0 65px !important; }
       #savingPotAddOverlay .ff-cat-remove-btn, #savingPotAddOverlay .col-actions { width: 95px !important; flex: 0 0 95px !important; }
 
-      /* 4. DWING ALLE INVOERVELDEN NAAR DEZELFDE HOOGTE, ZWART UITERLIJK EN BLAUWE FOCUS */
+      /* 4. Force all inputs to same height; theme-aware colors + focus */
       #savingPotAddOverlay .ff-input {
         height: 44px !important;           /* Geforceerde hoogte voor alle velden */
         padding: 4px 8px !important;       /* Binnenruimte: 4px boven/onder, 8px links/rechts om invoervelden visueel gelijk te trekken */
         box-sizing: border-box !important; /* Zorgt dat padding de totale breedte en hoogte van het veld niet vergroot */
         line-height: 1.2 !important;       /* Bepaalt de teksthoogte voor een consistente verticale uitlijning in het veld */
-        background-color: #000000 !important; /* Binnenkant van het veld is nu zwart */
-        color: #ffffff !important;           /* Tekstkleur wit voor leesbaarheid op zwart */
-        border: 1px solid rgba(84, 84, 88, 0.6) !important; /* Herstelt het volledige kader rondom de invoervelden */
+        /* colors come from global theme (popup.css) */
         border-radius: 8px !important;
       }
 
       #savingPotAddOverlay .ff-input:focus {
-        border-color: #007aff !important;  /* Blauw kader verschijnt bij klikken in het veld */
+        border-color: var(--apple-blue) !important;  /* Theme-aware focus color */
         outline: none !important;
       }
 
@@ -161,14 +159,14 @@ export function getSavingPotSheetHTML() {
 
       <div class="ff-divider" style="margin-top:0px; margin-bottom: 0px;"></div>
 
-      <div class="ff-section ff-cat-years" style="margin-top:0px; padding-top: 12px; background: #000000; padding-bottom: 12px;">
+      <div class="ff-section ff-cat-years" style="margin-top:0px; padding-top: 12px; padding-bottom: 12px;">
         <div class="sav-years-columns" aria-hidden="true">
           <div class="col-year"></div>
           <div class="col-amount">
-            <div class="cat-year-label" style="color: white; margin-bottom: 0;">${t("categories.maand_bedrag")}</div>
+            <div class="cat-year-label" style="margin-bottom: 0;">${t("categories.maand_bedrag")}</div>
           </div>
           <div class="col-rate">
-            <div class="cat-year-label" style="color: white; margin-bottom: 0;">${t("saving_accounts.interest_label")}</div>
+            <div class="cat-year-label" style="margin-bottom: 0;">${t("saving_accounts.interest_label")}</div>
           </div>
           <div class="col-actions"></div>
         </div>

@@ -344,12 +344,12 @@
       "current_saving_balances": "Spaarpotjes",
       "saving_label": "Saldo Spaar",
       "saving_label_count": "Spaarrekening ({count})",
-      "total_expense": "Totaal Uitgaven",
-      "total_income": "Totaal Inkomsten"
+      "total_expense": "Uitgaven",
+      "total_income": "Inkomsten"
     },
     "overview": {
-      "bank_end": "Eindsaldo Bank",
-      "saving_end_plural": "Eindsaldo Spaarpotjes",
+      "bank_end": "Saldo Bank",
+      "saving_end_plural": "Spaarpotjes",
       "saving_end_singular": "Eindsaldo Spaarpotjes",
       "title": "Jaaroverzicht {year}"
     },
@@ -453,7 +453,7 @@
       },
       "year_empty": {
         "title": "Eerste keer? Zo begin je",
-        "body": "Je bent net gestart. In dit jaaroverzicht zie je per maand de belangrijkste regels.\n\nBegin hier:\n1) Tik in Januari op ‘Inkomsten’ en vul één bedrag in.\n2) Tik daarna op ‘Uitgaven’ en vul één bedrag in.\n3) (Optioneel) Tik op ‘Sparen’ om je spaarpot(ten) te bekijken of aan te maken.\n\nWat je hier verder ziet:\n• ‘Totaal Inkomsten’ en ‘Totaal Uitgaven’ openen een jaaroverzicht (alleen bekijken).\n• ‘Eindsaldo Spaarpotjes’ opent een overzicht van je spaarpotjes (alleen bekijken).\n\nTip: voer eerst kleine testbedragen in, dan zie je direct wat er gebeurt."
+        "body": "Je bent net gestart. In dit jaaroverzicht zie je per maand de belangrijkste regels.\n\nBegin hier:\n1) Tik in Januari op ‘Inkomsten’ en vul één bedrag in.\n2) Tik daarna op ‘Uitgaven’ en vul één bedrag in.\n3) (Optioneel) Tik op ‘Sparen’ om je spaarpot(ten) te bekijken of aan te maken.\n\nWat je hier verder ziet:\n• ‘Inkomsten’ en ‘Uitgaven’ openen een jaaroverzicht (alleen bekijken).\n• ‘Spaarpotjes’ opent een overzicht van je spaarpotjes (alleen bekijken).\n\nTip: voer eerst kleine testbedragen in, dan zie je direct wat er gebeurt."
       },
       "month_income_sheet": {
         "title": "Je eerste Inkomsten categorie aanmaken",

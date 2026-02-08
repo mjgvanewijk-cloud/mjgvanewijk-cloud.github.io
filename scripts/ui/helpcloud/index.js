@@ -23,6 +23,7 @@ export function initHelpCloud({ idleMs = 8000 } = {}) {
   let idleTimer = null;
   let visible = false;
   let panelOpen = false;
+  let returnFocusEl = null;
 
   function isOrangeSheetOpen() {
     // Orange header sheets are implemented as "warning" month-category sheets.
@@ -30,6 +31,20 @@ export function initHelpCloud({ idleMs = 8000 } = {}) {
   }
 
   function hideAll() {
+    // Accessibility: never set aria-hidden on an ancestor of the focused element.
+    // If focus is inside the help panel, move focus back before hiding.
+    try {
+      const ae = document.activeElement;
+      if (panel && ae && typeof ae === "object" && panel.contains(ae)) {
+        const candidate = returnFocusEl;
+        if (candidate && typeof candidate.focus === "function" && candidate !== ae && document.contains(candidate)) {
+          candidate.focus({ preventScroll: true });
+        } else if (typeof ae.blur === "function") {
+          ae.blur();
+        }
+      }
+    } catch (_) {}
+
     visible = false;
     panelOpen = false;
     bubble.classList.remove("is-visible");
@@ -100,6 +115,8 @@ export function initHelpCloud({ idleMs = 8000 } = {}) {
     if (!ctx0) return;
 
     const ae = document.activeElement;
+    // Remember where to return focus when the panel closes.
+    returnFocusEl = (isNode(ae) && !panel.contains(ae)) ? ae : bubble;
     const ctx = (isNode(ae)) ? deriveCtxOverrideFromFocus(ctx0, ae) : ctx0;
 
     panelOpen = true;
