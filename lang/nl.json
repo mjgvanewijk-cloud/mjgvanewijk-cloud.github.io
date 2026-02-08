@@ -572,5 +572,22 @@
       "btn_continue": "Ga verder",
       "btn_cancel": "Annuleren"
     }
+  },
+  "license": {
+    "activate": {
+      "title": "Testversie activeren",
+      "instructions": "Stuur de Activatie-ID naar Marcel. Je ontvangt daarna een activatiecode die alleen op dit toestel werkt.",
+      "device_id": "Activatie-ID",
+      "copy": "Kopieer",
+      "copied": "Gekopieerd",
+      "code_label": "Activatiecode",
+      "paste_hint": "Plak hier de activatiecode…",
+      "activate_btn": "Activeren",
+      "error_missing": "Plak eerst een activatiecode.",
+      "error_invalid": "Ongeldige code. Controleer of je de volledige code hebt geplakt.",
+      "error_expired": "Deze code is verlopen. Vraag een nieuwe code aan.",
+      "error_device": "Deze code hoort bij een ander toestel. Vraag een code voor dit toestel aan.",
+      "success": "Activatie gelukt. FinFlow start nu in Premium."
+    }
   }
 }

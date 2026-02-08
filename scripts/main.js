@@ -1,5 +1,6 @@
 // scripts/main.js
 import { initI18n, t } from "./i18n.js";
+import { ensureTestActivationOrBlock } from "./core/state/test-license-gate.js";
 
 import { undo, redo, canUndo, canRedo, enableHistory } from "./core/history/index.js";
 
@@ -313,6 +314,13 @@ let __bootFinalized = false;
         window.__finflowBooting = true;
         await initI18n('nl'); 
         updateStaticUI();
+
+        // Testversie gate (device-bound activatiecode)
+        const __ffLicenseOk = await ensureTestActivationOrBlock();
+        if (!__ffLicenseOk) {
+            window.__finflowBooting = false;
+            return;
+        }
 
         try {
             ensureSystemSavingAccount();
