@@ -350,7 +350,7 @@
     "overview": {
       "bank_end": "Saldo Bank",
       "saving_end_plural": "Spaarpotjes",
-      "saving_end_singular": "Eindsaldo Spaarpotjes",
+      "saving_end_singular": "Spaarpotjes",
       "title": "Jaaroverzicht {year}"
     },
     "totals": {
@@ -397,7 +397,7 @@
       },
       "savingpots": {
         "title": "Spaarpotjes: wat zie je en wat kan je aanpassen?",
-        "body": "In deze sheet zie je per spaarpot 3 regels:\n\n1) Naam + Eindsaldo (overzicht)\n2) Gespaard / Opgenomen (maandbedrag)\n3) Rente (x%) (jaarrente)\n\nWat betekent dit:\n• Eindsaldo is het saldo van de spaarpot op het einde van de maand/het jaar.\n• Gespaard/Opgenomen is je maandbedrag: sparen verhoogt de spaarpot, opnemen verlaagt de spaarpot.\n• Rente is je jaarrente (wordt omgerekend in de berekening).\n\nGerichte hulp:\n• Klik in het bedragveld van ‘Gespaard/Opgenomen’ voor uitleg over het bedrag, de Sparen/Opnemen-toggle en de bolletjes.\n• Klik in het veld van ‘Rente (x%)’ / ‘Jaarrente’ voor uitleg over rente en de bolletjes.\n\nLet op:\n• Als je via het jaaroverzicht op ‘Eindsaldo Spaarpotjes’ tikt, opent een READ-ONLY sheet ‘Spaarpotjes <jaar>’: daar kun je alleen kijken en sluiten.\n• Alles werkt met validatie: banklimiet en spaarsaldo mogen niet onder de ingestelde grenzen komen.\n\nKnop ‘+ Jaar toevoegen’:\n• Voeg een extra jaar toe zodat je voor meerdere jaren bedragen/instellingen kunt invullen.\n• Handig als je vooruit wil plannen (bijv. volgend jaar andere bedragen)."
+        "body": "In deze sheet zie je per spaarpot 3 regels:\n\n1) Naam + Eindsaldo (overzicht)\n2) Gespaard / Opgenomen (maandbedrag)\n3) Rente (x%) (jaarrente)\n\nWat betekent dit:\n• Eindsaldo is het saldo van de spaarpot op het einde van de maand/het jaar.\n• Gespaard/Opgenomen is je maandbedrag: sparen verhoogt de spaarpot, opnemen verlaagt de spaarpot.\n• Rente is je jaarrente (wordt omgerekend in de berekening).\n\nGerichte hulp:\n• Klik in het bedragveld van ‘Gespaard/Opgenomen’ voor uitleg over het bedrag, de Sparen/Opnemen-toggle en de bolletjes.\n• Klik in het veld van ‘Rente (x%)’ / ‘Jaarrente’ voor uitleg over rente en de bolletjes.\n\nLet op:\n• Als je via het jaaroverzicht op ‘Spaarpotjes’ tikt, opent een READ-ONLY sheet ‘Spaarpotjes <jaar>’: daar kun je alleen kijken en sluiten.\n• Alles werkt met validatie: banklimiet en spaarsaldo mogen niet onder de ingestelde grenzen komen.\n\nKnop ‘+ Jaar toevoegen’:\n• Voeg een extra jaar toe zodat je voor meerdere jaren bedragen/instellingen kunt invullen.\n• Handig als je vooruit wil plannen (bijv. volgend jaar andere bedragen)."
       },
       "categories": {
         "title": "Categorieën bewerken",
