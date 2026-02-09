@@ -8,7 +8,7 @@ const penColor = "#007aff";
 export function getSavingPotSheetHTML() {
   return `
     <style>
-/* 1. VOORKOM GRIJZE BALKEN: Verwijder padding van de body container */
+      /* 1. VOORKOM GRIJZE BALKEN: Verwijder padding van de body container */
       :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-popup__body { 
         overflow-x: hidden !important; 
         padding: 0 !important; 
@@ -48,43 +48,57 @@ export function getSavingPotSheetHTML() {
       }
 
       /* Layout voor de rijen in de zwarte sectie */
-:is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-years-columns,
-:is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-row {
-  display: grid !important;
-  grid-template-columns: 72px minmax(0, 1fr) 72px 120px !important;
-  column-gap: 10px !important;
-  align-items: center !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-years-columns,
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-row {
+        display: flex !important;
+        gap: 14px !important;
+        align-items: center !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
 
-/* iPhone 12/kleinere breedtes: compacter zodat 'Verwijderen' binnen het kader blijft */
-@media (max-width: 390px) {
-  :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-years-columns,
-  :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-row {
-    grid-template-columns: 66px minmax(0, 1fr) 62px 112px !important;
-    column-gap: 8px !important;
-  }
-}
+      /* Kolombreedtes: laat Maandbedrag meeschalen zodat de Verwijderen-kolom rechts uitlijnt met de footer */
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-input,
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-year { width: 65px !important; flex: 0 0 65px !important; }
 
-/* Zorg dat inputs/knoppen in grid niet buiten hun cel duwen */
-:is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-input,
-:is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-budget-input,
-:is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-rate-input,
-:is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn {
-  min-width: 0 !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-budget-input,
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-amount {
+        width: auto !important;
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+      }
 
-/* Verwijderen: altijd volledig zichtbaar binnen de rij */
-:is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn {
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-}
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-rate-input,
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate { width: 72px !important; flex: 0 0 72px !important; }
+
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn,
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-actions { width: 120px !important; flex: 0 0 120px !important; }
+
+      
+      /* iPhone 12/13/14 (390px) - zorg dat Verwijderen binnen het kader blijft */
+      @media (max-width: 400px) {
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-row { gap: 10px !important; }
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-input,
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-year { width: 54px !important; flex: 0 0 54px !important; }
+
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-rate-input,
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate { width: 50px !important; flex: 0 0 50px !important; }
+
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn,
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-actions { width: 96px !important; flex: 0 0 96px !important; }
+
+        /* maandbedrag iets minder breed zodat Verwijderen past */
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-budget-input,
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-amount {
+          max-width: 160px !important;
+        }
+
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn {
+          padding-left: 10px !important;
+          padding-right: 10px !important;
+          white-space: nowrap !important;
+        }
+      }
 
 /* 4. DWING ALLE INVOERVELDEN NAAR DEZELFDE HOOGTE, ZWART UITERLIJK EN BLAUWE FOCUS */
       :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-input {
@@ -119,6 +133,9 @@ export function getSavingPotSheetHTML() {
       /* Het hele blok "Beginsaldo" (tekst + veld) omlaag duwen vanaf de lijn */
       :is(#savingPotAddOverlay, #savingPotEditOverlay) #savStartWrap { margin-top: 0px !important; }
       
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-amount .cat-year-label { margin-left: -90px !important; }
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate .cat-year-label { margin-left: -90px !important; }
+
       /* Algemene label opmaak */
       :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-label {
         text-align: left !important;
