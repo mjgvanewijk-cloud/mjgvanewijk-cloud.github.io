@@ -79,10 +79,10 @@ export function getSavingPotSheetHTML() {
       @media (max-width: 400px) {
         :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-row { gap: 10px !important; }
         :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-input,
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-year { width: 54px !important; flex: 0 0 54px !important; }
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-year { width: 60px !important; flex: 0 0 60px !important; }
 
         :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-rate-input,
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate { width: 50px !important; flex: 0 0 50px !important; }
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate { width: 54px !important; flex: 0 0 54px !important; }
 
         :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn,
         :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-actions { width: 96px !important; flex: 0 0 96px !important; }
