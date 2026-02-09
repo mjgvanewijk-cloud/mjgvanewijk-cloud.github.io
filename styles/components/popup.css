@@ -2024,10 +2024,12 @@ font-weight: 700;
 /* Amount input: kleur volgt ff-amount-positive/negative (zoals label) */
 .ff-month-cat-amount-input.ff-amount-positive{
   color: rgba(52, 199, 89, 1);
+  -webkit-text-fill-color: rgba(52, 199, 89, 1); /* iOS Safari: keep green text */
 }
 
 .ff-month-cat-amount-input.ff-amount-negative{
   color: rgba(255, 59, 48, 1);
+  -webkit-text-fill-color: rgba(255, 59, 48, 1); /* iOS Safari: keep red text */
 }
 
 /* Mobile: toggles onder scopes als het te krap wordt */
