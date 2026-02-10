@@ -100,3 +100,48 @@ a, button, input, textarea, select, label, .nav-pill, .nav-zone, .year-arrow {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ============================================================
+   LAYOUT: header + nav-pill stay fixed, content scrolls
+   - Vertical swipe must scroll ONLY the year/month content.
+   ============================================================ */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  /* override base.css padding so the top-area + scroll-area can be controlled */
+  padding: 0 !important;
+
+  /* prevent the browser/body from scrolling; only the scroll-area may scroll */
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  /* iOS safe: use dynamic viewport height when supported */
+  height: 100dvh;
+}
+
+.ff-top-area {
+  flex: 0 0 auto;
+  /* match content inset */
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.ff-scroll-area {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  /* keep the same left/right spacing as before (was body padding: 16px) */
+  padding: 0 16px 16px 16px;
+}
+
+/* In this layout the nav-pill is in the fixed top-area, so it must NOT be sticky */
+.ff-top-area .nav-pill {
+  position: relative !important;
+  top: auto !important;
+}
+

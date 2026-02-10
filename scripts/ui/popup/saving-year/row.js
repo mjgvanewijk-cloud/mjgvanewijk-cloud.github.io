@@ -28,15 +28,16 @@ export function buildSavingYearRow(row) {
   const name = String(row?.name || "");
   const endBalance = Number(row?.endBalance || 0);
 
-  const hasWithdraw = !!row?.hasWithdraw;
-  const flowAmount = Number(row?.flowAmount || 0);
+  // Year totals: we show both lines (Gespaard + Opgenomen).
+  const totalSaved = Number(row?.totalSaved || 0);
+  const totalWithdraw = Number(row?.totalWithdraw || 0);
 
-  const flowLabel = hasWithdraw ? t("saving_month.flow_withdraw") : t("saving_month.flow_save");
-  const flowClass = amountClassForNumber(flowAmount, {
-    positiveClass: "ff-amount-positive",
-    negativeClass: "ff-amount-negative",
-  });
-  const flowClassForced = hasWithdraw ? "ff-amount-negative" : (flowClass || "ff-amount-positive");
+  // Color rule requested:
+  // - If 0 => white (no class)
+  // - Saved => green
+  // - Withdraw => red
+  const savedClass = amountClassForNumber(totalSaved, { positiveClass: "ff-amount-positive" });
+  const withdrawClass = amountClassForNumber(totalWithdraw, { positiveClass: "ff-amount-negative", negativeClass: "ff-amount-negative" });
 
   const balanceClass = amountClassForNumber(endBalance, { positiveClass: "ff-amount-positive", negativeClass: "ff-amount-negative" });
 
@@ -56,8 +57,13 @@ export function buildSavingYearRow(row) {
       </div>
 
       <div class="ff-saving-line">
-        <div class="ff-saving-line-left ff-saving-flow-label">${flowLabel}</div>
-        <div class="ff-saving-line-right ${flowClassForced}">${formatCurrency(flowAmount)}</div>
+        <div class="ff-saving-line-left ff-saving-flow-label">${t("saving_month.flow_save")}</div>
+        <div class="ff-saving-line-right ${savedClass}">${formatCurrency(totalSaved)}</div>
+      </div>
+
+      <div class="ff-saving-line">
+        <div class="ff-saving-line-left ff-saving-flow-label">${t("saving_month.flow_withdraw")}</div>
+        <div class="ff-saving-line-right ${withdrawClass}">${formatCurrency(totalWithdraw)}</div>
       </div>
 
       <div class="ff-saving-line">

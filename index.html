@@ -13,7 +13,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="icon" type="image/png" sizes="192x192" href="./images/icon-192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="./images/logo.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="./images/icon-512.png" />
 </head>
 
 <body>
@@ -45,6 +45,12 @@
     </div>
   </div>
 
+  <!--
+    Sticky top-area: header + nav-pill must stay in place while
+    the year overview + month cards can be vertically swiped.
+  -->
+  <div id="ffTopArea" class="ff-top-area">
+
   <header style="position: relative; padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px 16px;">
     <h1 data-i18n="common.app_title" style="margin: 0; padding-right: 45px;"></h1>
     <button id="mainsettings" class="icon-btn" type="button" style="position: absolute; right: 16px; top: calc(env(safe-area-inset-top, 0px) + 10px); background: none; border: none; cursor: pointer;"></button>
@@ -73,6 +79,11 @@
     </div>
   </div>
 
+  </div>
+
+  <!-- Scroll container: ONLY this area should scroll on vertical swipe -->
+  <main id="ffScrollArea" class="ff-scroll-area">
+
   <div class="table-container ff-year-cards-container">
     <table class="year-grid ff-year-cards-table"> 
       <thead>
@@ -91,6 +102,8 @@
       </tfoot>
     </table>
   </div>
+
+  </main>
 
   <div id="setupOverlay" class="ff-popup-overlay ff-popup-overlay--wizard" style="display:none;">
     <div id="setupSheet" class="ff-popup ff-popup--wizard ff-popup--beginsaldo">

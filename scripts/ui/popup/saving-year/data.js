@@ -57,17 +57,14 @@ export function getSavingYearSummaryRows({ year } = {}) {
     // Als er geen maanden met per-account data waren: default 0's.
     if (!foundEnd) endBalance = 0;
 
-    const hasWithdraw = totalWithdraw > 0.0005;
-    const flowAmount = hasWithdraw ? totalWithdraw : totalSaved;
-
     const avgRate = rateCount > 0 ? (rateSum / rateCount) : 0;
 
     rows.push({
       id,
       name,
       endBalance,
-      hasWithdraw,
-      flowAmount,
+      totalSaved,
+      totalWithdraw,
       avgRate,
       interestTotal,
     });
