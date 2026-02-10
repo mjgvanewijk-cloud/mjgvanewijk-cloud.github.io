@@ -47,31 +47,43 @@ export function renderSavingYearRow(container, year, signedAmount, rateValue = n
   const absVal = (!Number.isNaN(amountNum) ? Math.abs(amountNum) : 0);
 
   block.innerHTML = `
-    <div class="cat-year-row sav-year-top">
-      <input class="ff-input cat-year-val cat-year-input"
-             inputmode="numeric" pattern="[0-9]*" maxlength="4"
-             value="${year ?? ""}" aria-label="${t("common.year")}" />
-      <input class="ff-input cat-budget-val cat-budget-input"
-             inputmode="decimal"
-             value="${String(absVal).replace(".", ",")}"
-             aria-label="${t("common.amount")}" />
-      <input class="ff-input sav-rate-input"
-             inputmode="decimal"
-             placeholder="%"
-             value="${rateToDisplay(rateValue)}"
-             aria-label="${t("saving_accounts.interest_label")}" />
-      <button type="button" class="remove-year-btn ff-btn ff-cat-remove-btn">
-        ${t("common.delete")}
-      </button>
+    <div class="sav-fields-row">
+      <div class="sav-field sav-field-year">
+        <input class="ff-input cat-year-val cat-year-input"
+               inputmode="numeric" pattern="[0-9]*" maxlength="4"
+               value="${year ?? ""}" aria-label="${t("common.year")}" />
+      </div>
+
+      <div class="sav-field sav-field-amount">
+        <div class="cat-year-label">${t("categories.maand_bedrag")}</div>
+        <input class="ff-input cat-budget-val cat-budget-input"
+               inputmode="decimal"
+               value="${String(absVal).replace(".", ",")}" 
+               aria-label="${t("common.amount")}" />
+      </div>
+
+      <div class="sav-field sav-field-rate">
+        <div class="cat-year-label">${t("saving_accounts.interest_label")}</div>
+        <input class="ff-input sav-rate-input"
+               inputmode="decimal"
+               placeholder="%"
+               value="${rateToDisplay(rateValue)}"
+               aria-label="${t("saving_accounts.interest_label")}" />
+      </div>
     </div>
-    <div class="sav-toggle-row">
+
+    <div class="sav-actions-row">
       <button type="button" class="ff-btn ff-btn--toggle-micro sav-toggle-wide sav-toggle-save">
         ${t("saving_accounts.toggle_save")}
       </button>
       <button type="button" class="ff-btn ff-btn--toggle-micro sav-toggle-wide sav-toggle-withdraw">
         ${t("saving_accounts.toggle_withdraw")}
       </button>
+      <button type="button" class="remove-year-btn ff-btn ff-btn--secondary ff-cat-remove-btn sav-toggle-wide">
+        ${t("common.delete")}
+      </button>
     </div>
+
     <div class="ff-inline-error sav-year-inline-error" role="alert" aria-live="polite" style="display:none; margin-top:10px;">
       <span class="ff-inline-error__icon">${t("popups.error_icon")}</span>
       <span class="sav-year-inline-error-text"></span>

@@ -48,59 +48,63 @@ export function getSavingPotSheetHTML() {
       }
 
       /* Layout voor de rijen in de zwarte sectie */
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-years-columns,
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-row {
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-years-columns { display: none !important; }
+
+      /* Nieuwe layout (zoals screenshot): 3 velden op 1 rij + 3 knoppen op 1 rij */
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-fields-row {
         display: flex !important;
         gap: 14px !important;
-        align-items: center !important;
+        align-items: flex-end !important;
         width: 100% !important;
         box-sizing: border-box !important;
       }
 
-      /* Kolombreedtes: laat Maandbedrag meeschalen zodat de Verwijderen-kolom rechts uitlijnt met de footer */
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-input,
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-year { width: 65px !important; flex: 0 0 65px !important; }
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field { min-width: 0 !important; }
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field-year { flex: 0 0 78px !important; }
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field-amount { flex: 1 1 0 !important; }
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field-rate { flex: 0 0 86px !important; }
 
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-budget-input,
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-amount {
-        width: auto !important;
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field .cat-year-label {
+        margin: 0 0 3px 0 !important;
+        color: var(--apple-secondary-label, rgba(235,235,245,0.6)) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+      }
+
+      /* Labels Maandbedrag en Jaarrente dezelfde links-offset (zoals in kopie) */
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field-amount .cat-year-label { margin-left: -90px !important; }
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field-rate .cat-year-label { margin-left: -90px !important; }
+
+      /* Algemene label opmaak (zoals in kopie) */
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-label {
+        text-align: left !important;
+        display: flex !important;
+        width: 100% !important;
+        padding: 0 !important;
+      }
+
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-actions-row {
+        display: flex !important;
+        width: 100% !important;
+        gap: 8px !important;
+        margin-top: 10px !important;
+        box-sizing: border-box !important;
+      }
+
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-actions-row button {
         flex: 1 1 0 !important;
         min-width: 0 !important;
       }
 
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-rate-input,
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate { width: 72px !important; flex: 0 0 72px !important; }
-
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn,
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-actions { width: 120px !important; flex: 0 0 120px !important; }
-
       
-      /* iPhone 12/13/14 (390px) - zorg dat Verwijderen binnen het kader blijft */
+      /* iPhone 12/13/14 (390px) - zorg dat alles binnen het kader blijft */
       @media (max-width: 400px) {
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-row { gap: 10px !important; }
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-input,
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-year { width: 60px !important; flex: 0 0 60px !important; }
-
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-rate-input,
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate { width: 54px !important; flex: 0 0 54px !important; }
-
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn,
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-actions { width: 96px !important; flex: 0 0 96px !important; }
-
-        /* maandbedrag iets minder breed zodat Verwijderen past */
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-budget-input,
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-amount {
-          max-width: 160px !important;
-        }
-
-        :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn {
-          padding-left: 10px !important;
-          padding-right: 10px !important;
-          white-space: nowrap !important;
-        }
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-fields-row { gap: 10px !important; }
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field-year { flex: 0 0 70px !important; }
+        :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-field-rate { flex: 0 0 70px !important; }
       }
 
-/* 4. DWING ALLE INVOERVELDEN NAAR DEZELFDE HOOGTE, ZWART UITERLIJK EN BLAUWE FOCUS */
+      /* 4. DWING ALLE INVOERVELDEN NAAR DEZELFDE HOOGTE, ZWART UITERLIJK EN BLAUWE FOCUS */
       :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-input {
         height: 44px !important;           /* Geforceerde hoogte voor alle velden */
         padding: 4px 8px !important;       /* Binnenruimte: 4px boven/onder, 8px links/rechts om invoervelden visueel gelijk te trekken */
@@ -127,37 +131,27 @@ export function getSavingPotSheetHTML() {
       /* TEKST VERSCHUIVING NAAR LINKS (Alleen de labels) */
       :is(#savingPotAddOverlay, #savingPotEditOverlay) #catNameStatic .ff-cat-name-row__left { margin-left: -1px !important; }   
       
-      /* Alleen de tekst "Beginsaldo" naar links schuiven */
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) #savStartWrap .cat-year-label { margin-left: -91px !important; }
-      
-      /* Het hele blok "Beginsaldo" (tekst + veld) omlaag duwen vanaf de lijn */
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) #savStartWrap { margin-top: 0px !important; }
-      
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-amount .cat-year-label { margin-left: -90px !important; }
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .col-rate .cat-year-label { margin-left: -90px !important; }
-
-      /* Algemene label opmaak */
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .cat-year-label {
-        text-align: left !important;
-        display: flex !important;
-        width: 100% !important;
-        padding: 0 !important;
+      /* Beginsaldo label uitlijning (zoals in kopie) */
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) #savStartWrap .cat-year-label {
+        margin: 0 0 3px 0 !important;
+        margin-left: -90px !important;
+        color: var(--apple-secondary-label, rgba(235,235,245,0.6)) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
       }
 
-      /* UITLIJNING SPAREN/OPNEMEN KNOPPEN */
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-toggle-row {
-        display: flex !important;
-        width: 100% !important;      /* Gebruik de volledige beschikbare breedte */
-        gap: 8px !important;         /* Zelfde tussenruimte als de footer-knoppen */
-        margin-top: 10px !important;  /* Ruimte tussen de invoervelden en de knoppen */
-        box-sizing: border-box !important;
+      /* Verwijderen: altijd rode letters (ook disabled) */
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn {
+        color: var(--apple-red, #ff3b30) !important;
+      }
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn:disabled,
+      :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-cat-remove-btn[disabled] {
+        color: var(--apple-red, #ff3b30) !important;
+        opacity: 0.35 !important;
+        cursor: default !important;
       }
 
-      :is(#savingPotAddOverlay, #savingPotEditOverlay) .sav-toggle-row button {
-        flex: 1 !important;  /* Verdeelt de ruimte exact 50/50 over de knoppen */
-      }
-
-      /* FOOTER UITLIJNING */
+/* FOOTER UITLIJNING */
       :is(#savingPotAddOverlay, #savingPotEditOverlay) .ff-popup__footer { 
         padding-left: 16px !important; 
         padding-right: 16px !important; 
@@ -210,6 +204,46 @@ export function getSavingPotSheetHTML() {
           <div class="col-actions"></div>
         </div>
         <div id="savYearsContainer" class="cat-years-container sav-years-container"></div>
+        <script>
+          (function () {
+            function getYearRowCount(root) {
+              // Prefer explicit year rows if present, fall back to counting year inputs
+              const rows = root.querySelectorAll(".cat-year-row");
+              if (rows && rows.length) return rows.length;
+              const inputs = root.querySelectorAll(".cat-year-input, input[name='year']");
+              return inputs ? inputs.length : 0;
+            }
+
+            function updateRemoveDisabled() {
+              const container = document.getElementById("savYearsContainer");
+              if (!container) return;
+
+              const count = getYearRowCount(container);
+              const disable = count < 2;
+
+              container.querySelectorAll(".ff-cat-remove-btn").forEach((btn) => {
+                if (disable) {
+                  btn.disabled = true;
+                  btn.setAttribute("aria-disabled", "true");
+                } else {
+                  btn.disabled = false;
+                  btn.removeAttribute("aria-disabled");
+                }
+              });
+            }
+
+            // Run once after initial render
+            queueMicrotask ? queueMicrotask(updateRemoveDisabled) : setTimeout(updateRemoveDisabled, 0);
+
+            // Keep in sync if year rows are re-rendered dynamically
+            const container = document.getElementById("savYearsContainer");
+            if (container && window.MutationObserver) {
+              const obs = new MutationObserver(updateRemoveDisabled);
+              obs.observe(container, { childList: true, subtree: true });
+            }
+          })();
+        </script>
+
         <div id="savRateError" class="ff-inline-error ff-inline-error--premium" style="display:none; margin-top:10px;">
           <span class="ff-inline-error__icon">▲</span>
           <span class="ff-inline-error__text"></span>

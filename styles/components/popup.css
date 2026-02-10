@@ -2032,15 +2032,22 @@ font-weight: 700;
   -webkit-text-fill-color: rgba(255, 59, 48, 1); /* iOS Safari: keep red text */
 }
 
-/* Mobile: toggles onder scopes als het te krap wordt */
+/* Mobile: houd knoppen en jaarrente naast de scope (geen stapelen onder radio's) */
 @media (max-width: 420px){
   .ff-saving-inline-editor-row{
-    flex-direction: column;
+    flex-direction: row;
+    gap: 12px;
+    padding: 0 12px;
   }
-  .ff-saving-inline-toggles{
-    width: 100%;
-    min-width: 0;
-    grid-template-columns: 1fr;
+
+  .ff-saving-inline-editor-row .ff-saving-inline-toggles{
+    flex: 0 0 44%;
+    width: 44%;
+    gap: 10px;
+  }
+
+  .ff-saving-inline-editor-row .ff-saving-inline-rate{
+    margin-top: 0;
   }
 }
 
