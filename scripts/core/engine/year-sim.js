@@ -7,7 +7,9 @@ import { buildYearStartState } from "./year-sim-start.js";
 import { simulateMonth } from "./year-sim-month.js";
 
 export function simulateYear(year, isInternalCall = false, monthDataOverride = null, settingsOverride = null) {
-  const bypassCache = isInternalCall || !!monthDataOverride || !!settingsOverride;
+    // Cache must only be bypassed when we have overrides (preview/snapshot).
+  // Internal engine recursion should still benefit from caching; otherwise performance degrades with each higher year.
+  const bypassCache = !!monthDataOverride || !!settingsOverride;
 
   if (!bypassCache) {
     const cached = getCachedYear(year);
