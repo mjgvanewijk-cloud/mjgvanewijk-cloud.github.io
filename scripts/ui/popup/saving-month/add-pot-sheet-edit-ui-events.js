@@ -9,6 +9,8 @@ export function bindEditSheetEvents({ root, handleClose, yearsContainer, yearRow
   if (cancelBtn) cancelBtn.onclick = (e) => { e?.preventDefault(); handleClose(); };
   if (addYearBtn) addYearBtn.onclick = (e) => {
     e?.preventDefault?.();
+
+    // GEEN spinner bij '+ Jaar toevoegen' (alleen een rij toevoegen + focussen)
     clearSavingYearInlineErrors(yearsContainer);
     if (rateErr) rateErr.style.display = "none";
     const block = addNewSavingYearRow(yearsContainer, yearRowOpts);

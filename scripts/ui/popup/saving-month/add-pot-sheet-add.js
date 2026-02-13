@@ -22,6 +22,7 @@ import { isPremiumActiveForUI } from "../../../core/state/premium-data.js";
 import { setSystemSavingFlowForScope } from "../saving-month-store.js";
 import * as Helpers from "./saving-pot-helpers.js";
 import { getSavingPotSheetHTML } from "./saving-pot-ui-html.js";
+import { openCalculatingSheet } from "../calculating-sheet.js";
 
 export function openAddSavingPotSheet({ year, onComplete } = {}) {
   const y = Number(year) || new Date().getFullYear();
@@ -151,6 +152,10 @@ export function openAddSavingPotSheet({ year, onComplete } = {}) {
 
     const updated = { id: null, name, startBalance, years: collected.years || {}, rates: collected.rates || {} };
 
+    // UX: toon de blocking spinner-sheet alleen bij 'Opslaan' wanneer de gebruiker één of meerdere jaren
+    // extra heeft toegevoegd via '+ Jaar toevoegen' (dus meer dan de standaard start-jaarregel).
+    const hasAddedYears = Object.keys(updated.years || {}).length > 1;
+
     const violation = precommitFindFirstSavingAccountLimitViolation({ updatedAccount: updated, replaceId: null });
     if (violation) {
       showSavingYearInlineError(yearsContainer, violation.year, t("errors.bank_limit_reached", { month: `${Helpers.monthName(violation.month)} ${violation.year}`, amount: formatCurrency(violation.bank), limit: formatCurrency(violation.limit) }));
@@ -165,7 +170,7 @@ export function openAddSavingPotSheet({ year, onComplete } = {}) {
       return;
     }
 
-    try {
+    const doCommit = () => {
       // User action => allow snapshots / enable Undo-Redo even if the user clicks very fast after boot.
       try { window.__finflowBooting = false; } catch (_) {}
 
@@ -183,6 +188,24 @@ export function openAddSavingPotSheet({ year, onComplete } = {}) {
       }
       try { document.dispatchEvent(new CustomEvent("ff-saving-accounts-changed", { detail: { year: y } })); } catch (_) {}
       handleClose();
-    } catch (err) { console.error(err); }
+    };
+
+    if (!hasAddedYears) {
+      try { doCommit(); } catch (err) { console.error(err); }
+      return;
+    }
+
+    const closeCalc = openCalculatingSheet();
+    try {
+      setTimeout(() => {
+        try { doCommit(); }
+        catch (err) { console.error(err); }
+        finally { try { closeCalc(); } catch (_) {} }
+      }, 0);
+    } catch (_) {
+      try { doCommit(); }
+      catch (err) { console.error(err); }
+      finally { try { closeCalc(); } catch (_) {} }
+    }
   };
 }

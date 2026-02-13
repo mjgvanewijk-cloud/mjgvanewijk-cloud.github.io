@@ -14,6 +14,7 @@ import * as Helpers from "./saving-pot-helpers.js";
 import { isNameDuplicateExcludingId } from "./add-pot-sheet-logic.js";
 import { applyWipeYearsToMonthData, hasMonthOverridesForYear } from "./add-pot-sheet-edit-logic.js";
 import { openSavingManualMonthOverridesConfirmSheet } from "./sheet-month-overrides-confirm.js";
+import { openCalculatingSheet } from "../calculating-sheet.js";
 
 export function bindSaveBtnLogic({ root, saveBtn, yearsContainer, rateErr, nameInp, startInp, accountId, existingAcc, y, handleClose, hideErrors }) {
   saveBtn.onclick = (e) => {
@@ -73,17 +74,50 @@ export function bindSaveBtnLogic({ root, saveBtn, yearsContainer, rateErr, nameI
       handleClose();
     };
 
+    // Spinner alleen bij OPSLAAN als er één of meerdere jaren zijn TOEGEVOEGD via '+ Jaar toevoegen'.
+    // (Niet bij normale edits van bestaande jaren.)
+    const hadYears = new Set(Object.keys(existingAcc?.years || {}));
+    const hasAddedYears = Object.keys(updated?.years || {}).some((ys) => !hadYears.has(String(ys)));
+
+    const runCommitWithOptionalSpinner = (commitArgs) => {
+      if (!hasAddedYears) {
+        performCommit(commitArgs);
+        return;
+      }
+
+      const closeCalc = openCalculatingSheet();
+      try {
+        setTimeout(() => {
+          try { performCommit(commitArgs); }
+          finally { try { closeCalc(); } catch (_) {} }
+        }, 0);
+      } catch (_) {
+        try { performCommit(commitArgs); }
+        finally { try { closeCalc(); } catch (_) {} }
+      }
+    };
+
     const changedYears = Object.keys(updated.years || {}).filter((ys) => Object.prototype.hasOwnProperty.call(existingAcc.years || {}, ys)).filter((ys) => Number(existingAcc.years?.[ys]) !== Number(updated.years?.[ys])).map((ys) => Number(ys)).filter(Number.isFinite).sort((a, b) => a - b);
     const yearWithOverrides = changedYears.find((yy) => hasMonthOverridesForYear(yy, mdNow, accountId));
 
     if (yearWithOverrides) {
       openSavingManualMonthOverridesConfirmSheet({
         year: yearWithOverrides,
-        onNo: ({ close }) => { close(); performCommit({ monthDataOverrideForChecks: mdNow }); },
-        onYes: ({ close }) => { close(); let mdWiped = null; try { const mdClone = JSON.parse(JSON.stringify(mdNow)); mdWiped = applyWipeYearsToMonthData(mdClone, [String(yearWithOverrides)], accountId); } catch (_) { mdWiped = mdNow; } performCommit({ monthDataOverrideForChecks: mdWiped, wipeOverrideYears: [String(yearWithOverrides)] }); },
+        onNo: ({ close }) => { close(); runCommitWithOptionalSpinner({ monthDataOverrideForChecks: mdNow }); },
+        onYes: ({ close }) => {
+          close();
+          let mdWiped = null;
+          try {
+            const mdClone = JSON.parse(JSON.stringify(mdNow));
+            mdWiped = applyWipeYearsToMonthData(mdClone, [String(yearWithOverrides)], accountId);
+          } catch (_) {
+            mdWiped = mdNow;
+          }
+          runCommitWithOptionalSpinner({ monthDataOverrideForChecks: mdWiped, wipeOverrideYears: [String(yearWithOverrides)] });
+        },
       });
       return;
     }
-    performCommit({ monthDataOverrideForChecks: mdNow });
+    runCommitWithOptionalSpinner({ monthDataOverrideForChecks: mdNow });
   };
 }

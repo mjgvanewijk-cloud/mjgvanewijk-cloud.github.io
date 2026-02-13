@@ -10,56 +10,73 @@ import {
 import { openSavingYearDeletedKeepManualInfoSheet } from "./delete-sheets.js";
 import { hasMonthOverridesForYear } from "./add-pot-sheet-edit-logic.js";
 import { showInlineNotPossibleForPreview } from "./add-pot-sheet-edit-ui.js";
+import { openCalculatingSheet } from "../calculating-sheet.js";
 
 export const getYearRowOpts = (baseMd, accountId, existingAcc, y, pendingWipeYears, pendingRemoveYears, pendingNoDefaultYears) => ({
   onRequestRemove: ({ year, rawYear, remove, block } = {}) => {
-    const raw = String(rawYear || "").trim();
-    const yearsContainer = block?.closest?.("#savYearsContainer") || document.getElementById("savYearsContainer");
+    // UX: altijd blocking spinner-sheet tonen bij 'Jaar verwijderen'
+    const closeCalc = openCalculatingSheet();
 
-    const count = yearsContainer?.querySelectorAll?.('.sav-year-block')?.length || 0;
-    if (count <= 1) {
-      clearSavingYearInlineErrors(yearsContainer);
-      showSavingYearInlineError(yearsContainer, raw || year || '', t('errors.cannot_delete_last_year'));
-      return;
-    }
+    const run = () => {
+      const raw = String(rawYear || "").trim();
+      const yearsContainer = block?.closest?.("#savYearsContainer") || document.getElementById("savYearsContainer");
 
-    if (!year || !Number.isFinite(Number(year))) {
-      if (raw) { pendingWipeYears.delete(raw); pendingRemoveYears.add(raw); pendingNoDefaultYears.delete(raw); }
+      const count = yearsContainer?.querySelectorAll?.('.sav-year-block')?.length || 0;
+      if (count <= 1) {
+        clearSavingYearInlineErrors(yearsContainer);
+        showSavingYearInlineError(yearsContainer, raw || year || '', t('errors.cannot_delete_last_year'));
+        return;
+      }
+
+      if (!year || !Number.isFinite(Number(year))) {
+        if (raw) { pendingWipeYears.delete(raw); pendingRemoveYears.add(raw); pendingNoDefaultYears.delete(raw); }
+        remove?.();
+        return;
+      }
+
+      const yInt = Number(year);
+      const yStr = String(yInt);
+      const collected = collectSavingYearsAndRates(yearsContainer);
+      
+      if (!collected?.rateOk) {
+        const rateErr = document.getElementById("savRateError");
+        if (rateErr) rateErr.style.display = "flex";
+        return;
+      }
+
+      const years = { ...(collected?.years || {}) };
+      const rates = { ...(collected?.rates || {}) };
+      delete years[yStr]; delete rates[yStr];
+
+      const updatedAccount = { ...existingAcc, years, rates };
+
+      const bankNeg = precommitFindFirstSavingAccountBankNegative({ monthDataOverride: baseMd, updatedAccount, replaceId: existingAcc.id });
+      if (bankNeg) { showInlineNotPossibleForPreview({ previewRes: { ok: false, kind: "bankNegative", violation: bankNeg }, targetYearInt: yInt, yearsContainer }); return; }
+
+      const bankViolation = precommitFindFirstSavingAccountLimitViolation({ monthDataOverride: baseMd, updatedAccount, replaceId: existingAcc.id });
+      if (bankViolation) { showInlineNotPossibleForPreview({ previewRes: { ok: false, kind: "bank", violation: bankViolation }, targetYearInt: yInt, yearsContainer }); return; }
+
+      const savingViolation = precommitFindFirstSavingAccountNegativeBalance({ monthDataOverride: baseMd, updatedAccount, replaceId: existingAcc.id });
+      if (savingViolation) { showInlineNotPossibleForPreview({ previewRes: { ok: false, kind: "saving", violation: savingViolation }, targetYearInt: yInt, yearsContainer }); return; }
+
+      // Persist change
+      upsertSavingAccount(updatedAccount, existingAcc.id);
+      // Notify UI + recalc listeners
+      try { document.dispatchEvent(new CustomEvent("ff-saving-accounts-changed", { detail: { year: yInt } })); } catch (_) {}
       remove?.();
-      return;
+
+      if (hasMonthOverridesForYear(yInt, baseMd, accountId)) openSavingYearDeletedKeepManualInfoSheet({ year: yInt });
+    };
+
+    // Laat de overlay eerst renderen voordat we potentieel zwaardere berekeningen doen
+    try {
+      setTimeout(() => {
+        try { run(); }
+        finally { try { closeCalc(); } catch (_) {} }
+      }, 0);
+    } catch (_) {
+      try { run(); }
+      finally { try { closeCalc(); } catch (_) {} }
     }
-
-    const yInt = Number(year);
-    const yStr = String(yInt);
-    const collected = collectSavingYearsAndRates(yearsContainer);
-    
-    if (!collected?.rateOk) {
-      const rateErr = document.getElementById("savRateError");
-      if (rateErr) rateErr.style.display = "flex";
-      return;
-    }
-
-    const years = { ...(collected?.years || {}) };
-    const rates = { ...(collected?.rates || {}) };
-    delete years[yStr]; delete rates[yStr];
-
-    const updatedAccount = { ...existingAcc, years, rates };
-
-    const bankNeg = precommitFindFirstSavingAccountBankNegative({ monthDataOverride: baseMd, updatedAccount, replaceId: existingAcc.id });
-    if (bankNeg) { showInlineNotPossibleForPreview({ previewRes: { ok: false, kind: "bankNegative", violation: bankNeg }, targetYearInt: yInt, yearsContainer }); return; }
-
-    const bankViolation = precommitFindFirstSavingAccountLimitViolation({ monthDataOverride: baseMd, updatedAccount, replaceId: existingAcc.id });
-    if (bankViolation) { showInlineNotPossibleForPreview({ previewRes: { ok: false, kind: "bank", violation: bankViolation }, targetYearInt: yInt, yearsContainer }); return; }
-
-    const savingViolation = precommitFindFirstSavingAccountNegativeBalance({ monthDataOverride: baseMd, updatedAccount, replaceId: existingAcc.id });
-    if (savingViolation) { showInlineNotPossibleForPreview({ previewRes: { ok: false, kind: "saving", violation: savingViolation }, targetYearInt: yInt, yearsContainer }); return; }
-
-    // Persist change
-    upsertSavingAccount(updatedAccount, existingAcc.id);
-    // Notify UI + recalc listeners
-    try { document.dispatchEvent(new CustomEvent("ff-saving-accounts-changed", { detail: { year: yInt } })); } catch (_) {}
-    remove?.();
-
-    if (hasMonthOverridesForYear(yInt, baseMd, accountId)) openSavingYearDeletedKeepManualInfoSheet({ year: yInt });
   }
 });
