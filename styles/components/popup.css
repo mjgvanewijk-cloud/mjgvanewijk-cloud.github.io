@@ -1556,6 +1556,17 @@
   transform: translateY(1px);
 }
 
+/* === iOS tap highlight fix for month-category rows === */
+@media (hover: none) and (pointer: coarse) {
+  /* iOS Safari can show a sticky blue/teal tap-highlight rectangle on buttons/rows */
+  .ff-month-category-sheet .ff-month-cat-row,
+  .ff-month-cat-row {
+    -webkit-tap-highlight-color: transparent !important;
+    tap-highlight-color: transparent !important;
+  }
+}
+
+
 .ff-month-cat-left {
   display: flex;
   align-items: center;
