@@ -1,17 +1,24 @@
 // scripts/core/engine/year-sim.js
 import { loadMonthData } from "../storage.js";
-import { getCachedYear, setCachedYear } from "./cache.js";
+import { getCachedYear, setCachedYear, getCachedYearOverride, setCachedYearOverride } from "./cache.js";
 import { ensureSettings } from "./settings.js";
 import { isPremiumActiveForEngine } from "./year-sim-utils.js";
 import { buildYearStartState } from "./year-sim-start.js";
 import { simulateMonth } from "./year-sim-month.js";
 
 export function simulateYear(year, isInternalCall = false, monthDataOverride = null, settingsOverride = null) {
-    // Cache must only be bypassed when we have overrides (preview/snapshot).
-  // Internal engine recursion should still benefit from caching; otherwise performance degrades with each higher year.
-  const bypassCache = !!monthDataOverride || !!settingsOverride;
+    // Cache rules:
+    // - Normal calls without overrides use the global year cache.
+    // - Precommit/preview calls often pass overrides; without caching this can degrade to O(N^2) due to recursive prev-year simulation.
+    //   Therefore, internal calls with overrides use a dedicated WeakMap-backed cache keyed by the override object.
+  const hasOverrides = !!monthDataOverride || !!settingsOverride;
+  const useOverrideCache = !!isInternalCall && hasOverrides;
+  const overrideKey = useOverrideCache ? (settingsOverride || monthDataOverride) : null;
 
-  if (!bypassCache) {
+  if (useOverrideCache) {
+    const cachedPrev = getCachedYearOverride(overrideKey, year);
+    if (cachedPrev) return cachedPrev;
+  } else if (!hasOverrides) {
     const cached = getCachedYear(year);
     if (cached) return cached;
   }
@@ -102,7 +109,9 @@ export function simulateYear(year, isInternalCall = false, monthDataOverride = n
     totals: { income: totalIncome, expense: totalExpense, savingFlow: totalSavingFlow },
   };
 
-  if (!bypassCache) {
+  if (useOverrideCache) {
+    setCachedYearOverride(overrideKey, year, result);
+  } else if (!hasOverrides) {
     setCachedYear(year, result);
   }
 

@@ -1,6 +1,6 @@
 // scripts/year/year-chain.js
 import { loadSettings } from "../core/storage/index.js";
-import { simulateYear, resetCaches } from "../core/engine/index.js";
+import { simulateYear, resetCachesFromYear } from "../core/engine/index.js";
 import { resetAdapterCache } from "../core/adapter.js";
 
 /**
@@ -16,7 +16,7 @@ export function updateSavingChain(startYear, endYear = null) {
     // IMPORTANT:
     // We rebuild the chain by simulating years into the in-memory cache.
     // We do NOT persist computed "carry-over" starting balances into settings.
-    resetCaches();
+    resetCachesFromYear(currentYearToCalc);
 
     for (let y = currentYearToCalc; y <= finalYear; y++) {
       const sim = simulateYear(y, false);

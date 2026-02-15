@@ -62,7 +62,8 @@ export async function exportData() {
       try {
         const can = navigator.canShare({ files: [file] });
         if (can) {
-          await navigator.share({ files: [file], title: filename });
+          // iOS: stuur uitsluitend het bestand mee (geen title/text), anders kan iOS een extra tekstbestand aanmaken.
+          await navigator.share({ files: [file] });
           return;
         }
       } catch (_) {

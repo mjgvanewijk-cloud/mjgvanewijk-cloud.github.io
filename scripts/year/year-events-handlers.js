@@ -51,8 +51,8 @@ export function attachYearTableEvents(tableBody, year) {
         if (type === "saving") {          openSavingMonthPopup({
             year,
             month,
-            onDataChanged: () => handleTableRefresh(year),
-            onClose: () => handleTableRefresh(year),
+            onDataChanged: (fromYear) => handleTableRefresh(Number.isFinite(Number(fromYear)) ? Number(fromYear) : year),
+            onClose: (fromYear) => handleTableRefresh(Number.isFinite(Number(fromYear)) ? Number(fromYear) : year),
           });
           return;
         }

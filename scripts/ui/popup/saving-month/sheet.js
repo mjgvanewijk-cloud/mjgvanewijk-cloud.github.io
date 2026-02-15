@@ -1,11 +1,12 @@
 // scripts/ui/popup/saving-month/sheet.js
-import { resetCaches } from "../../../core/engine/index.js";
+import { resetCachesFromYear } from "../../../core/engine/index.js";
 import { isPremiumActiveForUI } from "../../../core/state/premium.js";
 
 import { attachEscapeToClose } from "../overlay.js";
 import { getSavingMonthRows } from "../saving-month-popup-data.js";
 import { renderSavingMonthFooter, renderSavingMonthList } from "../saving-month-popup-render.js";
 import { createActions } from "./actions.js";
+import { FF_SAVING_ACCOUNTS_CHANGED_DONE_EVENT } from "../premium-progress-overlay.js";
 
 import { createSavingMonthShell } from "./sheet-shell.js";
 import { createSavingMonthCloseHandlers } from "./sheet-commit-handlers.js";
@@ -28,8 +29,9 @@ export function openSavingMonthPopup({ year, month, onDataChanged, onClose } = {
   };
 
   const commitAndRefresh = (refreshFn) => {
-    resetCaches();
-    if (typeof onDataChanged === "function") onDataChanged();
+    // IMPORTANT: do not trigger a heavy recalc/refresh here.
+    // Saving-account edits already dispatch "ff-saving-accounts-changed" with fromYear,
+    // and this sheet debounces those events into a single refresh.
     if (typeof refreshFn === "function") refreshFn();
   };
 
@@ -64,12 +66,58 @@ export function openSavingMonthPopup({ year, month, onDataChanged, onClose } = {
 
   // Wanneer spaarpotjes worden toegevoegd/bewerkt/verwijderd via de (nieuwe) add/edit sheet,
   // moet deze maand-sheet zichzelf opnieuw renderen.
+  
+  let pendingScheduled = false;
+  let pendingFromYear = Number.POSITIVE_INFINITY;
+  let pendingBusyToken = null;
+  let pendingTimer = null;
+
   onSavingAccountsChanged = (e) => {
     const d = e?.detail || {};
-    if (d.year != null && Number(d.year) !== Number(year)) return;
-    resetCaches();
-    if (typeof onDataChanged === "function") onDataChanged();
-    try { refresh(); } catch (_) {}
+
+    // A change can start in an earlier year (fromYear) and still affect this sheet year via carry-over.
+    const fy = Number.isFinite(Number(d.fromYear)) ? Number(d.fromYear) : (Number.isFinite(Number(d.year)) ? Number(d.year) : null);
+    if (fy != null && fy > Number(year)) {
+      // Change starts in a later year than this sheet; do not do expensive refresh here, but close any waiting overlay.
+      if (d.busyToken) {
+        try { document.dispatchEvent(new CustomEvent(FF_SAVING_ACCOUNTS_CHANGED_DONE_EVENT, { detail: { busyToken: d.busyToken } })); } catch (_) {}
+      }
+      return;
+    }
+
+    const from = fy != null ? fy : year;
+
+    // Batch multiple rapid events into a single refresh (prevents N× recalc/render when adding/removing multiple years).
+    pendingFromYear = Math.min(pendingFromYear, Number(from));
+    if (d.busyToken) pendingBusyToken = d.busyToken;
+
+    // Debounce: coalesce events even when they are dispatched across multiple ticks/awaits.
+    // This prevents N× refresh when multiple years are added/removed before a single save completes.
+    if (pendingTimer) { try { clearTimeout(pendingTimer); } catch (_) {} }
+    pendingScheduled = true;
+    pendingTimer = setTimeout(() => {
+      pendingTimer = null;
+      pendingScheduled = false;
+
+      const runFromYear = Number.isFinite(pendingFromYear) ? pendingFromYear : year;
+      const runBusyToken = pendingBusyToken;
+
+      pendingFromYear = Number.POSITIVE_INFINITY;
+      pendingBusyToken = null;
+
+      resetCachesFromYear(runFromYear);
+      if (typeof onDataChanged === "function") onDataChanged(runFromYear);
+      try { refresh(); } catch (_) {}
+
+      // Signal any waiting progress overlay that the heavy refresh is done.
+      if (runBusyToken) {
+        try {
+          document.dispatchEvent(
+            new CustomEvent(FF_SAVING_ACCOUNTS_CHANGED_DONE_EVENT, { detail: { busyToken: runBusyToken } })
+          );
+        } catch (_) {}
+      }
+    }, 50);
   };
   document.addEventListener("ff-saving-accounts-changed", onSavingAccountsChanged);
 
@@ -85,4 +133,3 @@ export function openSavingMonthPopup({ year, month, onDataChanged, onClose } = {
 
   refresh();
 }
-

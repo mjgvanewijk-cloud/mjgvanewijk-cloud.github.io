@@ -1,6 +1,6 @@
 // scripts/core/state/saving-accounts-precommit-core.js
 import { loadSettings, loadMonthData, loadCats } from "../storage/index.js";
-import { resetCaches, simulateYear } from "../engine/index.js";
+import { resetCachesFromYear, simulateYear } from "../engine/index.js";
 import { 
   getLimitValue, 
   getAbsoluteStartYear, 
@@ -46,7 +46,7 @@ export function precommitFindFirstSavingAccountLimitViolation({ updatedAccount, 
   const yearFrom = Number.isFinite(absStart) ? absStart : arr[0];
   const yearTo = arr[arr.length - 1];
 
-  resetCaches();
+  resetCachesFromYear(yearFrom);
 
   for (let y = yearFrom; y <= yearTo; y++) {
     const sim = simulateYear(y, true, monthData, previewSettings);
@@ -109,7 +109,7 @@ export function precommitFindFirstSavingAccountNegativeBalance({ updatedAccount,
   const targetId = String(ua?.id || replaceId || "").trim();
   if (!targetId) return null;
 
-  resetCaches();
+  resetCachesFromYear(yearFrom);
 
   for (let y = yearFrom; y <= yearTo; y++) {
     const sim = simulateYear(y, true, monthData, previewSettings);
@@ -166,7 +166,7 @@ export function precommitFindFirstSavingAccountBankNegative({ updatedAccount, re
   const yearFrom = Number.isFinite(absStart) ? absStart : arr[0];
   const yearTo = arr[arr.length - 1];
 
-  resetCaches();
+  resetCachesFromYear(yearFrom);
 
   for (let y = yearFrom; y <= yearTo; y++) {
     const sim = simulateYear(y, true, monthData, previewSettings);

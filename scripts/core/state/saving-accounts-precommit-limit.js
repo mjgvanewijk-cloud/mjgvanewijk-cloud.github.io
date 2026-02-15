@@ -1,6 +1,6 @@
 // scripts/core/state/saving-accounts-precommit-limit.js
 import { loadSettings, loadMonthData, loadCats } from "../storage/index.js";
-import { resetCaches, simulateYear } from "../engine/index.js";
+import { resetCachesFromYear, simulateYear } from "../engine/index.js";
 import { 
   getLimitValue, 
   getAbsoluteStartYear, 
@@ -50,7 +50,7 @@ export function precommitFindFirstSavingAccountLimitViolationAfterDelete({ delet
   const yearFrom = Number.isFinite(absStart) ? absStart : arr[0];
   const yearTo = arr[arr.length - 1];
 
-  resetCaches();
+  resetCachesFromYear(yearFrom);
 
   for (let y = yearFrom; y <= yearTo; y++) {
     const sim = simulateYear(y, true, monthData, previewSettings);
@@ -100,7 +100,7 @@ export function precommitFindFirstSavingAccountNegativeBalanceAfterDelete({ dele
   const yearFrom = Number.isFinite(absStart) ? absStart : arr[0];
   const yearTo = arr[arr.length - 1];
 
-  resetCaches();
+  resetCachesFromYear(yearFrom);
 
   for (let y = yearFrom; y <= yearTo; y++) {
     const sim = simulateYear(y, true, monthData, previewSettings);

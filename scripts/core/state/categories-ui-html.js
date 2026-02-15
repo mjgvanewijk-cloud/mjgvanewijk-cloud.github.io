@@ -116,7 +116,7 @@ export function getCategorySheetHTML(isEdit, cat, opts = null) {
       ` : `
         <button type="button" id="saveCatBtn" class="ff-btn ff-btn--primary">${t("common.save")}</button>
         <button type="button" id="closeCatSheet" class="ff-btn ff-btn--secondary" style="margin-top:10px;">${t("common.cancel")}</button>
-        <button type="button" id="removeOtherBtn" class="ff-btn ff-btn--secondary" style="display:none;">${t("common.delete")}</button>
+        <button type="button" id="removeOtherBtn" class="ff-btn ff-btn--secondary ff-cat-remove-btn" style="display:none;">${t("common.delete")}</button>
       `}
     </div>
   `;

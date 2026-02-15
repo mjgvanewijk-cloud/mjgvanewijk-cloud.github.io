@@ -21,10 +21,30 @@ export function buildUI() {
   bubble.setAttribute("aria-label", t("helpcloud.bubble_label"));
   bubble.textContent = t("helpcloud.bubble_label");
 
+  // We gebruiken de maximale 32-bit integer waarde voor zIndex om boven elk scherm te blijven
+  const MAX_Z_INDEX = "2147483647";
+
+  Object.assign(bubble.style, {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    width: "auto",
+    minWidth: "max-content",
+    flexShrink: "0",
+    zIndex: MAX_Z_INDEX,
+    pointerEvents: "auto"
+  });
+
   const panel = document.createElement("div");
   panel.className = "ff-helpcloud-panel";
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-hidden", "true");
+  
+  // Panel krijgt dezelfde maximale prioriteit
+  Object.assign(panel.style, {
+    zIndex: MAX_Z_INDEX,
+    position: "fixed" 
+  });
 
   panel.innerHTML = `
     <div class="ff-helpcloud-panel__hdr">

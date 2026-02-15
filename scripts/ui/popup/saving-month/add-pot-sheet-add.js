@@ -22,7 +22,7 @@ import { isPremiumActiveForUI } from "../../../core/state/premium-data.js";
 import { setSystemSavingFlowForScope } from "../saving-month-store.js";
 import * as Helpers from "./saving-pot-helpers.js";
 import { getSavingPotSheetHTML } from "./saving-pot-ui-html.js";
-import { openCalculatingSheet } from "../calculating-sheet.js";
+import { openPremiumProgressOverlay, FF_SAVING_ACCOUNTS_CHANGED_DONE_EVENT } from "../premium-progress-overlay.js";
 
 export function openAddSavingPotSheet({ year, onComplete } = {}) {
   const y = Number(year) || new Date().getFullYear();
@@ -170,7 +170,7 @@ export function openAddSavingPotSheet({ year, onComplete } = {}) {
       return;
     }
 
-    const doCommit = () => {
+    const doCommit = ({ busyToken } = {}) => {
       // User action => allow snapshots / enable Undo-Redo even if the user clicks very fast after boot.
       try { window.__finflowBooting = false; } catch (_) {}
 
@@ -186,7 +186,9 @@ export function openAddSavingPotSheet({ year, onComplete } = {}) {
           try { setSystemSavingFlowForScope(y, 1, "all", v); } catch (_) {}
         }
       }
-      try { document.dispatchEvent(new CustomEvent("ff-saving-accounts-changed", { detail: { year: y } })); } catch (_) {}
+      const yrs = Object.keys(updated?.years || {}).map((s) => Number(s)).filter(Number.isFinite);
+      const fromYear = yrs.length ? Math.min(...yrs) : y;
+      try { document.dispatchEvent(new CustomEvent("ff-saving-accounts-changed", { detail: { year: y, fromYear, busyToken } })); } catch (_) {}
       handleClose();
     };
 
@@ -195,17 +197,30 @@ export function openAddSavingPotSheet({ year, onComplete } = {}) {
       return;
     }
 
-    const closeCalc = openCalculatingSheet();
-    try {
-      setTimeout(() => {
-        try { doCommit(); }
-        catch (err) { console.error(err); }
-        finally { try { closeCalc(); } catch (_) {} }
-      }, 0);
-    } catch (_) {
-      try { doCommit(); }
+    const busyToken = `savpot-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const { finishAndClose, hardClose } = openPremiumProgressOverlay();
+
+    const onDone = (ev) => {
+      const d = ev?.detail || {};
+      if (d.busyToken !== busyToken) return;
+      document.removeEventListener(FF_SAVING_ACCOUNTS_CHANGED_DONE_EVENT, onDone);
+      finishAndClose();
+    };
+    document.addEventListener(FF_SAVING_ACCOUNTS_CHANGED_DONE_EVENT, onDone);
+
+    const run = () => {
+      try { doCommit({ busyToken }); }
       catch (err) { console.error(err); }
-      finally { try { closeCalc(); } catch (_) {} }
+    };
+
+    try {
+      requestAnimationFrame(() => {
+        try { setTimeout(run, 0); } catch (_) { run(); }
+      });
+    } catch (_) {
+      try { setTimeout(run, 0); } catch (_) { run(); }
     }
+
+    try { setTimeout(() => { try { hardClose(); } catch (_) {} }, 60000); } catch (_) {}
   };
 }

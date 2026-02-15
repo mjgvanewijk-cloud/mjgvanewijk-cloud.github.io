@@ -40,7 +40,9 @@ export const bindTrashButton = (nameRow, existingAcc, accountId, y, handleClose)
           try {
             setNextActionReason(buildUserReason("savingpot.delete", false));
             deleteSavingAccount(accountId);
-            document.dispatchEvent(new CustomEvent("ff-saving-accounts-changed", { detail: { year: y } }));
+            const yrs = Object.keys(existingAcc?.years || {}).map((s) => Number(s)).filter(Number.isFinite);
+            const fromYear = yrs.length ? Math.min(...yrs) : y;
+            document.dispatchEvent(new CustomEvent("ff-saving-accounts-changed", { detail: { year: y, fromYear } }));
           } catch (_) {}
           close?.(); handleClose();
         },

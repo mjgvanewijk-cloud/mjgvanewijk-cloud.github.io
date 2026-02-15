@@ -79,3 +79,86 @@ export function resetCaches() {
   }
   yearCache = {};
 }
+
+/**
+ * Reset caches vanaf een startjaar (inclusief) en valideer (defensief) settings.startMonth.
+ *
+ * Performance:
+ * - behoudt cache voor jaren < startYear
+ * - wist alleen jaren >= startYear
+ *
+ * Undo/Redo:
+ * - doet géén persist-write tenzij er daadwerkelijk ongeldige startMonth entries verwijderd worden.
+ *
+ * @param {number} startYear
+ */
+export function resetCachesFromYear(startYear) {
+  const settings = loadSettings() || {};
+
+  let changed = false;
+  if (settings.startMonth && typeof settings.startMonth === "object") {
+    for (const yStr of Object.keys(settings.startMonth)) {
+      const sm = settings.startMonth[yStr];
+      if (typeof sm !== "number" || sm < 1 || sm > 12) {
+        delete settings.startMonth[yStr];
+        changed = true;
+      }
+    }
+  }
+
+  if (changed) {
+    saveSettings(settings);
+  }
+
+  const y0 = Number(startYear);
+  if (Number.isFinite(y0)) invalidateFutureCaches(y0);
+  else yearCache = {};
+}
+
+// ===== Override (preview) cache =====
+// We use a WeakMap keyed by the settingsOverride object (or monthDataOverride) to avoid O(N^2)
+// recursive re-simulation during precommit/preview loops.
+const _ffOverrideCaches = new WeakMap();
+
+/**
+ * @param {object} keyObj settingsOverride/monthDataOverride object used for preview.
+ * @param {number} year
+ */
+export function getCachedYearOverride(keyObj, year) {
+  try {
+    if (!keyObj || typeof keyObj !== "object") return null;
+    const m = _ffOverrideCaches.get(keyObj);
+    if (!m) return null;
+    return m.get(Number(year)) || null;
+  } catch (_) {
+    return null;
+  }
+}
+
+/**
+ * @param {object} keyObj settingsOverride/monthDataOverride object used for preview.
+ * @param {number} year
+ * @param {any} value
+ */
+export function setCachedYearOverride(keyObj, year, value) {
+  try {
+    if (!keyObj || typeof keyObj !== "object") return;
+    let m = _ffOverrideCaches.get(keyObj);
+    if (!m) {
+      m = new Map();
+      _ffOverrideCaches.set(keyObj, m);
+    }
+    m.set(Number(year), value);
+  } catch (_) {}
+}
+
+/**
+ * Optional: clear preview cache for a given override key.
+ * (Usually not needed because previewSettings is a fresh clone.)
+ */
+export function clearCachedYearOverride(keyObj) {
+  try {
+    if (!keyObj || typeof keyObj !== "object") return;
+    _ffOverrideCaches.delete(keyObj);
+  } catch (_) {}
+}

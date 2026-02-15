@@ -1,7 +1,7 @@
 // scripts/core/engine/index.js
 // Verzamelmodule voor de modulaire rekenmotor (contract gelijk aan oude state-engine.js)
 
-export { resetCaches } from "./cache.js";
+export { resetCaches, resetCachesFromYear } from "./cache.js";
 
 // start.js exporteert géén getStartingBankBalance:
 export { getUserBankStarting, getNegativeLimit } from "./start.js";

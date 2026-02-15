@@ -37,42 +37,93 @@ export function handleManualOverridesCheck({ ctx, selectedType, updatedCat, orig
     const namesForLookup = [String(updatedCat?.name || "").trim()].filter(Boolean);
     if (originalName && String(originalName) !== String(updatedCat?.name || "")) namesForLookup.push(String(originalName));
 
+    // PRIORITY 1: Inline bank-limit violation must always be shown first.
+    // If we cannot proceed, the "manual month overrides" confirm sheet is irrelevant.
+    try {
+      const { violation: v0 } = buildPreviewAndFindLimitViolation({ prevCats, updatedCat, ctx, selectedType });
+      if (v0) {
+        if (yearsContainer) {
+          showCategoryYearInlineError(yearsContainer, v0.year, t("errors.bank_limit_reached", {
+            month: `${monthName(v0.month)} ${v0.year}`,
+            amount: formatCurrency(v0.bank),
+            limit: formatCurrency(v0.limit),
+          }));
+        }
+        if (saveBtn) saveBtn.disabled = true;
+        return true;
+      }
+    } catch (_) {}
+
     const yearWithOverrides = changedYears
       .filter(Number.isFinite)
       .sort((a, b) => a - b)
       .find((yy) => hasMonthOverridesForYear({ monthData: mdNow, year: yy, type: selectedType, names: namesForLookup }));
 
-    if (yearWithOverrides) {
-      openManualMonthOverridesConfirmSheet({
-        year: yearWithOverrides,
-        onNo: ({ close }) => { close(); commitWithOptions({ nextOptions: options }); },
-        onYes: ({ close }) => {
-          close();
-          const mergedYears = Array.from(new Set([...(wipeYears || []), yearWithOverrides]));
-          const mergedNames = Array.from(new Set([...(wipeNames || []), ...namesForLookup]));
+    if (!yearWithOverrides) return false;
 
-          const { violation: v2 } = buildPreviewAndFindLimitViolation({
-            prevCats, updatedCat, ctx, selectedType,
-            yearDeletePlan: { wipeYears: mergedYears, names: mergedNames, type: wipeType },
-          });
+    // PRIORITY 2: If we already know the save would violate the bank-limit
+    // (either with or without wiping overrides), show inline error and stop.
+    try {
+      const { violation: vNo } = buildPreviewAndFindLimitViolation({ prevCats, updatedCat, ctx, selectedType });
 
-          if (v2) {
-            if (yearsContainer) {
-              showCategoryYearInlineError(yearsContainer, v2.year, t("errors.bank_limit_reached", {
-                month: `${monthName(v2.month)} ${v2.year}`,
-                amount: formatCurrency(v2.bank), limit: formatCurrency(v2.limit),
-              }));
-            }
-            if (saveBtn) saveBtn.disabled = true; return;
-          }
-          const nextOptions = (mergedYears.length && mergedNames.length)
-            ? { wipeYearOverrides: { years: mergedYears, type: wipeType, names: mergedNames } }
-            : null;
-          commitWithOptions({ nextOptions });
-        },
+      const mergedYears = Array.from(new Set([...(wipeYears || []), yearWithOverrides]));
+      const mergedNames = Array.from(new Set([...(wipeNames || []), ...namesForLookup]));
+
+      const { violation: vYes } = buildPreviewAndFindLimitViolation({
+        prevCats, updatedCat, ctx, selectedType,
+        yearDeletePlan: { wipeYears: mergedYears, names: mergedNames, type: wipeType },
       });
-      return true;
-    }
-  } catch (_) {}
-  return false;
+
+      const vPick = vNo || vYes;
+      if (vPick) {
+        if (yearsContainer) {
+          showCategoryYearInlineError(yearsContainer, vPick.year, t("errors.bank_limit_reached", {
+            month: `${monthName(vPick.month)} ${vPick.year}`,
+            amount: formatCurrency(vPick.bank),
+            limit: formatCurrency(vPick.limit),
+          }));
+        }
+        if (saveBtn) saveBtn.disabled = true;
+        return true;
+      }
+    } catch (_) {}
+
+    openManualMonthOverridesConfirmSheet({
+      year: yearWithOverrides,
+      onNo: ({ close }) => { close(); commitWithOptions({ nextOptions: options }); },
+      onYes: ({ close }) => {
+        close();
+
+        const mergedYears = Array.from(new Set([...(wipeYears || []), yearWithOverrides]));
+        const mergedNames = Array.from(new Set([...(wipeNames || []), ...namesForLookup]));
+
+        const { violation: v2 } = buildPreviewAndFindLimitViolation({
+          prevCats, updatedCat, ctx, selectedType,
+          yearDeletePlan: { wipeYears: mergedYears, names: mergedNames, type: wipeType },
+        });
+
+        if (v2) {
+          if (yearsContainer) {
+            showCategoryYearInlineError(yearsContainer, v2.year, t("errors.bank_limit_reached", {
+              month: `${monthName(v2.month)} ${v2.year}`,
+              amount: formatCurrency(v2.bank),
+              limit: formatCurrency(v2.limit),
+            }));
+          }
+          if (saveBtn) saveBtn.disabled = true;
+          return;
+        }
+
+        const nextOptions = (mergedYears.length && mergedNames.length)
+          ? { wipeYearOverrides: { years: mergedYears, type: wipeType, names: mergedNames } }
+          : null;
+
+        commitWithOptions({ nextOptions });
+      },
+    });
+
+    return true;
+  } catch (_) {
+    return false;
+  }
 }
